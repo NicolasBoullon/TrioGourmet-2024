@@ -34,4 +34,63 @@
 
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
-@import '@ionic/angular/css/palettes/dark.system.css';
+// @import '@ionic/angular/css/palettes/dark.system.css';
+
+
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&display=swap');
+:root {
+    /* Fuente */
+    --ion-font-family: "Cinzel", serif;
+
+    /* Colores base */
+    --color-fondo: linear-gradient(135deg, #f5ead7, #b3541e);
+    --color-texto: #4a2f1a;
+    --color-primario: #b3541e;
+    --color-secundario: #e08d4f;
+    --color-terciario: #d9a066;
+
+    /* Ajustes de sombras y tonos */
+    --color-fondo-oscuro: #8a3f17;
+    --color-fondo-claro: #f9f0e3;
+    --color-texto-oscuro: #2b1a10;
+    --color-texto-claro: #ffffff;
+    --color-primario-oscuro: #8a3f17;
+    --color-primario-claro: #d16a3a;
+    --color-secundario-oscuro: #b3713e;
+    --color-secundario-claro: #ecb380;
+    --color-terciario-oscuro: #b07d4d;
+    --color-terciario-claro: #e8cba8;
+
+
+    /* Variables color primario */
+    --ion-color-primary: var(--color-primario);
+    --ion-color-primary-contrast: var(--color-texto);
+    --ion-color-primary-shade: var(--color-primario-oscuro);
+    --ion-color-primary-tint: var(--color-primario-claro);
+
+    /* Variables color secundario */
+    --ion-color-secondary: var(--color-secundario);
+    --ion-color-secondary-contrast: var(--color-texto);
+    --ion-color-secondary-shade: var(--color-secundario-oscuro);
+    --ion-color-secondary-tint: var(--color-secundario-claro);
+
+    /* Variables color terciario */
+    --ion-color-tertiary: var(--color-terciario);
+    --ion-color-tertiary-contrast: var(--color-texto);
+    --ion-color-tertiary-shade: var(--color-terciario-oscuro);
+    --ion-color-tertiary-tint: var(--color-terciario-claro);
+
+    /* Variables de Ionic */
+    --ion-background-color: var(--color-fondo); /* Color de fondo de toda la aplicación */
+    --ion-text-color: var(--color-texto); /* Color de texto de toda la aplicación */
+    --ion-backdrop-color: var(--color-fondo-oscuro); /* Color del componente Backdrop */
+    --ion-backdrop-opacity: 0.5; /* Opacidad del componente Backdrop */
+    --ion-overlay-background-color: var(--color-fondo); /* Color de fondo de las superposiciones */
+    --ion-border-color: var(--color-secundario); /* Color de borde */
+    --ion-box-shadow-color: rgba(0, 0, 0, 0.2); /* Color de sombra de la caja */
+    --ion-item-background: var(--color-fondo); /* Fondo del Item */
+    --ion-item-border-color: var(--color-secundario); /* Color de borde del Item */
+    --ion-item-color: var(--color-texto); /* Color de los componentes en el Item */
+    --ion-placeholder-color: var(--color-texto-claro); /* Color del placeholder en Inputs */
+
+}
