@@ -13,7 +13,7 @@ export class SplashPage {
 
   constructor(private _router: Router) {
     setTimeout(() => {
-      this._router.navigateByUrl('/login', { replaceUrl: true });
+      // this._router.navigateByUrl('/login', { replaceUrl: true });
     }, 2000);
   }
 
