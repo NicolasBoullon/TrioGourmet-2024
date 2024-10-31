@@ -1,0 +1,7 @@
+{
+  "name": "trio-gourmet-spatola-boullon-videla",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
