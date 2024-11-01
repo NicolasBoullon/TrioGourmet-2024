@@ -21,7 +21,7 @@ export class SplashPage {
     SplashScreen.hide();
 
     setTimeout(() => {
-      // this._router.navigateByUrl('/login', { replaceUrl: true });
+      this._router.navigateByUrl('/login', { replaceUrl: true });
     }, 2000);
   }
 }

@@ -1,0 +1,80 @@
+<app-header title="Iniciar sesión"></app-header>
+
+<ion-content class="login">
+  <div class="form-login">
+    <form [formGroup]="form" (ngSubmit)="submit()" (keypress.enter)="submit()">
+      
+      <div class="logo">
+        <img src="assets\logo\trio-gourmet-sin-fondo.png">
+      </div>
+
+      <!-- Email -->
+      <div class="email">
+        <ion-item lines="none" class="input">
+          <ion-icon color="primary" slot="start" name="mail-outline"></ion-icon>
+          <ion-input type="email" [formControl]="form.controls.email" label="Correo" placeholder="Ingrese su correo" label-placement="stacked"/>
+        </ion-item>
+        
+        <div class="validators">
+          @if (form.controls.email.touched && form.controls.email.hasError('required')) {
+            <ion-label color="danger">El correo es <strong>requerido</strong></ion-label>
+          }
+          @if (form.controls.email.hasError('email')) {
+            <ion-label color="danger">Ingrese un correo <strong>válido</strong></ion-label>
+          }
+        </div>
+      </div>
+      
+    <!-- Contraseña -->
+    <div class="password">
+      <ion-item lines="none" class="input">
+        <ion-icon color="primary" slot="start" name="lock-closed-outline"></ion-icon>
+        <ion-input [type]="showPassword ? 'password' : 'text'" [formControl]="form.controls.password" label="Contraseña" placeholder="Ingrese su contraseña" label-placement="stacked"/>
+        <ion-icon color="primary" slot="end" (click)="showOrHidePassword()" [name]="showPassword ? 'eye-outline' : 'eye-off-outline'"></ion-icon>
+        
+      </ion-item>
+      <div class="validators">
+        @if (form.controls.password.touched && form.controls.password.hasError('required')) {
+          <ion-label color="danger">La contraseña es <strong>requerida</strong></ion-label>
+        }
+      </div>
+      <a class="forgot-password">Olvidé mi contraseña</a>
+    </div>
+
+    <!-- Botón de Ingreso -->
+    <div class="login-button">
+      <ion-button color="primary" expand="block" type="submit" [disabled]="form.invalid">
+        Ingresar
+        <ion-icon slot="end" name="log-in-outline"></ion-icon>
+      </ion-button>
+    </div>
+    
+    <!-- Registro -->
+    <div class="signup">
+      <span>¿Necesitás una cuenta? </span>
+      <a>Registrarse</a>
+    </div>
+
+    <!-- Botones de acceso rápido -->
+    <div class="quick-access">
+      <ion-label color="tertiary">Acceso rápido:</ion-label><br>
+      <ion-button color="tertiary" (click)="quickLogin('propietario@mail.com', 'Propietario')">
+        Dueño
+      </ion-button>
+      <ion-button color="tertiary" (click)="quickLogin('supervisor@mail.com', 'Supervisor')">
+        Supervisor
+      </ion-button>
+      <ion-button color="tertiary" (click)="quickLogin('empleado@mail.com', 'Empleado')">
+        Empleado
+      </ion-button>
+      <ion-button color="tertiary" (click)="quickLogin('cliente@mail.com', 'Cliente')">
+        Cliente
+      </ion-button>
+      <ion-button color="tertiary" (click)="quickLogin('anonimo@mail.com', 'Anonimo')">
+        Anónimo
+      </ion-button>
+    </div>
+    
+    </form>
+  </div>
+</ion-content>

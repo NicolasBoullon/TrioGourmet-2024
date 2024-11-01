@@ -37,29 +37,29 @@
 // @import '@ionic/angular/css/palettes/dark.system.css';
 
 
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Afacad+Flux:wght@100..1000'); 
 :root {
     /* Fuente */
-    --ion-font-family: "Cinzel", serif;
+    --ion-font-family: "Afacad Flux", sans-serif;
 
     /* Colores base */
-    --color-fondo: linear-gradient(135deg, #f5ead7, #b3541e);
-    --color-texto: #4a2f1a;
+    --color-fondo: #d9c2a3;
+    --color-texto: #4f3d2f;
     --color-primario: #b3541e;
-    --color-secundario: #e08d4f;
-    --color-terciario: #d9a066;
+    --color-secundario: #b28451;
+    --color-terciario: #f0e5d4;
 
     /* Ajustes de sombras y tonos */
-    --color-fondo-oscuro: #8a3f17;
-    --color-fondo-claro: #f9f0e3;
-    --color-texto-oscuro: #2b1a10;
+    --color-fondo-oscuro: #b59e84;
+    --color-fondo-claro: #f3eadd;
+    --color-texto-oscuro: #223b23;
     --color-texto-claro: #ffffff;
     --color-primario-oscuro: #8a3f17;
     --color-primario-claro: #d16a3a;
-    --color-secundario-oscuro: #b3713e;
-    --color-secundario-claro: #ecb380;
-    --color-terciario-oscuro: #b07d4d;
-    --color-terciario-claro: #e8cba8;
+    --color-secundario-oscuro: #946a42;
+    --color-secundario-claro: #d3a575;
+    --color-terciario-oscuro: #dfd0be;
+    --color-terciario-claro: #ffffff;
 
 
     /* Variables color primario */
