@@ -1,0 +1,23 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar color="primary">
+
+    @if (backButton) {
+      <ion-buttons slot="start">
+        <ion-back-button [defaultHref]="backButton"></ion-back-button>
+      </ion-buttons>
+    }
+
+    <ion-title mode="ios" style="--padding-bottom: 10px">
+      <h2><strong>{{title}}</strong></h2>
+    </ion-title>
+
+    @if (showSignOut) {
+      <ion-buttons slot="end">
+        <ion-button (click)="signOut()">
+          <ion-icon slot="icon-only" name="log-out-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    }
+    
+  </ion-toolbar>
+</ion-header>
