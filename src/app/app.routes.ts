@@ -14,10 +14,10 @@ export const routes: Routes = [
     path: 'signup',
     loadComponent: () => import('./pages/auth/sign-up/sign-up.page').then( m => m.SignUpPage)
   },
-  // {
-  //   path: 'forgot-password',
-  //   loadComponent: () => import('./pages/auth/forgot-password/forgot-password.page').then( m => m.ForgotPasswordPage)
-  // },
+  {
+    path: 'forgot-password',
+    loadComponent: () => import('./pages/auth/forgot-password/forgot-password.page').then( m => m.ForgotPasswordPage)
+  },
   {
     path: 'home',
     loadComponent: () => import('./home/home.page').then((m) => m.HomePage),
