@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { IonContent, IonText } from '@ionic/angular/standalone';
+import { SplashScreen } from '@capacitor/splash-screen';
 
 @Component({
   selector: 'app-splash',
@@ -11,10 +12,16 @@ import { IonContent, IonText } from '@ionic/angular/standalone';
 })
 export class SplashPage {
 
+  
   constructor(private _router: Router) {
+    
+  }
+
+  ionViewWillEnter() {
+    SplashScreen.hide();
+
     setTimeout(() => {
       // this._router.navigateByUrl('/login', { replaceUrl: true });
     }, 2000);
   }
-
 }
