@@ -1,13 +1,29 @@
-<app-header title="Iniciar sesión"></app-header>
+<app-header title="Registrarse" backButton="/login"></app-header>
 
-<ion-content class="login">
-  <div class="form-login">
+<ion-content class="signup">
+  <div class="form-signup">
     <form [formGroup]="form" (ngSubmit)="submit()" (keypress.enter)="submit()">
-      
+
       <div class="logo">
         <img src="assets\logo\trio-gourmet-sin-fondo.png">
       </div>
 
+      <!-- Nombre -->
+      <div class="name">
+        <ion-item lines="none" class="name-input">
+          <ion-icon color="primary" slot="start" name="person-outline"></ion-icon>
+          <ion-input type="text" [formControl]="form.controls.name" label="Nombre" placeholder="Ingrese su nombre" label-placement="stacked"/>
+        </ion-item>
+        <div class="validators">
+          @if (form.controls.name.touched && form.controls.name.hasError('required')) {
+            <ion-label color="danger">El nombre es <strong>requerido</strong></ion-label>
+          }
+          @if (form.controls.name.hasError('minlength')) {
+              <ion-label color="danger">El nombre debe tener al menos <strong>4 caracteres</strong></ion-label>
+          }
+        </div>
+      </div>
+      
       <!-- Email -->
       <div class="email">
         <ion-item lines="none" class="input">
@@ -37,41 +53,17 @@
         @if (form.controls.password.touched && form.controls.password.hasError('required')) {
           <ion-label color="danger">La contraseña es <strong>requerida</strong></ion-label>
         }
+        @if (form.controls.password.hasError('minlength')) {
+          <ion-label color="danger">La contraseña debe tener al menos <strong>6 caracteres</strong></ion-label>
+        }
       </div>
-      <a class="forgot-password">Olvidé mi contraseña</a>
     </div>
 
-    <!-- Botón de Ingreso -->
-    <div class="login-button">
-      <ion-button color="primary" expand="block" type="submit" [disabled]="form.invalid">
-        Ingresar
-        <ion-icon slot="end" name="log-in-outline"></ion-icon>
-      </ion-button>
-    </div>
-    
-    <!-- Registro -->
-    <div class="signup">
-      <span>¿Necesitás una cuenta? </span>
-      <a routerLink="/signup">Registrarse</a>
-    </div>
-
-    <!-- Botones de acceso rápido -->
-    <div class="quick-access">
-      <ion-label color="tertiary">Acceso rápido:</ion-label><br>
-      <ion-button color="tertiary" (click)="quickLogin('propietario@mail.com', 'Propietario')">
-        Dueño
-      </ion-button>
-      <ion-button color="tertiary" (click)="quickLogin('supervisor@mail.com', 'Supervisor')">
-        Supervisor
-      </ion-button>
-      <ion-button color="tertiary" (click)="quickLogin('empleado@mail.com', 'Empleado')">
-        Empleado
-      </ion-button>
-      <ion-button color="tertiary" (click)="quickLogin('cliente@mail.com', 'Cliente')">
-        Cliente
-      </ion-button>
-      <ion-button color="tertiary" (click)="quickLogin('anonimo@mail.com', 'Anonimo')">
-        Anónimo
+    <!-- Botón de Registro -->
+    <div class="signup-button">
+      <ion-button expand="block" type="submit" [disabled]="form.invalid">
+        Crear cuenta
+        <ion-icon slot="end" name="person-add-outline"></ion-icon>
       </ion-button>
     </div>
     
