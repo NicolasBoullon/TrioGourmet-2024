@@ -1,30 +1,36 @@
-import { Injectable } from '@angular/core';
-import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut ,sendEmailVerification} from '@angular/fire/auth';
-
+import { inject, Injectable } from '@angular/core';
+import {
+  Auth,
+  UserCredential,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  updateProfile,
+  sendPasswordResetEmail,
+} from '@angular/fire/auth';
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor(private auth:Auth){}
+  auth = inject(Auth);
 
-  LogoutUser(correo:boolean)
-  { 
-    signOut(this.auth).then(() => {
-      if(correo){ //Esto lo hago para cuando se desloguea un usuario que esta verificado
-      }
-    })
+  signUp(email: string, password: string, name: string): Promise<UserCredential> {
+    return createUserWithEmailAndPassword(this.auth, email, password)
+    .then(response => {
+      return updateProfile(response.user, { displayName: name })
+      .then(() => response);
+    });
   }
 
-  async LoginUser(correo: string, clave: string): Promise<any> {
-    try {
-      const res = await signInWithEmailAndPassword(this.auth, correo, clave);
-      const user = res.user;
-      
-      
-    } catch (e) {
-      console.log(e);
-      return false;
-    }
+  signIn(email: string, password: string): Promise<UserCredential> {
+    return signInWithEmailAndPassword(this.auth, email, password);
+  }
+
+  sendRecoveryEmail(email: string): Promise<void> {
+    return sendPasswordResetEmail(this.auth, email);
+  }
+
+  signOut(): Promise<void> {
+    return this.auth.signOut();
   }
 }
