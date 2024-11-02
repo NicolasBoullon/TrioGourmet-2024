@@ -9,7 +9,7 @@
       <!-- Email -->
       <div class="email">
         <ion-item lines="none" class="input">
-          <ion-icon color="secondary" slot="start" name="mail-outline"></ion-icon>
+          <ion-icon color="primary" slot="start" name="mail-outline"></ion-icon>
           <ion-input type="email" [formControl]="form.controls.email" label="Correo" placeholder="Ingrese su correo" label-placement="stacked"/>
         </ion-item>
         
@@ -26,9 +26,9 @@
     <!-- Contraseña -->
     <div class="password">
       <ion-item lines="none" class="input">
-        <ion-icon color="secondary" slot="start" name="lock-closed-outline"></ion-icon>
+        <ion-icon color="primary" slot="start" name="lock-closed-outline"></ion-icon>
         <ion-input [type]="showPassword ? 'password' : 'text'" [formControl]="form.controls.password" label="Contraseña" placeholder="Ingrese su contraseña" label-placement="stacked"/>
-        <ion-icon color="secondary" slot="end" (click)="showOrHidePassword()" [name]="showPassword ? 'eye-outline' : 'eye-off-outline'"></ion-icon>
+        <ion-icon color="primary" slot="end" (click)="showOrHidePassword()" [name]="showPassword ? 'eye-outline' : 'eye-off-outline'"></ion-icon>
         
       </ion-item>
       <div class="validators">

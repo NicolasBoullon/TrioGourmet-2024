@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">trio-gourmet-spatola-boullon-videla</string>
-    <string name="title_activity_main">trio-gourmet-spatola-boullon-videla</string>
-    <string name="package_name">io.ionic.starter</string>
-    <string name="custom_url_scheme">io.ionic.starter</string>
+    <string name="app_name">Trio Gourmet</string>
+    <string name="title_activity_main">Trio Gourmet</string>
+    <string name="package_name">com.triogourmet.app</string>
+    <string name="custom_url_scheme">com.triogourmet.app</string>
 </resources>

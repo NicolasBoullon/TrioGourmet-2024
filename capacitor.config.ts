@@ -2,7 +2,7 @@ import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
   appId: 'com.triogourmet.app',
-  appName: 'trio-gourmet-spatola-boullon-videla',
+  appName: 'Trio Gourmet',
   webDir: 'www',
   "plugins": {
     SplashScreen: {
