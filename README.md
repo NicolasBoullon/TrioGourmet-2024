@@ -12,7 +12,7 @@ Profesores
 * Maximiliano Neiner
 * Alejandro Constanzo
 
-Listado preliminar
+Listado preliminar  
 Iván Agustín Videla Ribodino:
 * Alta dueño/supervisor
 * Alta mesa
