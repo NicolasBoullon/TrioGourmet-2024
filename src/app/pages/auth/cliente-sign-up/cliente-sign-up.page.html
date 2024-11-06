@@ -1,0 +1,86 @@
+<app-header title="Registro Cliente" backButton="/login"></app-header>
+
+<ion-content class="signup">
+  <div class="form-signup">
+    <form [formGroup]="form" (ngSubmit)="submit()" (keypress.enter)="submit()">
+
+      <div class="logo">
+        <img src="assets\logo\trio-gourmet-sin-fondo.png">
+      </div>
+
+      <!-- Nombre -->
+      <div class="name">
+        <ion-item lines="none" class="name-input">
+          <ion-icon color="primary" slot="start" name="person-outline"></ion-icon>
+          <ion-input type="text" [formControl]="form.controls.name" label="Nombre" placeholder="Ingrese su nombre" label-placement="stacked"/>
+        </ion-item>
+        <div class="validators">
+          @if (form.controls.name.touched && form.controls.name.hasError('required')) {
+            <ion-label color="danger">El nombre es <strong>requerido</strong></ion-label>
+          }
+          @if (form.controls.name.hasError('minlength')) {
+              <ion-label color="danger">El nombre debe tener al menos <strong>4 caracteres</strong></ion-label>
+          }
+        </div>
+      </div>
+      
+      <!-- Apellido -->
+      <div class="apellido">
+        <ion-item lines="none" class="input">
+          <ion-icon color="primary" slot="start" name="person-outline"></ion-icon>
+          <ion-input type="text" [formControl]="form.controls.name" label="Apellido" placeholder="Ingrese su apellido" label-placement="stacked"/>
+        </ion-item>
+        <div class="validators">
+          @if (form.controls.apellido.touched && form.controls.apellido.hasError('required')) {
+            <ion-label color="danger">El apellido es <strong>requerido</strong></ion-label>
+          }
+          @if (form.controls.apellido.hasError('minlength')) {
+              <ion-label color="danger">El apellido debe tener al menos <strong>4 caracteres</strong></ion-label>
+          }
+        </div>
+      </div>
+      
+      <!-- DNI -->
+      <div class="dni">
+        <ion-item lines="none" class="input">
+          <ion-icon color="primary" slot="start" name="person-outline"></ion-icon>
+          <ion-input type="number" [formControl]="form.controls.name" label="DNI" placeholder="Ingrese su dni" label-placement="stacked"/>
+        </ion-item>
+        <div class="validators">
+          @if (form.controls.dni.touched && form.controls.dni.hasError('required')) {
+            <ion-label color="danger">El dni es <strong>requerido</strong></ion-label>
+          }
+          @if (form.controls.dni.hasError('minlength')) {
+              <ion-label color="danger">El dni debe tener <strong>8 caracteres</strong></ion-label>
+          }
+        </div>
+      </div>
+      
+      <!-- Botón de Camara -->
+      <div class="camera">
+        <label for="input-tomar-foto" class="label-tomar-foto">
+          TOMAR FOTO
+          <ion-icon slot="end" name="camera-outline"></ion-icon>
+        </label>
+        <input type="file" id="input-tomar-foto">
+      </div>
+
+      <!-- Botón de QR -->
+      <div class="qr">
+        <ion-button expand="block" type="buttons">
+          Escanear Dni
+          <ion-icon slot="end" name="qr-code-outline"></ion-icon>
+        </ion-button>
+      </div>
+
+      <!-- Botón de Registro -->
+      <div class="signup-button">
+        <ion-button expand="block" type="submit" [disabled]="form.invalid">
+          Crear cuenta
+          <ion-icon slot="end" name="person-add-outline"></ion-icon>
+        </ion-button>
+      </div>
+    
+    </form>
+  </div>
+</ion-content>

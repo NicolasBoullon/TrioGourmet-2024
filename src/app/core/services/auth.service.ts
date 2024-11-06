@@ -22,6 +22,7 @@ export class AuthService {
     });
   }
 
+
   signIn(email: string, password: string): Promise<UserCredential> {
     return signInWithEmailAndPassword(this.auth, email, password);
   }
