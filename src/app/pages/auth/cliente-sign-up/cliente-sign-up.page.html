@@ -19,7 +19,9 @@
             <ion-label color="danger">El nombre es <strong>requerido</strong></ion-label>
           }
           @if (form.controls.name.hasError('minlength')) {
-              <ion-label color="danger">El nombre debe tener al menos <strong>4 caracteres</strong></ion-label>
+              <ion-label color="danger">El nombre debe tener al menos <strong>4 caracteres</strong></ion-label><br>
+          }@else if(form.controls.name.hasError('pattern')) {
+            <ion-label color="danger">El nombre debe contener solo <strong>letras</strong></ion-label>
           }
         </div>
       </div>
@@ -28,14 +30,14 @@
       <div class="apellido">
         <ion-item lines="none" class="input">
           <ion-icon color="primary" slot="start" name="person-outline"></ion-icon>
-          <ion-input type="text" [formControl]="form.controls.name" label="Apellido" placeholder="Ingrese su apellido" label-placement="stacked"/>
+          <ion-input type="text" [formControl]="form.controls.apellido" label="Apellido" placeholder="Ingrese su apellido" label-placement="stacked"/>
         </ion-item>
         <div class="validators">
           @if (form.controls.apellido.touched && form.controls.apellido.hasError('required')) {
             <ion-label color="danger">El apellido es <strong>requerido</strong></ion-label>
           }
-          @if (form.controls.apellido.hasError('minlength')) {
-              <ion-label color="danger">El apellido debe tener al menos <strong>4 caracteres</strong></ion-label>
+          @if(form.controls.apellido.hasError('pattern')) {
+            <ion-label color="danger">El apellido debe contener solo <strong>letras</strong></ion-label>
           }
         </div>
       </div>
@@ -44,14 +46,20 @@
       <div class="dni">
         <ion-item lines="none" class="input">
           <ion-icon color="primary" slot="start" name="person-outline"></ion-icon>
-          <ion-input type="number" [formControl]="form.controls.name" label="DNI" placeholder="Ingrese su dni" label-placement="stacked"/>
+          <ion-input type="number" [formControl]="form.controls.dni" label="DNI" placeholder="Ingrese su dni" label-placement="stacked"/>
         </ion-item>
         <div class="validators">
           @if (form.controls.dni.touched && form.controls.dni.hasError('required')) {
             <ion-label color="danger">El dni es <strong>requerido</strong></ion-label>
           }
-          @if (form.controls.dni.hasError('minlength')) {
+          @if (form.controls.dni.hasError('min')) {
               <ion-label color="danger">El dni debe tener <strong>8 caracteres</strong></ion-label>
+          }
+          @if (form.controls.dni.hasError('max')) {
+            <ion-label color="danger">El dni debe tener <strong>8 caracteres</strong></ion-label>
+          }
+          @if (form.controls.dni.hasError('pattern')) {
+            <ion-label color="danger">El dni debe contener solo <strong>numeros</strong></ion-label>
           }
         </div>
       </div>

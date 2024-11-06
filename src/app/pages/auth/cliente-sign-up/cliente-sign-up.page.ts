@@ -36,10 +36,10 @@ export class ClienteSignUpPage  {
   showPassword: boolean = false;
   //nombre apellido dni y foto. Opcion de leer QR
   form = new FormGroup({
-    name: new FormControl('', [Validators.required, Validators.minLength(4)]),
-    apellido: new FormControl('', [Validators.required, Validators.email]),
-    dni: new FormControl('', [Validators.required, Validators.minLength(6)]),
-    image: new FormControl('', [Validators.required, Validators.minLength(6)]),
+    name: new FormControl('', [Validators.required, Validators.minLength(4), Validators.pattern('^[a-zA-Z ]+$')]),
+    apellido: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z ]+$')]),
+    dni: new FormControl('', [Validators.required, Validators.min(10000000), Validators.max(9999999),Validators.pattern('^[0-9]+$')]),
+    image: new FormControl('', [Validators.required]),
   })
 
   constructor() { 
