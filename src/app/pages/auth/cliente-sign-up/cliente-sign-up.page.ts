@@ -70,4 +70,8 @@ export class ClienteSignUpPage  {
     }
   }
 
+  UploadFile($event:any){
+    this.form.get('image')?.setValue($event.target.files[0]);
+  }
+
 }

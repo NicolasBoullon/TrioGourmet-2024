@@ -28,7 +28,7 @@
     display: block;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    font-size:  14px;
+    font-size: 1.1rem;
     font-family: "Afacad Flux", sans-serif;
     font-weight: 500;
     display: flex;
@@ -48,7 +48,7 @@ ion-item {
 }
 
 .validators {
-    font-size: 12px;
+    font-size: 15px;
     margin-top: 5px;
     margin-left: 20px;
     text-align: left;
@@ -57,6 +57,7 @@ ion-item {
 
 .signup-button ion-button{
     margin-top: 2rem;
+    font-size: 1.1rem;
     height: 55px;
     --border-radius: 8px;
     --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -66,6 +67,7 @@ ion-item {
     margin: 0px -1px;
     --border-radius: 8px;
     --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    font-size: 1.1rem;
 }
 .qr ion-icon{
     padding: 7px 0px;
