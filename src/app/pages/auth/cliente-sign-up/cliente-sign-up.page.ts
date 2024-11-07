@@ -16,7 +16,6 @@ import { camera, cameraOutline, eyeOffOutline, eyeOutline, lockClosedOutline, lo
   styleUrls: ['./cliente-sign-up.page.scss'],
   standalone: true,
   imports: [
-    RouterLink,
     IonContent, 
     ReactiveFormsModule,
     IonLabel,
@@ -24,8 +23,8 @@ import { camera, cameraOutline, eyeOffOutline, eyeOutline, lockClosedOutline, lo
     IonIcon,
     IonItem,
     IonButton,
-    IonText,
-    HeaderComponent
+    HeaderComponent,
+    CommonModule
   ]
 })
 export class ClienteSignUpPage  {
@@ -33,12 +32,16 @@ export class ClienteSignUpPage  {
   private _authService = inject(AuthService);
   private _notificationService= inject(NotificationService)
 
-  showPassword: boolean = false;
-  //nombre apellido dni y foto. Opcion de leer QR
-  form = new FormGroup({
+  protected showPassword: boolean = false;
+  protected imageSelected?: File;
+  protected imagePreviewUrl: string | null = null;
+
+  protected form = new FormGroup({
+    email: new FormControl('', [Validators.required, Validators.email]),
+    password: new FormControl('', [Validators.required, Validators.minLength(6)]),
     name: new FormControl('', [Validators.required, Validators.minLength(4), Validators.pattern('^[a-zA-Z ]+$')]),
     apellido: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z ]+$')]),
-    dni: new FormControl('', [Validators.required, Validators.min(10000000), Validators.max(9999999),Validators.pattern('^[0-9]+$')]),
+    dni: new FormControl('', [Validators.required, Validators.min(10000000), Validators.max(100000000),Validators.pattern('^[0-9]+$')]),
     image: new FormControl('', [Validators.required]),
   })
 
@@ -54,7 +57,7 @@ export class ClienteSignUpPage  {
     if (this.form.valid) {
       await this._notificationService.presentLoading('Creando cuenta...', 1500);
       try {
-        // await this._authService.signUp(this.form.value.email!, this.form.value.password!, this.form.value.name!);
+        await this._authService.signUp(this.form.value.email!, this.form.value.password!, this.form.value.name!);
         this._notificationService.presentToast('¡Cuenta creada!', 1000, 'success', 'middle');
         this.form.reset();
         this._notificationService.routerLink('/home');
@@ -68,10 +71,23 @@ export class ClienteSignUpPage  {
         this._notificationService.dismissLoading();
       }
     }
+    else
+    {
+      this.form.markAllAsTouched(); 
+    }
   }
 
-  UploadFile($event:any){
-    this.form.get('image')?.setValue($event.target.files[0]);
+  uploadFile(event: any): void {
+    const file: File = event.target.files[0];
+    if (file) {
+      // IMAGE SELECTED ES LA IMAGEN QUE SUBO A FIRESTORE PERO LA GUARDO AHI PORQUE SOLO LA SUBO CUANDO LE DE A SUBMIT
+      this.imageSelected = file;
+      // ACÁ LO PONGO PARA QUE NO DE ERROR QUE NO SUBIÓ FOTO 
+      this.form.get('image')?.setValue(file.name);
+      // ACÁ PONGO VISTA PREVIA DE LA IMAGEN, NO SE COMO HACE PERO CREA UNA URL DE LA IMAGEN
+      this.imagePreviewUrl = URL.createObjectURL(file);
+    }
   }
 
+  
 }

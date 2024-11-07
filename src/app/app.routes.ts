@@ -12,7 +12,7 @@ export const routes: Routes = [
   },
   {
     path: 'signup',
-    loadComponent: () => import('./pages/auth/sign-up/sign-up.page').then( m => m.SignUpPage)
+    loadComponent: () => import('./pages/auth/cliente-sign-up/cliente-sign-up.page').then( m => m.ClienteSignUpPage)
   },
   {
     path: 'forgot-password',
@@ -21,9 +21,5 @@ export const routes: Routes = [
   {
     path: 'home',
     loadComponent: () => import('./home/home.page').then((m) => m.HomePage),
-  },  {
-    path: 'cliente-sign-up',
-    loadComponent: () => import('./pages/auth/cliente-sign-up/cliente-sign-up.page').then( m => m.ClienteSignUpPage)
   },
-
 ];

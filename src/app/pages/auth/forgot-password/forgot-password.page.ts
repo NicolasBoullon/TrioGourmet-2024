@@ -14,7 +14,6 @@ import { NotificationService } from 'src/app/core/services/notification.service'
   styleUrls: ['./forgot-password.page.scss'],
   standalone: true,
   imports: [
-    RouterLink,
     IonContent, 
     ReactiveFormsModule,
     IonLabel,

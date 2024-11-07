@@ -27,7 +27,6 @@ import { NotificationService } from 'src/app/core/services/notification.service'
     IonToolbar,
     IonTitle,
     IonButton,
-    RouterLink
   ],
 })
 export class HeaderComponent implements OnInit {
