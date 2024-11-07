@@ -16,6 +16,6 @@ bootstrapApplication(AppComponent, {
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     provideIonicAngular(),
     importProvidersFrom(IonicModule.forRoot({})),
-    provideRouter(routes, withPreloading(PreloadAllModules)), provideFirebaseApp(() => initializeApp({"projectId":"triogourmetpps","appId":"1:107493929792:web:143ece4e0ec2319fc880a5","storageBucket":"triogourmetpps.firebasestorage.app","apiKey":"AIzaSyDgy98WJ7ovyGUBE0hNeyTeOSuBdGPCiVE","authDomain":"triogourmetpps.firebaseapp.com","messagingSenderId":"107493929792"})), provideAuth(() => getAuth()), provideFirestore(() => getFirestore()), provideStorage(() => getStorage()),
+    provideRouter(routes, withPreloading(PreloadAllModules)), provideFirebaseApp(() => initializeApp({"projectId":"clase-04","appId":"1:370486161236:web:66904594150219f6fe22c1","storageBucket":"clase-04.appspot.com","apiKey":"AIzaSyB9PaP9DO4MSrTX_niLx9DMQaqGywyLufQ","authDomain":"clase-04.firebaseapp.com","messagingSenderId":"370486161236"})), provideAuth(() => getAuth()), provideFirestore(() => getFirestore()), provideStorage(() => getStorage()),
   ],
 });
