@@ -113,3 +113,19 @@
     --ion-placeholder-color: var(--color-texto-claro); /* Color del placeholder en Inputs */
 
 }
+
+.custom-alert {
+    --background: #ffffff;
+    --border-radius: 12px;
+    --width: 90%;
+    --max-width: 400px;
+}
+
+.custom-alert .alert-title {
+    font-size: 1.4rem;
+    font-weight: bold;
+}
+
+.custom-alert .alert-message {
+    font-size: 1.2rem;
+}

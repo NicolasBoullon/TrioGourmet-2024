@@ -107,13 +107,13 @@
 
       <!-- Botón de Camara -->
       <div class="camera">
-        <label for="input-tomar-foto" class="label-tomar-foto">
+        <label for="input-tomar-foto-cliente" class="label-tomar-foto-cliente">
           TOMAR FOTO
           <ion-icon slot="end" name="camera-outline"></ion-icon>
         </label>
-        <input id="input-tomar-foto" (click)="takePicture()">
+        <input id="input-tomar-foto-cliente" (click)="takePicture()">
         <div class="validators">
-          @if(form.controls.image.hasError('required')){
+          @if(form.controls.image.touched && form.controls.image.hasError('required')){
             <ion-label color="danger">La imagen es <strong>requerida</strong></ion-label>
           }
         </div>
@@ -136,7 +136,7 @@
 
       <!-- Botón de Registro -->
       <div class="signup-button">
-        <ion-button expand="block" type="submit" [disabled]="form.invalid">
+        <ion-button expand="block" type="submit">
           Crear cuenta
           <ion-icon slot="end" name="person-add-outline"></ion-icon>
         </ion-button>

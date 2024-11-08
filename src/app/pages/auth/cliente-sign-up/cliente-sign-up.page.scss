@@ -20,10 +20,10 @@
 .name, .dni, .apellido, .camera, .qr, .password, .email, .image-preview{
     margin-top: 1.5rem;
 }
-.camera #input-tomar-foto{
+.camera #input-tomar-foto-cliente{
     display: none;
 }
-.camera .label-tomar-foto{
+.camera .label-tomar-foto-cliente{
     background-color: var(--ion-color-primary);
     display: block;
     border-radius: 8px;

@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { LoadingController, ToastController } from '@ionic/angular';
+import { LoadingController, ToastController, AlertController  } from '@ionic/angular';
 import { Haptics } from '@capacitor/haptics';
 
 @Injectable({
@@ -12,6 +12,7 @@ export class NotificationService {
 
   private _loadingController = inject(LoadingController);
   private _toastController = inject(ToastController);
+  private _alertController = inject(AlertController);
   private _router = inject(Router);
 
   async presentLoading(message: string = 'Cargando...', duration: number = 0): Promise<void> {
@@ -44,6 +45,24 @@ export class NotificationService {
     });
     
     await toast.present();
+  }
+
+  async showConfirmAlert(title: string, message: string, confirmButtonText: string, onConfirm: () => void): Promise<void> {
+    const alert = await this._alertController.create({
+      header: title,
+      message,
+      cssClass: 'custom-alert',
+      buttons: [
+        {
+          text: confirmButtonText,
+          handler: () => {
+            onConfirm();
+          }
+        },
+      ],
+      backdropDismiss: false
+    });
+    await alert.present();
   }
   
   routerLink(url: string) {

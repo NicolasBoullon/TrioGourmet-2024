@@ -115,19 +115,20 @@ export class ClienteSignUpPage {
     if (this.form.valid) {
       await this._notificationService.presentLoading('Creando cuenta...', 1500);
       try {
-        await this._authService.signUp(
-          this.form.value as PersonaCredenciales
-        );
+        await this._authService.signUp(this.form.value as PersonaCredenciales);
         await this.saveFormData();
-        this._notificationService.presentToast(
-          '¡Cuenta creada!',
-          1000,
-          'success',
-          'middle'
+        await this._authService.signOut();
+
+        this._notificationService.showConfirmAlert(
+          '¡Registro exitoso!',
+          'La cuenta se encuentra pendiente de aprobación. Por favor, espera a que un dueño o supervisor te apruebe.',
+          'Aceptar',
+          () => this._notificationService.routerLink('/login')
         );
+
         this.form.reset();
-        this._notificationService.routerLink('/home');
-      } catch (error: any) {
+      }
+      catch (error: any) {
         if (error.code === 'auth/email-already-in-use') {
           this._notificationService.presentToast(
             '¡Error: El correo ya está registrado!',
@@ -135,7 +136,8 @@ export class ClienteSignUpPage {
             'danger',
             'middle'
           );
-        } else {
+        } 
+        else {
           this._notificationService.presentToast(
             '¡Error: No se pudo crear la cuenta!',
             2000,
@@ -143,7 +145,8 @@ export class ClienteSignUpPage {
             'middle'
           );
         }
-      } finally {
+      }
+      finally {
         this._notificationService.dismissLoading();
       }
     } else {
