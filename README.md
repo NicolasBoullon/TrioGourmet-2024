@@ -61,3 +61,15 @@ Mateo Spatola:
 ### Recupero de contraseña
 
 ![Logo](src/assets/readme/olvidepassword.png)
+
+### Registro Cliente actualizado
+
+![Logo](src/assets/readme/registroClienteUno.png) ![Logo](src/assets/readme/registroClienteDos.png)
+
+### Registro Cliente Anonimo
+
+![Logo](src/assets/readme/registroClienteAnonimo.png)
+
+### Escaneo de QR
+
+![Logo](src/assets/readme/escanearQR.png)
