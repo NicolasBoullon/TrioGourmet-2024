@@ -1,6 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoadingController, ToastController } from '@ionic/angular';
+import { Haptics } from '@capacitor/haptics';
 
 @Injectable({
   providedIn: 'root'
@@ -32,6 +33,9 @@ export class NotificationService {
   }
 
   async presentToast(message: string, duration: number, color: string, position: 'top' | 'middle' | 'bottom'): Promise<void> {
+    if (color == 'danger')
+      Haptics.vibrate({ duration: duration }); 
+
     const toast = await this._toastController.create({
       message,
       duration,
