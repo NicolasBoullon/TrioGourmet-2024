@@ -29,6 +29,10 @@ export const routes: Routes = [
     path: 'anonimo-sign-up',
     loadComponent: () => import('./pages/auth/anonimo-sign-up/anonimo-sign-up.page').then( m => m.AnonimoSignUpPage)
   },
+  {
+    path: 'inicio',
+    loadComponent: () => import('./pages/propietario/inicio/inicio.page').then( m => m.InicioPage)
+  },
 
 
 ];
