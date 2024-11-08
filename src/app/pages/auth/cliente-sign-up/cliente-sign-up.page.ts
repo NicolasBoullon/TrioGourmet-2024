@@ -38,7 +38,7 @@ import { DatabaseService } from 'src/app/core/services/database.service';
 import { PersonaCredenciales } from 'src/app/core/models/personaCredenciales.models';
 import { BarcodeScanner } from '@capacitor-mlkit/barcode-scanning';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-cliente-sign-up',
@@ -55,6 +55,7 @@ import { Router } from '@angular/router';
     IonButton,
     HeaderComponent,
     CommonModule,
+    RouterLink
   ],
 })
 export class ClienteSignUpPage {
@@ -62,7 +63,6 @@ export class ClienteSignUpPage {
   private _notificationService = inject(NotificationService);
   private _storageService = inject(StorageService);
   private _databaseService = inject(DatabaseService);
-  private _routerService = inject(Router);
 
   protected showPassword: boolean = false;
   protected imageSelected?: Blob;
@@ -245,11 +245,5 @@ export class ClienteSignUpPage {
   {
     const capitalizeWord = word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
     return capitalizeWord;
-  }
-
-  GoTo(path:string){
-    if(path){
-      this._routerService.navigate([path]);
-    }
   }
 }
