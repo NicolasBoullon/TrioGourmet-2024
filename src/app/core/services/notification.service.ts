@@ -16,7 +16,8 @@ export class NotificationService {
   async presentLoading(message: string = 'Cargando...', duration: number = 0): Promise<void> {
     const loading = await this._loadingController.create({
       message,
-      spinner: 'crescent'
+      cssClass: 'spinner-logo-loading',
+      spinner: null,
     });
     await loading.present();
 

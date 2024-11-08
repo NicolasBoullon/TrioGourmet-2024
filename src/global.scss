@@ -36,7 +36,26 @@
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 // @import '@ionic/angular/css/palettes/dark.system.css';
 
+.spinner-logo-loading .loading-wrapper::before {
+    content: '';
+    display: block;
+    width: 75px;
+    height: 75px;
+    background-image: url('/assets/logo/trio-gourmet-sin-fondo.png'); 
+    background-size: contain;
+    background-repeat: no-repeat;
+    animation: rotate-spinner 1.5s linear infinite;
+}
 
+@keyframes rotate-spinner {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg); 
+    }
+}
+    
 @import url('https://fonts.googleapis.com/css2?family=Afacad+Flux:wght@100..1000'); 
 :root {
     /* Fuente */
