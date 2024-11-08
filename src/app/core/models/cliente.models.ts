@@ -4,5 +4,5 @@ export interface Cliente extends PersonaCredenciales
 {
   apellido: string,
   dni: string,
-  image: string
+  image: string,
 }

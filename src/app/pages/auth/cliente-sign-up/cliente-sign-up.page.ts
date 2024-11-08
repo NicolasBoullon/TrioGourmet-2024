@@ -90,6 +90,7 @@ export class ClienteSignUpPage {
       Validators.pattern('^[0-9]+$'),
     ]),
     image: new FormControl('', [Validators.required]),
+    perfil: new FormControl('cliente')
   });
 
   constructor() {
@@ -160,6 +161,7 @@ export class ClienteSignUpPage {
       apellido: formData.apellido ?? '',
       dni: formData.dni ?? '',
       image: formData.image ?? '',
+      perfil: formData.perfil ?? ''
     };
 
     const urlImage = await this.loadImage(

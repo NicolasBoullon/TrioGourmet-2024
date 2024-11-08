@@ -19,7 +19,7 @@ export class AuthService {
   signUp(personaCredenciales: PersonaCredenciales): Promise<UserCredential> {
     return createUserWithEmailAndPassword(this.auth, personaCredenciales.email, personaCredenciales.password)
     .then(response => {
-      return updateProfile(response.user, { displayName: personaCredenciales.name })
+      return updateProfile(response.user, { displayName: personaCredenciales.perfil })
       .then(() => response);
     });
   }
