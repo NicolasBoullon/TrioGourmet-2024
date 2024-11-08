@@ -1,5 +1,46 @@
 <app-header title="Inicio Propietario"></app-header>
 
-<ion-content>
-
+<ion-content class="ion-content">
+  <div class="container">
+    <div class="row-table-clientes">
+      <h3>Clientes en espera de aprobación</h3>
+      <table class="table-clientes">
+        <thead>
+          <th>Nombre</th>
+          <th>Apellido</th>
+          <th>Dni</th>
+        </thead>
+        <tbody>
+          @for (cliente of clientesSinAprobacion; track $index )  {
+            <tr (click)="openModal(cliente)">
+              <td>{{ cliente.name }}</td>
+              <td>{{ cliente.apellido }}</td>
+              <td>{{ cliente.dni }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <ion-modal [isOpen]="isModalOpen" (didDismiss)="closeModal()">
+    <ng-template>
+        <ion-toolbar>
+            <ion-title>Cliente seleccionado</ion-title>
+            <ion-button (click)="closeModal()" slot="end">Cerrar</ion-button>
+        </ion-toolbar>
+  
+        <ion-content class="ion-content-modal">
+          <p>Nombre: {{ clienteSelected.name }}</p>
+          <p>Apellido: {{ clienteSelected.apellido }}</p>
+          <p>Dni: {{ clienteSelected.dni }}</p>
+          <p>Correo: {{ clienteSelected.email }}</p>
+          <div class="image">
+            <img [src]="clienteSelected.image" alt="">
+          </div>
+          <ion-button color="primary" expand="block" class="btn-aprobar" (click)="AprobarCliente(clienteSelected)">Aprobar</ion-button>
+        </ion-content>
+    </ng-template>
+  </ion-modal>
 </ion-content>
+
+
