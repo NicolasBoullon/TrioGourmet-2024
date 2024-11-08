@@ -1,96 +1,35 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {
-  FormControl,
-  FormGroup,
-  FormsModule,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
-import {
-  IonContent,
-  IonLabel,
-  IonInput,
-  IonIcon,
-  IonItem,
-  IonButton,
-  IonText,
-} from '@ionic/angular/standalone';
-import { HeaderComponent } from 'src/app/shared/header/header.component';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonIcon, IonItem, IonLabel } from '@ionic/angular/standalone';
+import { HeaderComponent } from "../../../shared/header/header.component";
 import { AuthService } from 'src/app/core/services/auth.service';
 import { NotificationService } from 'src/app/core/services/notification.service';
-import { addIcons } from 'ionicons';
-import {
-  camera,
-  cameraOutline,
-  eyeOffOutline,
-  eyeOutline,
-  lockClosedOutline,
-  logInOutline,
-  mailOutline,
-  personAddOutline,
-  personOutline,
-  qrCodeOutline,
-} from 'ionicons/icons';
-import { Cliente } from 'src/app/core/models/cliente.models';
 import { StorageService } from 'src/app/core/services/storage.service';
 import { DatabaseService } from 'src/app/core/services/database.service';
-import { PersonaCredenciales } from 'src/app/core/models/personaCredenciales.models';
-import { BarcodeScanner } from '@capacitor-mlkit/barcode-scanning';
-import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import { Router } from '@angular/router';
 
+import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
+import { addIcons } from 'ionicons';
+import { cameraOutline, eyeOffOutline, eyeOutline, lockClosedOutline, logInOutline, mailOutline, personAddOutline, personOutline, qrCodeOutline } from 'ionicons/icons';
+
+
 @Component({
-  selector: 'app-cliente-sign-up',
-  templateUrl: './cliente-sign-up.page.html',
-  styleUrls: ['./cliente-sign-up.page.scss'],
+  selector: 'app-anonimo-sign-up',
+  templateUrl: './anonimo-sign-up.page.html',
+  styleUrls: ['./anonimo-sign-up.page.scss'],
   standalone: true,
-  imports: [
-    IonContent,
-    ReactiveFormsModule,
-    IonLabel,
-    IonInput,
-    IonIcon,
-    IonItem,
-    IonButton,
-    HeaderComponent,
-    CommonModule,
-  ],
+  imports: [IonLabel, IonItem, IonIcon, IonButton, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, HeaderComponent,ReactiveFormsModule]
 })
-export class ClienteSignUpPage {
+export class AnonimoSignUpPage implements OnInit {
   private _authService = inject(AuthService);
   private _notificationService = inject(NotificationService);
   private _storageService = inject(StorageService);
   private _databaseService = inject(DatabaseService);
-  private _routerService = inject(Router);
 
   protected showPassword: boolean = false;
   protected imageSelected?: Blob;
   protected imagePreviewUrl: string | null = null;
-
-  protected form = new FormGroup({
-    email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [
-      Validators.required,
-      Validators.minLength(6),
-    ]),
-    name: new FormControl('', [
-      Validators.required,
-      Validators.minLength(4),
-      Validators.pattern('^[a-zA-Z ]+$'),
-    ]),
-    apellido: new FormControl('', [
-      Validators.required,
-      Validators.pattern('^[a-zA-Z ]+$'),
-    ]),
-    dni: new FormControl('', [
-      Validators.required,
-      Validators.min(10000000),
-      Validators.max(100000000),
-      Validators.pattern('^[0-9]+$'),
-    ]),
-    image: new FormControl('', [Validators.required]),
-  });
 
   constructor() {
     addIcons({
@@ -104,18 +43,32 @@ export class ClienteSignUpPage {
       cameraOutline,
       qrCodeOutline,
     });
+   }
+
+  ngOnInit() {
   }
+
+  protected form = new FormGroup({
+    name: new FormControl('', [
+      Validators.required,
+      Validators.minLength(4),
+      Validators.pattern('^[a-zA-Z ]+$'),
+    ]),
+    image: new FormControl('', [Validators.required]),
+  });
 
   showOrHidePassword(): void {
     this.showPassword = !this.showPassword;
   }
+
+
 
   async submit(): Promise<void> {
     if (this.form.valid) {
       await this._notificationService.presentLoading('Creando cuenta...', 1500);
       try {
         await this._authService.signUp(
-          this.form.value as PersonaCredenciales
+          this.form.value as any
         );
         await this.saveFormData();
         this._notificationService.presentToast(
@@ -153,12 +106,8 @@ export class ClienteSignUpPage {
   protected async saveFormData(): Promise<void> {
     const formData = { ...this.form.value };
 
-    const clienteData: Cliente = {
-      email: formData.email ?? '',
-      password: formData.password ?? '',
+    const clienteData: any = {
       name: formData.name ?? '',
-      apellido: formData.apellido ?? '',
-      dni: formData.dni ?? '',
       image: formData.image ?? '',
     };
 
@@ -174,21 +123,21 @@ export class ClienteSignUpPage {
     await this._databaseService.setDocument(
       'clientes',
       clienteData,
-      clienteData.email!
+      clienteData.name!
     );
   }
 
   protected async loadImage(
     fileBlob: Blob,
     collection: string,
-    data: Cliente
+    data: any
   ): Promise<string> {
 
     // DEVUELVE LA URL DE LA IMAGEN.
     return await this._storageService.uploadImage(
       fileBlob,
       collection,
-      data.email!
+      data.name!
     );
   }
 
@@ -212,42 +161,4 @@ export class ClienteSignUpPage {
 
   }
 
-  protected async scanDNI(): Promise<void>
-  {
-    const { barcodes } = await BarcodeScanner.scan();
-    const dniCliente = barcodes[0].rawValue;
-
-    if (!dniCliente)
-      return;
-    
-    const datosCliente : Array<string> = dniCliente.split('@');
-
-    const fullName = this.capitalizeText(datosCliente[2]);
-    const fullApellido = this.capitalizeText(datosCliente[1]);
-
-    this.form.patchValue({
-      apellido: fullApellido,
-      name: fullName,
-      dni: datosCliente[4]
-    });
-
-  }
-
-  protected capitalizeText(text: string): string {
-    const words = text.split(" ");
-    const capitalizedWords = words.map((word) => this.capitalizeWord(word));
-    return capitalizedWords.join(" ");
-  }
-
-  protected capitalizeWord(word: string) : string
-  {
-    const capitalizeWord = word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
-    return capitalizeWord;
-  }
-
-  GoTo(path:string){
-    if(path){
-      this._routerService.navigate([path]);
-    }
-  }
 }

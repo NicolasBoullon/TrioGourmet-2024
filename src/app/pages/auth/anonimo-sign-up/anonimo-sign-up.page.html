@@ -1,0 +1,64 @@
+<app-header title="Registro Cliente Anonimo" backButton="/login"></app-header>
+
+<ion-content class="signup">
+  <div class="form-signup">
+    <form [formGroup]="form" (ngSubmit)="submit()" (keypress.enter)="submit()">
+
+      <div class="logo">
+        <img src="assets\logo\trio-gourmet-sin-fondo.png">
+      </div>
+
+      <!-- Nombre -->
+      <div class="name">
+        <ion-item lines="none" class="name-input">
+          <ion-icon color="primary" slot="start" name="person-outline"></ion-icon>
+          <ion-input type="text" [formControl]="form.controls.name" label="Nombre" placeholder="Ingrese su nombre" label-placement="stacked"/>
+        </ion-item>
+        <div class="validators">
+          @if (form.controls.name.touched && form.controls.name.hasError('required')) {
+            <ion-label color="danger">El nombre es <strong>requerido</strong></ion-label>
+          }
+          @if (form.controls.name.hasError('minlength')) {
+              <ion-label color="danger">El nombre debe tener al menos <strong>4 caracteres</strong></ion-label><br>
+          }@else if(form.controls.name.hasError('pattern')) {
+            <ion-label color="danger">El nombre debe contener solo <strong>letras</strong></ion-label>
+          }
+        </div>
+      </div>
+      
+
+
+      
+      <!-- Imagen de foto -->
+      
+      <div class="image-preview">
+        <img [ngClass]="{'not-blank': imagePreviewUrl}" [src]="imagePreviewUrl ? imagePreviewUrl : 'assets/images/blank-profile.png'" alt="Vista previa de la imagen">
+      </div>
+
+      <!-- Botón de Camara -->
+      <div class="camera">
+        <label for="input-tomar-foto" class="label-tomar-foto">
+          TOMAR FOTO
+          <ion-icon slot="end" name="camera-outline"></ion-icon>
+        </label>
+        <input id="input-tomar-foto" (click)="takePicture()">
+        <div class="validators">
+          @if(form.controls.image.hasError('required')){
+            <ion-label color="danger">La imagen es <strong>requerida</strong></ion-label>
+          }
+        </div>
+      </div>
+
+
+
+      <!-- Botón de Registro -->
+      <div class="signup-button">
+        <ion-button expand="block" type="submit" [disabled]="form.invalid">
+          Crear cuenta
+          <ion-icon slot="end" name="person-add-outline"></ion-icon>
+        </ion-button>
+      </div>
+      
+    </form>
+  </div>
+</ion-content>
