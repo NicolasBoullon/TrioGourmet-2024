@@ -6,6 +6,7 @@ import { mailOutline, lockClosedOutline, eyeOutline, eyeOffOutline, logInOutline
 import { HeaderComponent } from 'src/app/shared/header/header.component';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { NotificationService } from 'src/app/core/services/notification.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -20,7 +21,8 @@ import { NotificationService } from 'src/app/core/services/notification.service'
     IonIcon,
     IonItem,
     IonButton,
-    HeaderComponent
+    HeaderComponent,
+    RouterLink
   ]
 })
 export class LoginPage {

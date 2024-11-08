@@ -7,6 +7,8 @@ import {
   updateProfile,
   sendPasswordResetEmail,
 } from '@angular/fire/auth';
+import { PersonaCredenciales } from '../models/personaCredenciales.models';
+import { person } from 'ionicons/icons';
 @Injectable({
   providedIn: 'root'
 })
@@ -14,10 +16,10 @@ export class AuthService {
 
   auth = inject(Auth);
 
-  signUp(email: string, password: string, name: string): Promise<UserCredential> {
-    return createUserWithEmailAndPassword(this.auth, email, password)
+  signUp(personaCredenciales: PersonaCredenciales): Promise<UserCredential> {
+    return createUserWithEmailAndPassword(this.auth, personaCredenciales.email, personaCredenciales.password)
     .then(response => {
-      return updateProfile(response.user, { displayName: name })
+      return updateProfile(response.user, { displayName: personaCredenciales.name })
       .then(() => response);
     });
   }

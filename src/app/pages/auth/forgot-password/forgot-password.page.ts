@@ -3,7 +3,6 @@ import { FormControl, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { IonContent, IonLabel, IonInput, IonIcon, IonItem, IonButton, IonText } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { mailOutline, arrowForward } from 'ionicons/icons';
-import { RouterLink } from '@angular/router';
 import { HeaderComponent } from 'src/app/shared/header/header.component';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { NotificationService } from 'src/app/core/services/notification.service';
