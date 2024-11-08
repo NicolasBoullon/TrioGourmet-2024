@@ -7,6 +7,8 @@ import { HeaderComponent } from 'src/app/shared/header/header.component';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { NotificationService } from 'src/app/core/services/notification.service';
 import { RouterLink } from '@angular/router';
+import { DatabaseService } from 'src/app/core/services/database.service';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -29,7 +31,7 @@ export class LoginPage {
 
   private _authService = inject(AuthService);
   private _notificationService= inject(NotificationService)
-
+  private _databaseService = inject(DatabaseService);
   showPassword: boolean = false;
 
   form = new FormGroup({
@@ -49,9 +51,20 @@ export class LoginPage {
     if (this.form.valid) {
       await this._notificationService.presentLoading('Iniciando sesión...');
       try {
-        await this._authService.signIn(this.form.value.email!, this.form.value.password!);
-        this.form.reset();
-        this._notificationService.routerLink('/home');
+        const resp = await this._authService.signIn(this.form.value.email!, this.form.value.password!);
+        if(resp.user.displayName == 'cliente' && resp.user.email){
+          const user = await firstValueFrom(this._databaseService.getDocumentById('clientes',resp.user.email));
+          if(user.aprobado){
+            this._notificationService.routerLink('/home');
+            this.form.reset();
+          }else{
+            this._notificationService.presentToast('¡Alerta: Tu cuenta no ha sido aprobada!', 2000, 'danger', 'bottom');
+            this.form.reset();
+          }
+        }else{
+          this.form.reset();
+          this._notificationService.routerLink('/home');
+        }
       } catch (error: any) {
         if (error.code === 'auth/invalid-credential') {
           this._notificationService.presentToast('¡Error: Usuario y/o contraseña incorrectos!', 2000, 'danger', 'bottom');
