@@ -5,8 +5,8 @@ Integrantes
 * Iván Agustín Videla Ribodino
 
 Materia
-* Practica Profesional 4A
-* Division A141-2
+* Práctica Profesional 4A
+* División A141-2
 
 Profesores
 * Maximiliano Neiner
@@ -20,7 +20,7 @@ Iván Agustín Videla Ribodino:
 * Encuesta empleados
 * Ingresar al local
 * Generar reservas agendadas
-* Push notificacion de: Consultar al mozo, generar reservas agendadas/delivery.
+* Push notificación de: Consultar al mozo, generar reservas agendadas/delivery.
 * Juego para obtener un 10% de descuento
 
 Nicolas Carlos Boullon:
@@ -29,8 +29,8 @@ Nicolas Carlos Boullon:
 * QR de la propina
 * Encuesta supervisor
 * Realizar pedidos (platos y bebidas)
-* Push notificacion de: Agregar cliente nuevo, confirmar pedido (por parte del mozo)
-* Realizar pedido con GPS o direccion
+* Push notificación de: Agregar cliente nuevo, confirmar pedido (por parte del mozo)
+* Realizar pedido con GPS o dirección
 * Juego para obtener un 15% de descuento
 
 Mateo Spatola:
@@ -39,7 +39,7 @@ Mateo Spatola:
 * Encuesta clientes
 * Agregar un nuevo cliente registrado
 * Confirmar pedidos
-* Push notificacion de: Ingreso al local, confirmar realizacion del pedido (por parte del cocinero o bartender)
+* Push notificación de: Ingreso al local, confirmar realización del pedido (por parte del cocinero o bartender)
 * Mapa de ruta hasta el domicilio de entrega
 * Juego para obtener un 20% de descuento
 
@@ -54,10 +54,6 @@ Mateo Spatola:
 
 ![Logo](src/assets/readme/loginpic.png)
 
-### Creacion de Cuenta
-
-![Logo](src/assets/readme/registro.png)
-
 ### Recupero de contraseña
 
 ![Logo](src/assets/readme/olvidepassword.png)
@@ -66,7 +62,7 @@ Mateo Spatola:
 
 ![Logo](src/assets/readme/registroClienteUno.png) ![Logo](src/assets/readme/registroClienteDos.png)
 
-### Registro Cliente Anonimo
+### Registro Cliente Anónimo
 
 ![Logo](src/assets/readme/registroClienteAnonimo.png)
 
