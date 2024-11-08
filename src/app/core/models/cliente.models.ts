@@ -5,5 +5,5 @@ export interface Cliente extends PersonaCredenciales
   apellido: string,
   dni: string,
   image: string,
-  aprobado:boolean
+  estadoAprobacionCuenta: string
 }

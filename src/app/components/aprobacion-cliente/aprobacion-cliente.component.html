@@ -1,5 +1,3 @@
-<app-header title="Inicio Propietario"></app-header>
-
 <ion-content class="ion-content">
   <div class="container">
     <div class="row-table-clientes">
@@ -37,7 +35,8 @@
           <div class="image">
             <img [src]="clienteSelected.image" alt="">
           </div>
-          <ion-button color="primary" expand="block" class="btn-aprobar" (click)="AprobarCliente(clienteSelected)">Aprobar</ion-button>
+          <ion-button color="success" expand="block" class="btn-aprobar" (click)="aprobarCliente(clienteSelected)">Aprobar</ion-button>
+          <ion-button color="danger" expand="block" class="btn-rechazar" (click)="rechazarCliente(clienteSelected)">Rechazar</ion-button>
         </ion-content>
     </ng-template>
   </ion-modal>

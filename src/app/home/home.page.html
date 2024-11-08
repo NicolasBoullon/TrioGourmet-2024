@@ -2,6 +2,16 @@
 
 <ion-content class="home">
 
+@if (user) {
   <h1>¡Bienvenido!</h1>
+
+  @if (user.displayName == 'propietario' || user.displayName == 'supervisor') {
+    <app-aprobacion-cliente></app-aprobacion-cliente>
+  }
+
+}
+@else {
+  <p>Cargando...</p>
+}
   
 </ion-content>

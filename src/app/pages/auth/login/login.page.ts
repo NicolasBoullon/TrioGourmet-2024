@@ -52,26 +52,35 @@ export class LoginPage {
       await this._notificationService.presentLoading('Iniciando sesión...');
       try {
         const resp = await this._authService.signIn(this.form.value.email!, this.form.value.password!);
-        if(resp.user.displayName == 'cliente' && resp.user.email){
+
+        if (resp.user.displayName == 'cliente' && resp.user.email){
           const user = await firstValueFrom(this._databaseService.getDocumentById('clientes',resp.user.email));
-          if(user.aprobado){
-            this._notificationService.routerLink('/home');
-            this.form.reset();
-          }else{
-            this._notificationService.presentToast('¡Alerta: Tu cuenta no ha sido aprobada!', 2000, 'danger', 'bottom');
-            this.form.reset();
+
+          if (user.estadoAprobacionCuenta == 'pendiente') {
+            this._notificationService.presentToast('¡Alerta: Cuenta pendiente de aprobación!', 2000, 'warning', 'bottom');
           }
-        }else{
+          else if (user.estadoAprobacionCuenta == 'rechazada') {
+            this._notificationService.presentToast('¡Alerta: Tu cuenta ha sido rechazada!', 2000, 'danger', 'bottom');
+          }
+          else {
+            this._notificationService.routerLink('/home');
+          }
+
+        }
+        else {
           this.form.reset();
           this._notificationService.routerLink('/home');
         }
-      } catch (error: any) {
+      }
+      catch (error: any) {
         if (error.code === 'auth/invalid-credential') {
           this._notificationService.presentToast('¡Error: Usuario y/o contraseña incorrectos!', 2000, 'danger', 'bottom');
-        } else {
+        } 
+        else {
           this._notificationService.presentToast('Error inesperado: ' + error.code, 2000, 'danger', 'bottom');
         }
-      } finally {
+      }
+      finally {
         this._notificationService.dismissLoading();
       }
     }

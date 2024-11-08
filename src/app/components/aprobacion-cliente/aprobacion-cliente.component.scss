@@ -1,9 +1,5 @@
-.ion-content{
-    height: 100%;
-}
+
 .container{
-    height: 100%;
-    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -33,16 +29,16 @@
 }
 
 ion-modal{
-    --height: 63%;
+    --height: 75%;
+    --width: 90%;
 }
 ion-modal ion-toolbar{
     --background: var(--color-secundario-oscuro);
 }
 ion-modal .ion-content-modal{
     img{
-        height: 250px;
-        width: 250px;
-
+        height: 160px;
+        width: 160px;
     }
     p{
         text-align: center;
@@ -54,8 +50,7 @@ ion-modal .ion-content-modal{
     justify-content: center;
     align-items: center;
 }
-.btn-aprobar{
+.btn-aprobar, .btn-rechazar{
     margin: 20px 10px 0px 10px;
     font-size: 1.2rem;
-    
 }

@@ -1,21 +1,21 @@
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { HeaderComponent } from "../../../shared/header/header.component";
-import {IonicModule} from "@ionic/angular";
+import { IonicModule } from "@ionic/angular";
 import { DatabaseService } from 'src/app/core/services/database.service';
 import { Subscription } from 'rxjs';
 import { Cliente } from 'src/app/core/models/cliente.models';
 import { NotificationService } from 'src/app/core/services/notification.service';
 
 @Component({
-  selector: 'app-inicio',
-  templateUrl: './inicio.page.html',
-  styleUrls: ['./inicio.page.scss'],
+  selector: 'app-aprobacion-cliente',
+  templateUrl: './aprobacion-cliente.component.html',
+  styleUrls: ['./aprobacion-cliente.component.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule, FormsModule, HeaderComponent]
+  imports: [IonicModule, CommonModule, FormsModule]
 })
-export class InicioPage implements OnInit, OnDestroy{
+export class AprobacionClienteComponent  implements OnInit {
+
   private _databaseService = inject(DatabaseService);
   private _notificactionService = inject(NotificationService);
 
@@ -31,14 +31,21 @@ export class InicioPage implements OnInit, OnDestroy{
     this.sub = this._databaseService.getDocument('clientes').subscribe({
       next: (res=>{
         this.clientes = res;
-        this.clientesSinAprobacion = this.clientes.filter((cliente)=> !cliente.aprobado);
+        this.clientesSinAprobacion = this.clientes.filter((cliente) => cliente.estadoAprobacionCuenta == 'pendiente');
       })
     })
   }
 
-  async AprobarCliente(clienteSelected:Cliente){
+  async aprobarCliente(clienteSelected:Cliente){
     this._notificactionService.presentLoading('Aprobando cliente...');
-    await this._databaseService.updateDocumentField('clientes',clienteSelected.email,'aprobado',true);
+    await this._databaseService.updateDocumentField('clientes', clienteSelected.email, 'estadoAprobacionCuenta', 'aprobada');
+    this._notificactionService.dismissLoading();
+    this.closeModal();
+  }
+
+  async rechazarCliente(clienteSelected:Cliente){
+    this._notificactionService.presentLoading('Rechazando cliente...');
+    await this._databaseService.updateDocumentField('clientes', clienteSelected.email, 'estadoAprobacionCuenta', 'rechazada');
     this._notificactionService.dismissLoading();
     this.closeModal();
   }
@@ -55,4 +62,5 @@ export class InicioPage implements OnInit, OnDestroy{
   ngOnDestroy(): void {
     this.sub.unsubscribe();
   }
+
 }
