@@ -111,7 +111,7 @@
           TOMAR FOTO
           <ion-icon slot="end" name="camera-outline"></ion-icon>
         </label>
-        <input type="file" id="input-tomar-foto" (change)="uploadFile($event)">
+        <input id="input-tomar-foto" (click)="takePicture()">
         <div class="validators">
           @if(form.controls.image.hasError('required')){
             <ion-label color="danger">La imagen es <strong>requerida</strong></ion-label>
@@ -120,7 +120,7 @@
       </div>
       <!-- Botón de QR -->
       <div class="qr">
-        <ion-button expand="block" type="buttons">
+        <ion-button expand="block" type="buttons" (click)="scanDNI()">
           Escanear Dni
           <ion-icon slot="end" name="qr-code-outline"></ion-icon>
         </ion-button>

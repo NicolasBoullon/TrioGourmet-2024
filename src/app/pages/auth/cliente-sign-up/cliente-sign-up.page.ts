@@ -36,6 +36,8 @@ import { Cliente } from 'src/app/core/models/cliente.models';
 import { StorageService } from 'src/app/core/services/storage.service';
 import { DatabaseService } from 'src/app/core/services/database.service';
 import { PersonaCredenciales } from 'src/app/core/models/personaCredenciales.models';
+import { BarcodeScanner } from '@capacitor-mlkit/barcode-scanning';
+import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 
 @Component({
   selector: 'app-cliente-sign-up',
@@ -61,7 +63,7 @@ export class ClienteSignUpPage {
   private _databaseService = inject(DatabaseService);
 
   protected showPassword: boolean = false;
-  protected imageSelected?: File;
+  protected imageSelected?: Blob;
   protected imagePreviewUrl: string | null = null;
 
   protected form = new FormGroup({
@@ -175,31 +177,69 @@ export class ClienteSignUpPage {
   }
 
   protected async loadImage(
-    file: File,
+    fileBlob: Blob,
     collection: string,
     data: Cliente
   ): Promise<string> {
-    const blob = new Blob([file], {
-      type: file.type,
-    });
 
     // DEVUELVE LA URL DE LA IMAGEN.
     return await this._storageService.uploadImage(
-      blob,
+      fileBlob,
       collection,
       data.email!
     );
   }
 
-  uploadFile(event: any): void {
-    const file: File = event.target.files[0];
-    if (file) {
+  protected async takePicture(): Promise<void>
+  {
+    const image = await Camera.getPhoto({
+      quality: 90,
+      resultType: CameraResultType.Uri,
+      source: CameraSource.Camera,
+    });
+    if (image.webPath)
+    {
+      this.imagePreviewUrl = image.webPath;
+      const response = await fetch(image.webPath!); 
+      const blob = await response.blob(); 
       // IMAGE SELECTED ES LA IMAGEN QUE SUBO A FIRESTORE PERO LA GUARDO ACA PARA SUBIRLA SOLO CUANDO LE DE A SUBMIT.
-      this.imageSelected = file;
+      this.imageSelected = blob;
       // ACÁ LO PONGO PARA QUE NO DE ERROR QUE NO SUBIÓ FOTO
-      this.form.get('image')?.setValue(file.name);
-      // ACÁ PONGO VISTA PREVIA DE LA IMAGEN, NO SE COMO HACE PERO CREA UNA URL DE LA IMAGEN
-      this.imagePreviewUrl = URL.createObjectURL(file);
+      this.form.get('image')?.setValue(image.webPath);
     }
+    
+  }
+
+  protected async scanDNI(): Promise<void>
+  {
+    const { barcodes } = await BarcodeScanner.scan();
+    const dniCliente = barcodes[0].rawValue;
+
+    if (!dniCliente)
+      return;
+    
+    const datosCliente : Array<string> = dniCliente.split('@');
+
+    const fullName = this.capitalizeText(datosCliente[2]);
+    const fullApellido = this.capitalizeText(datosCliente[1]);
+
+    this.form.patchValue({
+      apellido: fullApellido,
+      name: fullName,
+      dni: datosCliente[4]
+    });
+
+  }
+
+  protected capitalizeText(text: string): string {
+    const words = text.split(" ");
+    const capitalizedWords = words.map((word) => this.capitalizeWord(word));
+    return capitalizedWords.join(" ");
+  }
+
+  protected capitalizeWord(word: string) : string
+  {
+    const capitalizeWord = word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+    return capitalizeWord;
   }
 }
