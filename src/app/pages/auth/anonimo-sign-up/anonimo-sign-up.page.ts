@@ -1,17 +1,15 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonIcon, IonItem, IonLabel } from '@ionic/angular/standalone';
 import { HeaderComponent } from "../../../shared/header/header.component";
 import { AuthService } from 'src/app/core/services/auth.service';
 import { NotificationService } from 'src/app/core/services/notification.service';
 import { StorageService } from 'src/app/core/services/storage.service';
 import { DatabaseService } from 'src/app/core/services/database.service';
-import { Router } from '@angular/router';
-
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import { addIcons } from 'ionicons';
 import { cameraOutline, eyeOffOutline, eyeOutline, lockClosedOutline, logInOutline, mailOutline, personAddOutline, personOutline, qrCodeOutline } from 'ionicons/icons';
+import { IonicModule } from '@ionic/angular';
 
 
 @Component({
@@ -19,10 +17,9 @@ import { cameraOutline, eyeOffOutline, eyeOutline, lockClosedOutline, logInOutli
   templateUrl: './anonimo-sign-up.page.html',
   styleUrls: ['./anonimo-sign-up.page.scss'],
   standalone: true,
-  imports: [IonLabel, IonItem, IonIcon, IonButton, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, HeaderComponent,ReactiveFormsModule]
+  imports: [IonicModule, CommonModule, HeaderComponent, ReactiveFormsModule]
 })
 export class AnonimoSignUpPage implements OnInit {
-  private _authService = inject(AuthService);
   private _notificationService = inject(NotificationService);
   private _storageService = inject(StorageService);
   private _databaseService = inject(DatabaseService);
@@ -61,15 +58,10 @@ export class AnonimoSignUpPage implements OnInit {
     this.showPassword = !this.showPassword;
   }
 
-
-
   async submit(): Promise<void> {
     if (this.form.valid) {
       await this._notificationService.presentLoading('Creando cuenta...', 1500);
       try {
-        await this._authService.signUp(
-          this.form.value as any
-        );
         await this.saveFormData();
         this._notificationService.presentToast(
           '¡Cuenta creada!',
