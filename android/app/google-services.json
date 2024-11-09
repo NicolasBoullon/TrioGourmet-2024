@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "370486161236",
+    "project_id": "clase-04",
+    "storage_bucket": "clase-04.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:370486161236:android:48a4acea79f0c80efe22c1",
+        "android_client_info": {
+          "package_name": "com.triogourmet.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB_w3zNMhjuI5Y8u9HSGDiuzBtbMvASbig"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -170,7 +170,7 @@ export class ClienteSignUpPage {
 
     const urlImage = await this.loadImage(
       this.imageSelected!,
-      'clientes',
+      'usuarios',
       clienteData
     );
     clienteData.image = urlImage;
@@ -178,7 +178,7 @@ export class ClienteSignUpPage {
     console.log('clienteData:', clienteData);
     
     await this._databaseService.setDocument(
-      'clientes',
+      'usuarios',
       clienteData,
       clienteData.email!
     );

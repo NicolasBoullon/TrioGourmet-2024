@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { loginGuard } from './core/guards/login.guard';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'splash', pathMatch: 'full' },
@@ -8,7 +9,8 @@ export const routes: Routes = [
   },
   {
     path: 'login',
-    loadComponent: () => import('./pages/auth/login/login.page').then( m => m.LoginPage)
+    loadComponent: () => import('./pages/auth/login/login.page').then(m => m.LoginPage),
+    canActivate: [loginGuard]
   },
   {
     path: 'signup',

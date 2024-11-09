@@ -4,6 +4,7 @@ import { HeaderComponent } from 'src/app/shared/header/header.component';
 import { AuthService } from '../core/services/auth.service';
 import { Unsubscribe, User } from '@angular/fire/auth';
 import { AprobacionClienteComponent } from "../components/aprobacion-cliente/aprobacion-cliente.component";
+import { NotificationsPushService } from '../core/services/notifications-push.service';
 
 @Component({
   selector: 'app-home',
@@ -18,13 +19,18 @@ import { AprobacionClienteComponent } from "../components/aprobacion-cliente/apr
 })
 export class HomePage {
   private _authService = inject(AuthService);
+  private _notificationsPushService = inject(NotificationsPushService);
 
   private authSubscription?: Unsubscribe;
   protected user?: User | null;
 
   ngOnInit() {
-    this.authSubscription = this._authService.auth.onAuthStateChanged(user => {
+    this.authSubscription = this._authService.auth.onAuthStateChanged((user: User | null) => {
       this.user = user;
+      if (this.user)
+      {
+        this._notificationsPushService.init(this.user)
+      }
     })
   }
 

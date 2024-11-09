@@ -105,7 +105,7 @@ export class AnonimoSignUpPage implements OnInit {
 
     const urlImage = await this.loadImage(
       this.imageSelected!,
-      'clientes',
+      'usuarios',
       clienteData
     );
     clienteData.image = urlImage;
@@ -113,7 +113,7 @@ export class AnonimoSignUpPage implements OnInit {
     console.log('clienteData:', clienteData);
     
     await this._databaseService.setDocument(
-      'clientes',
+      'usuarios',
       clienteData,
       clienteData.name!
     );

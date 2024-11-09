@@ -9,12 +9,14 @@ import {
 } from '@angular/fire/auth';
 import { PersonaCredenciales } from '../models/personaCredenciales.models';
 import { person } from 'ionicons/icons';
+import { NotificationsPushService } from './notifications-push.service';
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
   auth = inject(Auth);
+  notificationPushService = inject(NotificationsPushService);
 
   signUp(personaCredenciales: PersonaCredenciales): Promise<UserCredential> {
     return createUserWithEmailAndPassword(this.auth, personaCredenciales.email, personaCredenciales.password)
@@ -33,7 +35,8 @@ export class AuthService {
     return sendPasswordResetEmail(this.auth, email);
   }
 
-  signOut(): Promise<void> {
+  async signOut(): Promise<void> {
+    await this.notificationPushService.deleteToken();
     return this.auth.signOut();
   }
 }

@@ -28,29 +28,30 @@ export class AprobacionClienteComponent  implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.sub = this._databaseService.getDocument('clientes').subscribe({
-      next: (res=>{
-        this.clientes = res;
+    this.sub = this._databaseService.getDocument('usuarios').subscribe({
+      next: (res => {
+        this.clientes = res.filter((usuario: any) => usuario.perfil === 'cliente');
+        // this.clientes = res;
         this.clientesSinAprobacion = this.clientes.filter((cliente) => cliente.estadoAprobacionCuenta == 'pendiente');
       })
     })
   }
 
-  async aprobarCliente(clienteSelected:Cliente){
+  async aprobarCliente(clienteSelected: Cliente){
     this._notificactionService.presentLoading('Aprobando cliente...');
     await this._databaseService.updateDocumentField('clientes', clienteSelected.email, 'estadoAprobacionCuenta', 'aprobada');
     this._notificactionService.dismissLoading();
     this.closeModal();
   }
 
-  async rechazarCliente(clienteSelected:Cliente){
+  async rechazarCliente(clienteSelected: Cliente){
     this._notificactionService.presentLoading('Rechazando cliente...');
     await this._databaseService.updateDocumentField('clientes', clienteSelected.email, 'estadoAprobacionCuenta', 'rechazada');
     this._notificactionService.dismissLoading();
     this.closeModal();
   }
 
-  openModal(cliente:Cliente) {
+  openModal(cliente: Cliente) {
     this.isModalOpen = true;
     this.clienteSelected = cliente;
   }
