@@ -10,6 +10,7 @@ import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import { addIcons } from 'ionicons';
 import { cameraOutline, eyeOffOutline, eyeOutline, lockClosedOutline, logInOutline, mailOutline, personAddOutline, personOutline, qrCodeOutline } from 'ionicons/icons';
 import { IonicModule } from '@ionic/angular';
+import { PersonaCredenciales } from 'src/app/core/models/personaCredenciales.models';
 
 
 @Component({
@@ -23,6 +24,7 @@ export class AnonimoSignUpPage implements OnInit {
   private _notificationService = inject(NotificationService);
   private _storageService = inject(StorageService);
   private _databaseService = inject(DatabaseService);
+  private _authService = inject(AuthService);
 
   protected showPassword: boolean = false;
   protected imageSelected?: Blob;
@@ -52,6 +54,7 @@ export class AnonimoSignUpPage implements OnInit {
       Validators.pattern('^[a-zA-Z ]+$'),
     ]),
     image: new FormControl('', [Validators.required]),
+    perfil: new FormControl('anonimo')
   });
 
   showOrHidePassword(): void {
@@ -62,6 +65,14 @@ export class AnonimoSignUpPage implements OnInit {
     if (this.form.valid) {
       await this._notificationService.presentLoading('Creando cuenta...', 1500);
       try {
+        const anonimo: PersonaCredenciales = {
+          name: this.form.value.name ?? '',
+          email: this.form.value.name + "@anonimo.com",
+          password: '123456',
+          perfil: this.form.value.perfil ?? ''
+        };
+
+        await this._authService.signUp(anonimo);
         await this.saveFormData();
         this._notificationService.presentToast(
           '¡Cuenta creada!',
@@ -101,6 +112,7 @@ export class AnonimoSignUpPage implements OnInit {
     const clienteData: any = {
       name: formData.name ?? '',
       image: formData.image ?? '',
+      perfil: formData.perfil ?? ''
     };
 
     const urlImage = await this.loadImage(
@@ -109,13 +121,11 @@ export class AnonimoSignUpPage implements OnInit {
       clienteData
     );
     clienteData.image = urlImage;
-
-    console.log('clienteData:', clienteData);
     
     await this._databaseService.setDocument(
       'usuarios',
       clienteData,
-      clienteData.name!
+      clienteData.name + '@anonimo.com'
     );
   }
 

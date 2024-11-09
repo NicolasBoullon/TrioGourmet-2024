@@ -11,15 +11,24 @@ export const loginGuard: CanActivateFn = (route, state) => {
   const _databaseService = inject(DatabaseService);
 
   const router = inject(Router);
+  
+  if (_authService.skipGuardCheck) {
+    return true;
+  }
 
   return new Promise((resolve) => {
     _authService.auth.onAuthStateChanged(async (auth: User | null) => {
+      if (_authService.skipGuardCheck) {
+        resolve(true);
+        return;
+      }
+      
       if (auth)
       {
         if (auth.displayName == 'cliente')
         {
           const clienteDoc: Cliente = await firstValueFrom(
-            _databaseService.getDocumentById('clientes', auth.email!)
+            _databaseService.getDocumentById('usuarios', auth.email!)
           );
   
           if (

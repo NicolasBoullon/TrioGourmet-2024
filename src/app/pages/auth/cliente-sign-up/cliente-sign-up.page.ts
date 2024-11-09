@@ -117,9 +117,8 @@ export class ClienteSignUpPage {
       try {
         await this._authService.signUp(this.form.value as PersonaCredenciales);
         await this.saveFormData();
-        await this._authService.signOut();
-
-        this._notificationService.showConfirmAlert(
+        
+        await this._notificationService.showConfirmAlert(
           '¡Registro exitoso!',
           'La cuenta se encuentra pendiente de aprobación. Por favor, espera a que un dueño o supervisor te apruebe.',
           'Aceptar',
@@ -174,8 +173,6 @@ export class ClienteSignUpPage {
       clienteData
     );
     clienteData.image = urlImage;
-
-    console.log('clienteData:', clienteData);
     
     await this._databaseService.setDocument(
       'usuarios',

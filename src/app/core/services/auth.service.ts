@@ -17,13 +17,20 @@ export class AuthService {
 
   auth = inject(Auth);
   notificationPushService = inject(NotificationsPushService);
+  public skipGuardCheck = false;
 
-  signUp(personaCredenciales: PersonaCredenciales): Promise<UserCredential> {
-    return createUserWithEmailAndPassword(this.auth, personaCredenciales.email, personaCredenciales.password)
-    .then(response => {
-      return updateProfile(response.user, { displayName: personaCredenciales.perfil })
-      .then(() => response);
-    });
+  async signUp(personaCredenciales: PersonaCredenciales): Promise<void> {
+    
+    this.skipGuardCheck = true;
+
+    const userCredentials: UserCredential = await createUserWithEmailAndPassword(this.auth, personaCredenciales.email, personaCredenciales.password)
+      
+    await updateProfile(userCredentials.user, { displayName: personaCredenciales.perfil });
+
+    if (personaCredenciales.perfil != 'anonimo')
+    {
+      await this.signOut();
+    }
   }
 
 
