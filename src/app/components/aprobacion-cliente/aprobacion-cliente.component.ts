@@ -39,14 +39,14 @@ export class AprobacionClienteComponent  implements OnInit {
 
   async aprobarCliente(clienteSelected: Cliente){
     this._notificactionService.presentLoading('Aprobando cliente...');
-    await this._databaseService.updateDocumentField('clientes', clienteSelected.email, 'estadoAprobacionCuenta', 'aprobada');
+    await this._databaseService.updateDocumentField('usuarios', clienteSelected.email, 'estadoAprobacionCuenta', 'aprobada');
     this._notificactionService.dismissLoading();
     this.closeModal();
   }
 
   async rechazarCliente(clienteSelected: Cliente){
     this._notificactionService.presentLoading('Rechazando cliente...');
-    await this._databaseService.updateDocumentField('clientes', clienteSelected.email, 'estadoAprobacionCuenta', 'rechazada');
+    await this._databaseService.updateDocumentField('usuarios', clienteSelected.email, 'estadoAprobacionCuenta', 'rechazada');
     this._notificactionService.dismissLoading();
     this.closeModal();
   }
