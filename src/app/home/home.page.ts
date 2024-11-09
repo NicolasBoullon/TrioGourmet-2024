@@ -5,6 +5,7 @@ import { AuthService } from '../core/services/auth.service';
 import { Unsubscribe, User } from '@angular/fire/auth';
 import { AprobacionClienteComponent } from "../components/aprobacion-cliente/aprobacion-cliente.component";
 import { NotificationsPushService } from '../core/services/notifications-push.service';
+import { LoadingComponent } from "../components/loading/loading.component";
 
 @Component({
   selector: 'app-home',
@@ -14,7 +15,8 @@ import { NotificationsPushService } from '../core/services/notifications-push.se
   imports: [
     IonContent,
     HeaderComponent,
-    AprobacionClienteComponent
+    AprobacionClienteComponent,
+    LoadingComponent
 ],
 })
 export class HomePage {

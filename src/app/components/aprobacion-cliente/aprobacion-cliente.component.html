@@ -2,22 +2,28 @@
   <div class="container">
     <div class="row-table-clientes">
       <h3>Clientes en espera de aprobación</h3>
-      <table class="table-clientes">
-        <thead>
-          <th>Nombre</th>
-          <th>Apellido</th>
-          <th>Dni</th>
-        </thead>
-        <tbody>
-          @for (cliente of clientesSinAprobacion; track $index )  {
-            <tr (click)="openModal(cliente)">
-              <td>{{ cliente.name }}</td>
-              <td>{{ cliente.apellido }}</td>
-              <td>{{ cliente.dni }}</td>
-            </tr>
-          }
-        </tbody>
-      </table>
+      @if(!isLoading)
+      {
+        <table class="table-clientes">
+          <thead>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Dni</th>
+          </thead>
+          <tbody>
+            @for (cliente of clientesSinAprobacion; track $index )  {
+              <tr (click)="openModal(cliente)">
+                <td>{{ cliente.name }}</td>
+                <td>{{ cliente.apellido }}</td>
+                <td>{{ cliente.dni }}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      }
+      @else {
+        <app-loading></app-loading>
+      }
     </div>
   </div>
   <ion-modal [isOpen]="isModalOpen" (didDismiss)="closeModal()">

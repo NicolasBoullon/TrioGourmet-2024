@@ -39,6 +39,7 @@ import { PersonaCredenciales } from 'src/app/core/models/personaCredenciales.mod
 import { BarcodeScanner } from '@capacitor-mlkit/barcode-scanning';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import { Router, RouterLink } from '@angular/router';
+import { ApiRequestService } from 'src/app/core/services/api-request.service';
 
 @Component({
   selector: 'app-cliente-sign-up',
@@ -63,6 +64,7 @@ export class ClienteSignUpPage {
   private _notificationService = inject(NotificationService);
   private _storageService = inject(StorageService);
   private _databaseService = inject(DatabaseService);
+  private _apiRequestService = inject(ApiRequestService); 
 
   protected showPassword: boolean = false;
   protected imageSelected?: Blob;
@@ -115,6 +117,7 @@ export class ClienteSignUpPage {
     if (this.form.valid) {
       await this._notificationService.presentLoading('Creando cuenta...', 1500);
       try {
+        const {name, apellido} = this.form.value
         await this._authService.signUp(this.form.value as PersonaCredenciales);
         await this.saveFormData();
         
@@ -122,7 +125,10 @@ export class ClienteSignUpPage {
           '¡Registro exitoso!',
           'La cuenta se encuentra pendiente de aprobación. Por favor, espera a que un dueño o supervisor te apruebe.',
           'Aceptar',
-          () => this._notificationService.routerLink('/login')
+          () => {
+            this._apiRequestService.notifyRole(`Cliente en espera de aprobación`, `${name} ${apellido} se encuentra en estado de espera. Únase para gestionar la solicitud.`, 'propietario').subscribe();
+            this._notificationService.routerLink('/login')
+          }
         );
 
         this.form.reset();
