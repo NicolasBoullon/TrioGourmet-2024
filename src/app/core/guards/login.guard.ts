@@ -13,12 +13,14 @@ export const loginGuard: CanActivateFn = (route, state) => {
   const router = inject(Router);
   
   if (_authService.skipGuardCheck) {
+    console.log("skipGuard")
     return true;
   }
 
   return new Promise((resolve) => {
     _authService.auth.onAuthStateChanged(async (auth: User | null) => {
       if (_authService.skipGuardCheck) {
+        console.log("skipGuard2")
         resolve(true);
         return;
       }
@@ -40,12 +42,15 @@ export const loginGuard: CanActivateFn = (route, state) => {
           }
           else
           {
+            console.log("mueve al home 1 ");
             router.navigateByUrl('/home', { replaceUrl: true });
             resolve(false);
           }
         }
         else
         {
+          console.log("mueve al home 2");
+
           router.navigateByUrl('/home', { replaceUrl: true });
           resolve(false);  
         }

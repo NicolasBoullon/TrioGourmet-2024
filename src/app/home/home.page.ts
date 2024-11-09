@@ -27,11 +27,15 @@ export class HomePage {
   ngOnInit() {
     this.authSubscription = this._authService.auth.onAuthStateChanged((user: User | null) => {
       this.user = user;
-      if (this.user)
-      {
-        this._notificationsPushService.init(this.user)
-      }
     })
+  }
+
+  ionViewWillEnter()
+  {
+    if (this.user)
+    {
+      this._notificationsPushService.init(this.user)
+    }
   }
 
   ngOnDestroy() {

@@ -20,17 +20,26 @@ export class AuthService {
   public skipGuardCheck = false;
 
   async signUp(personaCredenciales: PersonaCredenciales): Promise<void> {
-    
-    this.skipGuardCheck = true;
-
-    const userCredentials: UserCredential = await createUserWithEmailAndPassword(this.auth, personaCredenciales.email, personaCredenciales.password)
-      
-    await updateProfile(userCredentials.user, { displayName: personaCredenciales.perfil });
-
-    if (personaCredenciales.perfil != 'anonimo')
+    try
     {
-      await this.signOut();
+      this.skipGuardCheck = true;
+
+      const userCredentials: UserCredential = await createUserWithEmailAndPassword(this.auth, personaCredenciales.email, personaCredenciales.password)
+
+      await updateProfile(userCredentials.user, { displayName: personaCredenciales.perfil });
+
+      if (personaCredenciales.perfil != 'anonimo')
+      {
+        await this.signOut();
+      }
     }
+    catch (error){
+      console.log(error);
+    }
+    finally {
+      this.skipGuardCheck = false;
+    }
+    
   }
 
 
