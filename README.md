@@ -69,3 +69,11 @@ Mateo Spatola:
 ### Escaneo de QR
 
 ![Logo](src/assets/readme/escanearQR.png)
+
+### Aceptar Cliente
+
+![Logo](src/assets/readme/aprobarCliente.png)
+
+### Lista Clientes no aprobados
+
+![Logo](src/assets/readme/listaClientes.png)
