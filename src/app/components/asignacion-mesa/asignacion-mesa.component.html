@@ -1,0 +1,42 @@
+<ion-content>
+  <h2>Lista de Espera</h2>
+  <div>
+    @if(listaEspera.length == 0) {
+      <p>No hay clientes en lista de espera.</p>
+    }
+    @else {
+      @for (cliente of listaEspera; track $index) {
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>{{ cliente.name }} {{ cliente.apellido }}</ion-card-title>
+            @if(cliente.perfil == 'cliente') {
+              <ion-card-subtitle>Correo: {{ cliente.email }}</ion-card-subtitle>
+            }
+            @else {
+              <ion-card-subtitle>Cliente anónimo</ion-card-subtitle>
+            }
+          </ion-card-header>
+    
+          <ion-card-content>
+            <p>Estado: {{ cliente.estado }}</p>
+            <ion-item>
+              <ion-label>Asignar Mesa:</ion-label>
+              @if(mesasDisponibles.length == 0) {
+                <p>No hay mesas disponibles.</p>
+              }
+              @else {
+                <ion-select placeholder="Selecciona una mesa" (ionChange)="asignarMesa(cliente, $event.detail.value)">
+                  @for (mesa of mesasDisponibles; track $index) {
+                    <ion-select-option [value]="mesa">
+                      {{ mesa.nombre }}
+                    </ion-select-option>
+                  }
+                </ion-select>
+              }
+            </ion-item>
+          </ion-card-content>
+        </ion-card>
+      } 
+    }
+  </div>
+</ion-content>
