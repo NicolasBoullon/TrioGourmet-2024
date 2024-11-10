@@ -32,7 +32,7 @@ import {
   personOutline,
   qrCodeOutline,
 } from 'ionicons/icons';
-import { Cliente } from 'src/app/core/models/cliente.models';
+import { Usuario } from 'src/app/core/models/usuario.models';
 import { StorageService } from 'src/app/core/services/storage.service';
 import { DatabaseService } from 'src/app/core/services/database.service';
 import { PersonaCredenciales } from 'src/app/core/models/personaCredenciales.models';
@@ -162,7 +162,7 @@ export class ClienteSignUpPage {
   protected async saveFormData(): Promise<void> {
     const formData = { ...this.form.value };
 
-    const clienteData: Cliente = {
+    const clienteData: Usuario = {
       email: formData.email ?? '',
       password: formData.password ?? '',
       name: formData.name ?? '',
@@ -190,7 +190,7 @@ export class ClienteSignUpPage {
   protected async loadImage(
     fileBlob: Blob,
     collection: string,
-    data: Cliente
+    data: Usuario
   ): Promise<string> {
 
     // DEVUELVE LA URL DE LA IMAGEN.

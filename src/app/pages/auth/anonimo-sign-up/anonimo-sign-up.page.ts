@@ -42,7 +42,7 @@ export class AnonimoSignUpPage implements OnInit {
       cameraOutline,
       qrCodeOutline,
     });
-   }
+  }
 
   ngOnInit() {
   }
@@ -111,6 +111,7 @@ export class AnonimoSignUpPage implements OnInit {
 
     const clienteData: any = {
       name: formData.name ?? '',
+      email: formData.name + "@anonimo.com",
       image: formData.image ?? '',
       perfil: formData.perfil ?? ''
     };

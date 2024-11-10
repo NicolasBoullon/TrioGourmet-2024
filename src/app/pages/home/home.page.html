@@ -1,0 +1,31 @@
+<app-header title="Inicio" [showSignOut]="true"></app-header>
+
+<ion-content class="home">
+
+@if (userDoc) {
+  <h1>¡Bienvenido!</h1>
+
+  @if (userDoc.perfil == 'propietario' || userDoc.perfil == 'supervisor') {
+    <app-aprobacion-cliente></app-aprobacion-cliente>
+  }
+  @else if (userDoc.perfil == 'anonimo' || userDoc.perfil == 'cliente') {
+    <app-solicitar-mesa [correo]="user!.email!"></app-solicitar-mesa>
+
+    @if(userDoc.estado == 'en lista de espera') {
+      <h2>YA ESTA EN LISTA DE ESPERA (ACA IRIA LA ENCUESTA)</h2>
+    }
+    @else if(userDoc.estado == 'mesa asignada') {
+      <h2>YA TIENE MESA ASIGNADA (Aca puede: consultar al mozo vía 'chat', ver el menú,
+        acceder a encuestas, juegos, etc)</h2>
+    }
+  }
+  @else if (userDoc.perfil == 'maitre') {
+    <app-asignacion-mesa></app-asignacion-mesa>
+  }
+
+}
+@else {
+  <app-loading></app-loading>
+}
+  
+</ion-content>

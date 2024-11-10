@@ -4,7 +4,7 @@ import { AuthService } from '../services/auth.service';
 import { DatabaseService } from '../services/database.service';
 import { User } from '@angular/fire/auth';
 import { firstValueFrom } from 'rxjs';
-import { Cliente } from '../models/cliente.models';
+import { Usuario } from '../models/usuario.models';
 
 export const loginGuard: CanActivateFn = (route, state) => {
   const _authService = inject(AuthService);
@@ -29,7 +29,7 @@ export const loginGuard: CanActivateFn = (route, state) => {
       {
         if (auth.displayName == 'cliente')
         {
-          const clienteDoc: Cliente = await firstValueFrom(
+          const clienteDoc: Usuario = await firstValueFrom(
             _databaseService.getDocumentById('usuarios', auth.email!)
           );
   

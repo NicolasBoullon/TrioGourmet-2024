@@ -4,10 +4,10 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from "@ionic/angular";
 import { DatabaseService } from 'src/app/core/services/database.service';
 import { Subscription } from 'rxjs';
-import { Cliente } from 'src/app/core/models/cliente.models';
 import { NotificationService } from 'src/app/core/services/notification.service';
 import { LoadingComponent } from '../loading/loading.component';
 import { ApiRequestService } from 'src/app/core/services/api-request.service';
+import { Usuario } from 'src/app/core/models/usuario.models';
 
 @Component({
   selector: 'app-aprobacion-cliente',
@@ -23,9 +23,9 @@ export class AprobacionClienteComponent  implements OnInit {
   private _apiRequestService = inject(ApiRequestService);
 
   protected sub!:Subscription;
-  protected clientes: Cliente[] = [];
-  protected clientesSinAprobacion: Cliente[] = []
-  protected clienteSelected!:Cliente;
+  protected clientes: Usuario[] = [];
+  protected clientesSinAprobacion: Usuario[] = []
+  protected clienteSelected!:Usuario;
 
   protected isModalOpen: boolean = false;
   protected isLoading: boolean = false;
@@ -38,14 +38,13 @@ export class AprobacionClienteComponent  implements OnInit {
     this.sub = this._databaseService.getDocument('usuarios').subscribe({
       next: (res => {
         this.clientes = res.filter((usuario: any) => usuario.perfil === 'cliente');
-        // this.clientes = res;
         this.clientesSinAprobacion = this.clientes.filter((cliente) => cliente.estadoAprobacionCuenta == 'pendiente');
         this.isLoading = false;
       })
     })
   }
 
-  async aprobarCliente(clienteSelected: Cliente){
+  async aprobarCliente(clienteSelected: Usuario){
     this._notificactionService.presentLoading('Aprobando cliente...');
     await this._databaseService.updateDocumentField('usuarios', clienteSelected.email, 'estadoAprobacionCuenta', 'aprobada');
     this._notificactionService.dismissLoading();
@@ -53,7 +52,7 @@ export class AprobacionClienteComponent  implements OnInit {
     this._apiRequestService.sendMail(true, `${clienteSelected.name} ${clienteSelected.apellido}`, clienteSelected.email).subscribe();
   }
 
-  async rechazarCliente(clienteSelected: Cliente){
+  async rechazarCliente(clienteSelected: Usuario){
     this._notificactionService.presentLoading('Rechazando cliente...');
     await this._databaseService.updateDocumentField('usuarios', clienteSelected.email, 'estadoAprobacionCuenta', 'rechazada');
     this._notificactionService.dismissLoading();
@@ -61,7 +60,7 @@ export class AprobacionClienteComponent  implements OnInit {
     this._apiRequestService.sendMail(false, `${clienteSelected.name} ${clienteSelected.apellido}`, clienteSelected.email).subscribe();
   }
 
-  openModal(cliente: Cliente) {
+  openModal(cliente: Usuario) {
     this.isModalOpen = true;
     this.clienteSelected = cliente;
   }
