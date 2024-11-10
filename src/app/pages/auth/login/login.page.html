@@ -27,8 +27,8 @@
     <div class="password">
       <ion-item lines="none" class="input">
         <ion-icon color="primary" slot="start" name="lock-closed-outline"></ion-icon>
-        <ion-input [type]="showPassword ? 'password' : 'text'" [formControl]="form.controls.password" label="Contraseña" placeholder="Ingrese su contraseña" label-placement="stacked"/>
-        <ion-icon color="primary" slot="end" (click)="showOrHidePassword()" [name]="showPassword ? 'eye-outline' : 'eye-off-outline'"></ion-icon>
+        <ion-input [type]="showPassword ? 'text' : 'password'" [formControl]="form.controls.password" label="Contraseña" placeholder="Ingrese su contraseña" label-placement="stacked"/>
+        <ion-icon color="primary" slot="end" (click)="showOrHidePassword()" [name]="showPassword ? 'eye-off-outline' : 'eye-outline'"></ion-icon>
         
       </ion-item>
       <div class="validators">

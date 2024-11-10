@@ -67,7 +67,7 @@ export class AnonimoSignUpPage implements OnInit {
       try {
         const anonimo: PersonaCredenciales = {
           name: this.form.value.name ?? '',
-          email: this.form.value.name + "@anonimo.com",
+          email: (this.form.value.name ?? '').replace(/\s+/g, '').toLowerCase() + "@anonimo.com",
           password: '123456',
           perfil: this.form.value.perfil ?? ''
         };
@@ -111,7 +111,7 @@ export class AnonimoSignUpPage implements OnInit {
 
     const clienteData: any = {
       name: formData.name ?? '',
-      email: formData.name + "@anonimo.com",
+      email: (formData.name ?? '').replace(/\s+/g, '').toLowerCase() + "@anonimo.com",
       image: formData.image ?? '',
       perfil: formData.perfil ?? ''
     };

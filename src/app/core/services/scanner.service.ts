@@ -44,10 +44,10 @@ export class ScannerService {
         this._notificationService.presentToast('Ya tiene una mesa asignada, no puede volver a la lista de espera.', 2000, 'danger', 'middle');
       }
     }
-    else if (scannedQR == 'mesa uno' || scannedQR == 'mesa dos' || scannedQR == 'mesa tres') {
+    else if (scannedQR == 'Mesa 1' || scannedQR == 'Mesa 2' || scannedQR == 'Mesa 3') {
 
       if (clienteDoc.estado == 'mesa asignada') {
-        if (clienteDoc.mesa === scannedQR) {
+        if (clienteDoc.mesa == scannedQR) {
 
           this._notificationService.presentToast(`Acceso permitido a la ${scannedQR}.`, 2000, 'success', 'middle');
           
@@ -56,8 +56,6 @@ export class ScannerService {
         } else {
           this._notificationService.presentToast(`Acceso denegado. Usted tiene asignada la ${clienteDoc.mesa}.`, 2000, 'danger', 'middle');
         }
-
-
       }
       else if (clienteDoc.estado == 'en lista de espera') {
         this._notificationService.presentToast('Debe esperar a que el maitre le asigne una mesa.', 2000, 'warning', 'middle');
