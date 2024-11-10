@@ -126,7 +126,7 @@ export class AnonimoSignUpPage implements OnInit {
     await this._databaseService.setDocument(
       'usuarios',
       clienteData,
-      clienteData.name + '@anonimo.com'
+      clienteData.email
     );
   }
 
