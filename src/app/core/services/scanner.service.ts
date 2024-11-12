@@ -48,10 +48,15 @@ export class ScannerService {
 
       if (clienteDoc.estado == 'mesa asignada') {
         if (clienteDoc.mesa == scannedQR) {
+          
+          // MATE: ACA HAY QUE VER QUE COMO ES EL QR DE SU MESA LE APAREZCA EL CHAT, MENU, ETC
+          
+          // Iván: Acá para mi hay q diferenciar cuando leyó la mesa o no, el primer qr q le aparece es para solicitar mesa, pero luego una vez ya la solicitó y está en lista d espera accede a las encuestas, pero cuando le asignaron una mesa y escanea d vuelta su mesa correspondiente ahí le tiene q aparecer el menú, el chat, etc. No cuando le asignan una mesa, pero  por ahora lo dejo así, despues preguntar al grupo
+
+          // await this._databaseService.updateDocumentField('usuarios', correo, 'lecturaMesa', true);
 
           this._notificationService.presentToast(`Acceso permitido a la ${scannedQR}.`, 2000, 'success', 'middle');
           
-          // ACA HAY QUE VER QUE COMO ES EL QR DE SU MESA LE APAREZCA EL CHAT, MENU, ETC
 
         } else {
           this._notificationService.presentToast(`Acceso denegado. Usted tiene asignada la ${clienteDoc.mesa}.`, 2000, 'danger', 'middle');

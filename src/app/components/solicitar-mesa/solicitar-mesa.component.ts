@@ -1,5 +1,5 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
-import { IonIcon, IonButton } from '@ionic/angular/standalone';
+import {  IonImg } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { qrCodeOutline } from 'ionicons/icons';
 import { ScannerService } from 'src/app/core/services/scanner.service';
@@ -10,8 +10,7 @@ import { ScannerService } from 'src/app/core/services/scanner.service';
   styleUrls: ['./solicitar-mesa.component.scss'],
   standalone: true,
   imports: [
-    IonButton,
-    IonIcon
+    IonImg
   ]
 })
 export class SolicitarMesaComponent  implements OnInit {

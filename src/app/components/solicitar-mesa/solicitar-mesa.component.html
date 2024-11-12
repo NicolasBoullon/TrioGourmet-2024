@@ -1,8 +1,9 @@
 
 <!-- Botón de QR -->
-<div class="qr">
-  <ion-button expand="block" (click)="scannerService.scanQR(correo)">
-    Escanear QR
-    <ion-icon slot="end" name="qr-code-outline"></ion-icon>
-  </ion-button>
+<div class="solicitar-mesa-container">
+  <div class="qr-container" (click)="scannerService.scanQR(correo)">
+    <ion-img src="assets/images/codigo-qr.png" class="qr-image"></ion-img>
+    <div class="scan-bar"></div>
+    <div class="qr-text">Escanear</div>
+  </div>
 </div>

@@ -1,31 +1,42 @@
 <app-header title="Inicio" [showSignOut]="true"></app-header>
 
 <ion-content class="home">
+  @if (userDoc) {
+    <h1 class="welcome-title">¡Bienvenido!</h1>
 
-@if (userDoc) {
-  <h1>¡Bienvenido!</h1>
-
-  @if (userDoc.perfil == 'propietario' || userDoc.perfil == 'supervisor') {
-    <app-aprobacion-cliente></app-aprobacion-cliente>
-  }
-  @else if (userDoc.perfil == 'anonimo' || userDoc.perfil == 'cliente') {
-    <app-solicitar-mesa [correo]="user!.email!"></app-solicitar-mesa>
-
-    @if(userDoc.estado == 'en lista de espera') {
-      <h2>YA ESTA EN LISTA DE ESPERA (ACA IRIA LA ENCUESTA)</h2>
+    @if (userDoc.perfil == 'propietario' || userDoc.perfil == 'supervisor') {
+      <div class="section">
+        <h2 class="section-title">Clientes en espera de aprobación</h2>
+        <app-aprobacion-cliente></app-aprobacion-cliente>
+      </div>
     }
-    @else if(userDoc.estado == 'mesa asignada') {
-      <h2>YA TIENE MESA ASIGNADA (Aca puede: consultar al mozo vía 'chat', ver el menú,
-        acceder a encuestas, juegos, etc)</h2>
+    @else if (userDoc.perfil == 'anonimo' || userDoc.perfil == 'cliente') {
+      <div class="section">
+        <h2 class="section-title">Opciones:</h2>
+        <app-solicitar-mesa class="action-button" [correo]="user!.email!"></app-solicitar-mesa>
+
+        @if(userDoc.estado == 'en lista de espera') {
+          <ion-button class="action-button" routerLink="/encuesta">Encuestas</ion-button>
+        }
+        @else if(userDoc.estado == 'mesa asignada') {
+          <div class="assigned-table">
+            <h2>YA TIENE MESA ASIGNADA</h2>
+            <p>Puede acceder a las siguientes opciones:</p>
+            <ion-button class="action-button">Chat con Mozo</ion-button>
+            <ion-button class="action-button">Ver Menú</ion-button>
+            <ion-button class="action-button">Juegos</ion-button>
+          </div>
+        }
+      </div>
+    }
+    @else if (userDoc.perfil == 'maitre') {
+      <div class="section">
+        <h2 class="section-title">Asignación de Mesas</h2>
+        <app-asignacion-mesa></app-asignacion-mesa>
+      </div>
     }
   }
-  @else if (userDoc.perfil == 'maitre') {
-    <app-asignacion-mesa></app-asignacion-mesa>
+  @else {
+    <app-loading></app-loading>
   }
-
-}
-@else {
-  <app-loading></app-loading>
-}
-  
 </ion-content>

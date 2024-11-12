@@ -31,5 +31,9 @@ export const routes: Routes = [
   {
     path: 'anonimo-sign-up',
     loadComponent: () => import('./pages/auth/anonimo-sign-up/anonimo-sign-up.page').then( m => m.AnonimoSignUpPage)
+  },  {
+    path: 'encuesta',
+    loadComponent: () => import('./pages/encuesta/encuesta.page').then( m => m.EncuestaPage)
   },
+
 ];

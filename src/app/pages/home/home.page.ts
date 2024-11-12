@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { IonContent } from '@ionic/angular/standalone';
+import { IonContent,IonButton } from '@ionic/angular/standalone';
 import { HeaderComponent } from 'src/app/shared/header/header.component';
 import { AuthService } from '../../core/services/auth.service';
 import { Unsubscribe, User } from '@angular/fire/auth';
@@ -10,6 +10,7 @@ import { SolicitarMesaComponent } from 'src/app/components/solicitar-mesa/solici
 import { DatabaseService } from 'src/app/core/services/database.service';
 import { Usuario } from 'src/app/core/models/usuario.models';
 import { AsignacionMesaComponent } from "../../components/asignacion-mesa/asignacion-mesa.component";
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -18,12 +19,14 @@ import { AsignacionMesaComponent } from "../../components/asignacion-mesa/asigna
   standalone: true,
   imports: [
     IonContent,
+    IonButton,
     HeaderComponent,
     AprobacionClienteComponent,
     LoadingComponent,
     SolicitarMesaComponent,
-    AsignacionMesaComponent
-],
+    AsignacionMesaComponent,
+    RouterLink
+  ],
 })
 export class HomePage {
   private _authService = inject(AuthService);

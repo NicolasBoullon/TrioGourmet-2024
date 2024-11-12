@@ -1,0 +1,51 @@
+<app-header title="Encuesta satisfacción" backButton="/home"></app-header>
+
+<ion-content [fullscreen]="true" class="encuestas-content">
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12">
+        <h2>Opiniones de Nuestros Clientes</h2>
+        <p>Explora las encuestas completadas para conocer la experiencia de nuestros clientes y ayudarnos a mejorar cada día.</p>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size="12">
+        <ion-list>
+          @for (encuesta of encuestas; track $index) {
+            <ion-card color="light" class="encuesta-card">
+              <ion-card-header color="secondary">
+                <ion-card-title>{{ encuesta.fecha | date: 'shortDate' }}</ion-card-title>
+                <ion-card-subtitle>Calificación General: {{ encuesta.calificacionGeneral }}</ion-card-subtitle>
+              </ion-card-header>
+              
+              <ion-card-content>
+                <p><strong>Calidad de la comida:</strong> {{ encuesta.calidadComida }}</p>
+                <p><strong>Tiempo de espera:</strong> {{ encuesta.tiempoEspera }}</p>
+                <p><strong>Amabilidad del personal:</strong> {{ encuesta.amabilidadPersonal }}</p>
+                <p><strong>Limpieza:</strong> {{ encuesta.limpieza.join(', ') }}</p>
+  
+                <!-- <ion-button fill="clear" color="secondary" (click)="verDetalles(encuesta)">Ver detalles</ion-button>  -->
+              </ion-card-content>
+  
+              @if(encuesta.fotos && encuesta.fotos.length > 0)
+              {
+                <swiper-container class="foto-slider" [loop]="true" [pagination]="true" [zoom]="true">
+                  @for(foto of encuesta.fotos; track $index)
+                  {
+                    <swiper-slide>
+                      <div class="swiper-zoom-container">
+                        <img [src]="foto" alt="Foto de la encuesta" />
+                      </div>
+                    </swiper-slide>
+                  }
+                </swiper-container>
+              }
+            </ion-card>
+          }
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+

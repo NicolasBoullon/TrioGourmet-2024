@@ -27,32 +27,21 @@ export const loginGuard: CanActivateFn = (route, state) => {
       
       if (auth)
       {
-        if (auth.displayName == 'cliente')
+        const clienteDoc: Usuario = await firstValueFrom(
+          _databaseService.getDocumentById('usuarios', auth.email!)
+        );
+        if (
+          clienteDoc.perfil == 'cliente' &&
+          clienteDoc.estadoAprobacionCuenta != 'aprobada'
+        )
         {
-          const clienteDoc: Usuario = await firstValueFrom(
-            _databaseService.getDocumentById('usuarios', auth.email!)
-          );
-  
-          if (
-            clienteDoc.perfil == 'cliente' &&
-            clienteDoc.estadoAprobacionCuenta != 'aprobada'
-          )
-          {
-            resolve(true);
-          }
-          else
-          {
-            console.log("mueve al home 1 ");
-            router.navigateByUrl('/home', { replaceUrl: true });
-            resolve(false);
-          }
+          resolve(true);
         }
         else
         {
-          console.log("mueve al home 2");
-
+          console.log("mueve al home 1 ");
           router.navigateByUrl('/home', { replaceUrl: true });
-          resolve(false);  
+          resolve(false);
         }
       } 
       else

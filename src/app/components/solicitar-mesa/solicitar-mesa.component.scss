@@ -1,9 +1,59 @@
-.qr ion-button{
-    margin: 50px;
-    --border-radius: 8px;
-    --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    font-size: 1.1rem;
+.solicitar-mesa-container {
+    padding: 5px;
 }
-.qr ion-icon{
-    padding: 7px 0px;
+
+.qr-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    margin: 0 auto;
+    margin-bottom: 30px;
+    transition: transform 0.1s ease-in-out;
+}
+
+.qr-container:active {
+    transform: scale(0.95);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.qr-image {
+    width: 100%;
+    height: auto;
+    border: 2px solid #ccc;
+    border-bottom: 0;
+    border-radius: 10px 10px 0 0;
+}
+
+.qr-text {
+    position: absolute;
+    color: white;
+    font-size: 1.2em;
+    bottom: -30px; 
+    text-align: center;
+    width: 100%;
+    background: rgba(128, 23, 4, 0.5);
+    padding: 5px 0;
+    border-radius: 0 0 10px 10px;
+    border-top: 0
+}
+
+.scan-bar {
+    position: absolute;
+    width: 90%;
+    height: 4px;
+    background-color: red;
+    border-radius: 2px;
+    top: 0;
+    animation: scan-animation 2s ease-in-out infinite alternate;
+}
+
+@keyframes scan-animation {
+    0% {
+        top: 0;
+    }
+    100% {
+        top: 90%;
+    }
 }
