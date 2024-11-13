@@ -1,4 +1,4 @@
-import { Component, OnInit, CUSTOM_ELEMENTS_SCHEMA, inject } from '@angular/core';
+import { Component, OnInit, CUSTOM_ELEMENTS_SCHEMA, inject, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
@@ -12,7 +12,10 @@ import { LoadingComponent } from "../../components/loading/loading.component";
 import { NotificationService } from 'src/app/core/services/notification.service';
 import { NotificationsPushService } from 'src/app/core/services/notifications-push.service';
 import { ApiRequestService } from 'src/app/core/services/api-request.service';
-
+import { AuthService } from 'src/app/core/services/auth.service';
+import { Usuario } from 'src/app/core/models/usuario.models';
+import { Unsubscribe, User } from '@angular/fire/auth';
+import { Pedido } from 'src/app/core/models/pedido.model';
 register();
 @Component({
   selector: 'app-menu',
@@ -22,11 +25,12 @@ register();
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [IonicModule, CommonModule, FormsModule, HeaderComponent, LoadingComponent]
 })
-export class MenuPage implements OnInit {
+export class MenuPage implements OnInit, OnDestroy{
 
   private databaseService = inject(DatabaseService);
   private notificationService = inject(NotificationService);
   private apiRequestService = inject(ApiRequestService);
+  private authService = inject(AuthService);
 
   // LO DEJO ACÁ PARA QUE VEAN EL MENU COMO LO INCRUSTE ASI NOMAS A FIREBASE
 
@@ -53,7 +57,9 @@ export class MenuPage implements OnInit {
   //     ]
   //   }
   // ];
-
+  private authSubscription?: Unsubscribe;
+  protected user?: User | null;
+  protected userDoc?: Usuario;
   menu: Categoria[] = []
 
   totalAmount = 0;
@@ -62,6 +68,7 @@ export class MenuPage implements OnInit {
   isOrderModalOpen = false;
   orderItems: Producto[] = [];
 
+  YaRealizoPedido:boolean = false;
   constructor() {}
 
   async ngOnInit() {
@@ -73,7 +80,14 @@ export class MenuPage implements OnInit {
     } else {
       console.error('Los datos no están en el formato esperado', result);
     }
-    
+    this.authSubscription = this.authService.auth.onAuthStateChanged((user: User | null) => {
+      this.user = user;
+      if (this.user) {
+        this.databaseService.getDocumentById('usuarios', this.user.email!).subscribe(res => {
+          this.userDoc = res;
+        });
+      }
+    })
   }
 
   openOrderModal() {
@@ -182,7 +196,8 @@ export class MenuPage implements OnInit {
 
   async realizarPedido()
   {
-    await this.databaseService.setDocument('pedidos', this.orderItems, 'Acá iría la mesa que le tengo que pasar')
+    const pedidoAEnviar = this.ArmarPedido();
+    await this.databaseService.setDocument('pedidos', pedidoAEnviar)
     await this.notificationService.showConfirmAlert(
       '¡Pedido Generado con éxito!',
       'El pedido se encuentra pendiente de confirmación. Su pedido comenzará a hacerse en cuanto el mozo confirme.',
@@ -194,5 +209,23 @@ export class MenuPage implements OnInit {
         this.notificationService.routerLink('/home');
       }
     );
+    this.YaRealizoPedido = true;
+  }
+
+
+  ArmarPedido(){
+    const pedido:Pedido = {
+      mesa: this.userDoc?.mesa ?? '',
+      cliente: this.userDoc?.email ?? '',
+      productos: this.orderItems,
+      estado: 'pendiente',
+    }
+    return pedido;
+  }
+
+  ngOnDestroy() {
+    if (this.authSubscription) {
+      this.authSubscription();
+    }
   }
 }

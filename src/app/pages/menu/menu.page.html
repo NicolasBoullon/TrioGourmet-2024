@@ -53,9 +53,9 @@
             <ion-label>Total: {{ totalAmount | currency }}</ion-label>
             <ion-note slot="end">Tiempo estimado: {{ estimatedTime }} mins</ion-note>
           </ion-item>
-    
-          <div style="text-align: center; margin-top: 1rem;">
-            <ion-button expand="block" color="primary" size="large">
+        
+          <div style="text-align: center; margin-top: 1rem;" *ngIf="!YaRealizoPedido"><!--Agregue este ngIf -->
+            <ion-button expand="block" color="primary" size="large" (click)="realizarPedido()">
               Realizar Pedido
             </ion-button>
           </div>

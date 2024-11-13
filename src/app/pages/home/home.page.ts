@@ -17,6 +17,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NotificationService } from 'src/app/core/services/notification.service';
 import { ApiRequestService } from 'src/app/core/services/api-request.service';
+import { AprobacionPedidoComponent } from 'src/app/components/aprobacion-pedido/aprobacion-pedido.component';
 
 @Component({
   selector: 'app-home',
@@ -42,6 +43,7 @@ import { ApiRequestService } from 'src/app/core/services/api-request.service';
     LoadingComponent,
     SolicitarMesaComponent,
     AsignacionMesaComponent,
+    AprobacionPedidoComponent,
     RouterLink
   ],
 })
