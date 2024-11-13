@@ -21,10 +21,24 @@
         @else if(userDoc.estado == 'mesa asignada') {
           <div class="assigned-table">
             <h2>YA TIENE MESA ASIGNADA</h2>
-            <p>Puede acceder a las siguientes opciones:</p>
-            <ion-button class="action-button">Chat con Mozo</ion-button>
-            <ion-button class="action-button">Ver Menú</ion-button>
-            <ion-button class="action-button">Juegos</ion-button>
+            
+            @if(userDoc.lecturaMesa)
+            {
+              <p>Ahora puede acceder a las siguientes opciones:</p>
+              <ion-button class="action-button">Chat con Mozo</ion-button>
+              <ion-button class="action-button" routerLink="/menu">Ver Menú y realizar pedido</ion-button>
+              <ion-button class="action-button">Juegos</ion-button>
+            }
+            @else 
+            {
+              <p>Escanee el código de la mesa para acceder a las siguientes opciones:</p>
+              <ul class="options">
+                <li>Chat con Mozo</li>
+                <li>Ver Menú</li>
+                <li>Juegos</li>
+              </ul>
+            }
+
           </div>
         }
       </div>

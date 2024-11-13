@@ -36,6 +36,17 @@
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 // @import '@ionic/angular/css/palettes/dark.system.css';
 
+.foto-slider {
+    --swiper-pagination-bullet-inactive-color: var(--color-secundario);
+    --swiper-pagination-color: var(--color-secundario);
+    height: 200px;
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 0 0 10px 10px;
+    }
+}
 .spinner-logo-loading .loading-wrapper::before {
     content: '';
     display: block;
