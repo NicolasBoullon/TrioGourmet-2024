@@ -1,0 +1,107 @@
+<app-header title="Menú" backButton="/home"></app-header>
+
+<ion-content class="menu-content">
+  <!-- Importe acumulado -->
+  @if(menu.length > 0)
+  {
+    <div class="order-summary">
+      <p>Importe Acumulado: <strong>{{ totalAmount | currency }}</strong></p>
+      <p>Tiempo estimado total: <strong>{{ estimatedTime }} mins</strong></p>
+      <ion-button expand="block" (click)="openOrderModal()">Ver Pedido</ion-button>
+    </div>
+
+    <ion-modal [isOpen]="isOrderModalOpen" (didDismiss)="closeOrderModal()">
+      <ng-template>
+        <ion-header>
+          <ion-toolbar>
+            <ion-title>Pedido</ion-title>
+            <ion-buttons slot="end">
+              <ion-button (click)="closeOrderModal()" style="--background: var(--color-primario);">Cerrar</ion-button>
+            </ion-buttons>
+          </ion-toolbar>
+        </ion-header>
+    
+        <ion-content>
+          <ion-list>
+            <ng-container>
+              @for(producto of orderItems; track $index)
+              {
+                <ion-item>
+                  <ion-checkbox slot="start" (ionChange)="checkboxClick(producto)" [(ngModel)]="producto.selected"></ion-checkbox>
+                  <ion-thumbnail slot="start">
+                    <img [src]="producto.imagenes[0]" alt="imagen de {{ producto.nombre }}">
+                  </ion-thumbnail>
+                  <ion-label>
+                    <h3>{{ producto.nombre }}</h3>
+                    <p>{{ producto.precio | currency }}</p>
+                  </ion-label>
+                  <ion-button fill="outline" size="small" (click)="decrementarCantidad(producto, true)">
+                    -
+                  </ion-button>
+                  <span class="cantidad">{{ producto.cantidad }}</span>
+                  <ion-button fill="outline" size="small" (click)="incrementarCantidad(producto, true)">
+                    +
+                  </ion-button>
+                </ion-item>
+              }
+              
+            </ng-container>
+          </ion-list>
+        </ion-content>
+        <ion-footer>
+          <ion-item lines="none" style="margin-top: 1rem; font-weight: bold;">
+            <ion-label>Total: {{ totalAmount | currency }}</ion-label>
+            <ion-note slot="end">Tiempo estimado: {{ estimatedTime }} mins</ion-note>
+          </ion-item>
+    
+          <div style="text-align: center; margin-top: 1rem;">
+            <ion-button expand="block" color="primary" size="large">
+              Realizar Pedido
+            </ion-button>
+          </div>
+        </ion-footer>
+      </ng-template>
+    </ion-modal>
+
+    <!-- Secciones del menú -->
+    @for(categoria of menu; track $index)
+    {
+      <div class="menu-section">
+        <h2>{{ categoria.nombre }}</h2>
+        
+        @for(producto of categoria.items; track $index) {
+          <div class="producto-card">
+            <swiper-container class="foto-slider" [pagination]="true" [zoom]="true">
+              @for(imagen of producto.imagenes; track $index)
+              {
+                <swiper-slide>
+                  <div class="swiper-zoom-container">
+                    <img [src]="imagen" alt="imagen de {{ producto.nombre }}">
+                  </div>
+                </swiper-slide>
+              }
+            </swiper-container>
+            
+            <h3>{{ producto.nombre }}</h3>
+            <p>{{ producto.descripcion }}</p>
+            <p>Precio: {{ producto.precio | currency }}</p>
+            <p>Tiempo de elaboración: {{ producto.tiempoPreparacion }} mins</p>
+            <div class="quantity-controls">
+              <ion-button fill="outline" size="small" (click)="decrementarCantidad(producto)">
+                -
+              </ion-button>
+              <span class="cantidad">{{ producto.cantidad }}</span>
+              <ion-button fill="outline" size="small" (click)="incrementarCantidad(producto)">
+                +
+              </ion-button>
+            </div>
+            <ion-button expand="block" (click)="addToOrder(producto)" [disabled]="producto.cantidad == 0">Añadir al Pedido</ion-button>
+          </div>
+        }
+      </div>
+    }
+  }
+  @else {
+    <app-loading></app-loading>
+  }
+</ion-content>

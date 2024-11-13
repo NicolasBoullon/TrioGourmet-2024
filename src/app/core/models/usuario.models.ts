@@ -7,5 +7,6 @@ export interface Usuario extends PersonaCredenciales
   image: string,
   estadoAprobacionCuenta: string,
   estado?: string,
-  mesa?: string
+  mesa?: string,
+  lecturaMesa?: boolean
 }
