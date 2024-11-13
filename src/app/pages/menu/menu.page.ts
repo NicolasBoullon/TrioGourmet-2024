@@ -197,7 +197,8 @@ export class MenuPage implements OnInit, OnDestroy{
   async realizarPedido()
   {
     const pedidoAEnviar = this.ArmarPedido();
-    await this.databaseService.setDocument('pedidos', pedidoAEnviar)
+    const idPedido = await this.databaseService.setDocument('pedidos', pedidoAEnviar);
+    await this.databaseService.updateDocumentField('pedidos', idPedido ,'id', idPedido);
     await this.notificationService.showConfirmAlert(
       '¡Pedido Generado con éxito!',
       'El pedido se encuentra pendiente de confirmación. Su pedido comenzará a hacerse en cuanto el mozo confirme.',
@@ -209,6 +210,7 @@ export class MenuPage implements OnInit, OnDestroy{
         this.notificationService.routerLink('/home');
       }
     );
+    this.closeOrderModal();
     this.YaRealizoPedido = true;
   }
 
@@ -219,6 +221,7 @@ export class MenuPage implements OnInit, OnDestroy{
       cliente: this.userDoc?.email ?? '',
       productos: this.orderItems,
       estado: 'pendiente',
+      id:'',
     }
     return pedido;
   }

@@ -1,3 +1,19 @@
-<p>
-  aprobacion-pedido works!
-</p>
+<div class="container-pedidos">
+  @if(pedidosFiltrados.length == 0){
+    <h2 >No hay pedidos realizados</h2>
+  }@else {
+    <h2 >Aprobar pedidos</h2>
+    @for (pedido of pedidosFiltrados; track $index) {
+      <div class="row-pedido" *ngIf="pedido.estado == 'pendiente'">
+        <div class="pedido">
+          <h3 class="title-mesa">{{ pedido.mesa }}</h3>
+          <p *ngFor="let producto of pedido.productos">{{ producto.descripcion }} x {{ producto.cantidad }}</p>
+        </div>
+        <div class="row-btn">
+          <ion-button (click)="CambiarEstadoPedido(true,pedido)">Aceptar</ion-button>
+          <ion-button (click)="CambiarEstadoPedido(false,pedido)">Rechazar</ion-button>
+        </div>
+      </div>
+    }
+  }
+</div>  

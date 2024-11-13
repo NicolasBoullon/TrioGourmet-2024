@@ -5,4 +5,5 @@ export interface Pedido{
     productos:Producto[];
     cliente:string;
     estado: 'pendiente' | 'rechazado' | 'aceptado';
+    id:string;
 }

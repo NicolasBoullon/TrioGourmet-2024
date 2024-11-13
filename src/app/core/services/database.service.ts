@@ -11,13 +11,20 @@ export class DatabaseService {
   
   constructor() { }
 
-  public setDocument(path: string, data: any, documentId?: string) : Promise<void>
-  {
-    const document = documentId 
-      ? this.firestore.collection(path).doc(documentId)
-      : this.firestore.collection(path).doc();
+  // public setDocument(path: string, data: any, documentId?: string) : Promise<void>
+  // {
+  //   const document = documentId 
+  //     ? this.firestore.collection(path).doc(documentId)
+  //     : this.firestore.collection(path).doc();
 
-    return document.set({ ...data });
+  //   return document.set({ ...data });
+  // }
+  public async setDocument(collection: string, data: any, documentId?: string): Promise<string> {
+    if (documentId) {
+      return this.firestore.collection(collection).doc(documentId).set(data).then(() => documentId);
+    } else {
+      return this.firestore.collection(collection).add(data).then(docRef => docRef.id);
+    }
   }
 
   public getDocument(path: string) : Observable<any>
@@ -26,6 +33,7 @@ export class DatabaseService {
     return observable;
   }
 
+  
   public getDocumentById(collection: string, documentId: string) : Observable<any>{
     const observable: Observable<any> = this.firestore.collection(collection).doc(documentId).valueChanges();
     return observable;
