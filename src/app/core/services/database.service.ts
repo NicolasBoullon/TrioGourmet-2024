@@ -1,5 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { Timestamp } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -37,5 +38,9 @@ export class DatabaseService {
   public updateDocumentField(path: string, documentId: string, field: string, value: any): Promise<void> {
     const document = this.firestore.collection(path).doc(documentId);
     return document.update({ [field]: value });
+  }
+
+  convertTimestampToDate(timestamp: Timestamp): Date {
+    return new Date(timestamp.seconds * 1000);
   }
 }
