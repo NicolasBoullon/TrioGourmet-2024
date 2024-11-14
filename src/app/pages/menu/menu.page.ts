@@ -196,7 +196,7 @@ export class MenuPage implements OnInit, OnDestroy{
 
   async realizarPedido()
   {
-    const pedidoAEnviar = this.ArmarPedido();
+    const pedidoAEnviar = await this.ArmarPedido();
     const idPedido = await this.databaseService.setDocument('pedidos', pedidoAEnviar);
     await this.databaseService.updateDocumentField('pedidos', idPedido ,'id', idPedido);
     await this.notificationService.showConfirmAlert(
@@ -215,15 +215,39 @@ export class MenuPage implements OnInit, OnDestroy{
   }
 
 
-  ArmarPedido(){
+  async ArmarPedido(){
+    const tieneCocina:"no tiene" | "en preparacion" = await this.TieneCocina();
+    const tieneBar:"no tiene" | "en preparacion" = await this.TieneBar();
     const pedido:Pedido = {
       mesa: this.userDoc?.mesa ?? '',
       cliente: this.userDoc?.email ?? '',
       productos: this.orderItems,
       estado: 'pendiente',
       id:'',
+      cocina: tieneCocina,
+      bar: tieneBar,
     }
     return pedido;
+  }
+
+  async TieneCocina():Promise<"no tiene" | "en preparacion">{
+    const array = ['Hamburguesa con queso y papas fritas.','Pizza de pepperoni con extra queso.','Empanada argentina de carne.','Helado de vainilla con frutilla y chocolate.']
+    for (let i = 0; i < this.orderItems.length; i++) {
+       if(array.includes(this.orderItems[i].descripcion)){
+        return 'en preparacion';
+       }
+    }
+    return 'no tiene';
+  }
+
+  async TieneBar():Promise<"no tiene" | "en preparacion">{
+    const array = ['Botella de agua mineral.','Limonada fresca con menta.'];
+    for (let i = 0; i < this.orderItems.length; i++) {
+      if(array.includes(this.orderItems[i].descripcion)){
+       return 'en preparacion';
+      }
+   }
+   return 'no tiene';
   }
 
   ngOnDestroy() {
