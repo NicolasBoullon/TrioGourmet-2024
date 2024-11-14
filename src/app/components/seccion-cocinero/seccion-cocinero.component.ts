@@ -3,7 +3,7 @@ import { Subscription } from 'rxjs';
 import { Pedido } from 'src/app/core/models/pedido.model';
 import { DatabaseService } from 'src/app/core/services/database.service';
 import {IonicModule} from '@ionic/angular';
-import { CommonModule } from '@angular/common';
+import { CommonModule, formatDate } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-seccion-cocinero',
@@ -51,6 +51,10 @@ export class SeccionCocineroComponent  implements OnInit , OnDestroy{
     //enviar push al mozo para decirle que el pedidod en comida esta listo para servir
   }
    
+  ConvertirTimeStamp(fecha:any){
+    const date  =  new Date(fecha * 1000);
+    return formatDate(date,'HH:mm', 'en-Us');
+  }
   ngOnDestroy(): void {
     this.subPedidos.unsubscribe();
   }

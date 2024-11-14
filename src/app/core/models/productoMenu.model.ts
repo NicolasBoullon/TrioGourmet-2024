@@ -5,5 +5,6 @@ export interface Producto {
   descripcion: string;
   tiempoPreparacion: number;
   cantidad: number;
-  selected: boolean
+  selected: boolean;
+  sector: 'Comidas' | 'Bebidas';
 }

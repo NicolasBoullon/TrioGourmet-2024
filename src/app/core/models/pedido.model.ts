@@ -6,8 +6,8 @@ export interface Pedido{
     mesa:string;
     productos:Producto[];
     cliente:string;
-    estado: 'pendiente' | 'rechazado' | 'aceptado';
+    estado: 'pendiente' | 'rechazado' | 'aceptado' | 'en mesa'; // | 'en mesa'
     id:string;
-    cocina: 'no tiene' | 'en preparacion' | 'listo para servir';
-    bar: 'no tiene' | 'en preparacion' | 'listo para servir';
+    cocina: 'no tiene' | 'en preparacion' | 'listo para servir' | 'entregado';
+    bar: 'no tiene' | 'en preparacion' | 'listo para servir' | 'entregado';
 }
