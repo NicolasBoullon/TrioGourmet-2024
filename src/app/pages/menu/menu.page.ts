@@ -219,6 +219,7 @@ export class MenuPage implements OnInit, OnDestroy{
     const tieneCocina:"no tiene" | "en preparacion" = await this.TieneCocina();
     const tieneBar:"no tiene" | "en preparacion" = await this.TieneBar();
     const pedido:Pedido = {
+      fecha: new Date(),
       mesa: this.userDoc?.mesa ?? '',
       cliente: this.userDoc?.email ?? '',
       productos: this.orderItems,

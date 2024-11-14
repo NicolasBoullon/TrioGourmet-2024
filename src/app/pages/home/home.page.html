@@ -54,6 +54,15 @@
         <app-aprobacion-pedido></app-aprobacion-pedido>
       </div>
     }
+    @else if (userDoc.perfil == 'cocinero'){
+      <div class="section">
+        <app-seccion-cocinero></app-seccion-cocinero>
+      </div>
+    }
+    @else if (userDoc.perfil == 'bartender'){
+      <app-seccion-bartender></app-seccion-bartender>
+    }
+
   }
   @else {
     <app-loading></app-loading>

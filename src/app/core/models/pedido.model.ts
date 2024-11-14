@@ -1,6 +1,8 @@
 import { Producto } from "./productoMenu.model";
+import { Timestamp } from "@angular/fire/firestore";
 
 export interface Pedido{
+    fecha:Date|Timestamp;
     mesa:string;
     productos:Producto[];
     cliente:string;

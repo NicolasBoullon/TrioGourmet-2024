@@ -1,0 +1,21 @@
+<div class="container-pedidos">
+  @if(pedidosFiltrados.length == 0){
+    <h2 >No hay pedidos realizados</h2>
+  }@else {
+    <h2 >Servir platos</h2>
+    @for (pedido of pedidosFiltrados; track $index) {
+      <div class="row-pedido">
+        <h3 class="title-mesa">{{ pedido.mesa }}</h3>
+        <div class="pedido" *ngFor="let producto of pedido.productos">
+          @if(esDeCocina(producto.descripcion)){
+
+            <p class="p-mostrar-producto">{{ producto.descripcion }} x {{ producto.cantidad }}</p>
+          }
+        </div>
+        <div class="row-btn">
+          <ion-button (click)="PedidoListoParaServir(pedido)"> Listo para servir</ion-button>
+        </div>
+      </div>
+    }
+  }
+</div>  

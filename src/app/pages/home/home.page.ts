@@ -18,6 +18,8 @@ import { FormsModule } from '@angular/forms';
 import { NotificationService } from 'src/app/core/services/notification.service';
 import { ApiRequestService } from 'src/app/core/services/api-request.service';
 import { AprobacionPedidoComponent } from 'src/app/components/aprobacion-pedido/aprobacion-pedido.component';
+import { SeccionBartenderComponent } from 'src/app/components/seccion-bartender/seccion-bartender.component';
+import { SeccionCocineroComponent } from "../../components/seccion-cocinero/seccion-cocinero.component";
 
 @Component({
   selector: 'app-home',
@@ -28,13 +30,13 @@ import { AprobacionPedidoComponent } from 'src/app/components/aprobacion-pedido/
     IonContent,
     IonButton,
     IonModal,
-    IonTextarea, 
+    IonTextarea,
     IonLabel,
     IonFooter,
     IonTitle,
     IonToolbar,
     IonButtons,
-    IonHeader, 
+    IonHeader,
     IonInput,
     IonItem,
     FormsModule,
@@ -44,8 +46,10 @@ import { AprobacionPedidoComponent } from 'src/app/components/aprobacion-pedido/
     SolicitarMesaComponent,
     AsignacionMesaComponent,
     AprobacionPedidoComponent,
-    RouterLink
-  ],
+    SeccionBartenderComponent,
+    RouterLink,
+    SeccionCocineroComponent
+],
 })
 export class HomePage {
 
