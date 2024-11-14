@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Pedido } from 'src/app/core/models/pedido.model';
 import { DatabaseService } from 'src/app/core/services/database.service';
@@ -12,7 +12,7 @@ import { FormsModule } from '@angular/forms';
   standalone:true,
   imports:[IonicModule,CommonModule,FormsModule]
 })
-export class SeccionCocineroComponent  implements OnInit {
+export class SeccionCocineroComponent  implements OnInit , OnDestroy{
 
   constructor() { }
   private databaseService = inject(DatabaseService);
@@ -49,5 +49,9 @@ export class SeccionCocineroComponent  implements OnInit {
   async PedidoListoParaServir(pedido:Pedido){
     await this.databaseService.updateDocumentField('pedidos',pedido.id,'cocina','listo para servir');
     //enviar push al mozo para decirle que el pedidod en comida esta listo para servir
+  }
+   
+  ngOnDestroy(): void {
+    this.subPedidos.unsubscribe();
   }
 }
