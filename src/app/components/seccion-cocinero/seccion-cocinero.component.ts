@@ -6,6 +6,7 @@ import {IonicModule} from '@ionic/angular';
 import { CommonModule, formatDate } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ApiRequestService } from 'src/app/core/services/api-request.service';
+import { NotificationService } from 'src/app/core/services/notification.service';
 @Component({
   selector: 'app-seccion-cocinero',
   templateUrl: './seccion-cocinero.component.html',
@@ -18,6 +19,8 @@ export class SeccionCocineroComponent  implements OnInit , OnDestroy{
   constructor() { }
   private databaseService = inject(DatabaseService);
   private apiRequestService = inject(ApiRequestService);
+  private notificationService = inject(NotificationService);
+
   pedidos:Pedido[] = [];
   pedidosFiltrados:Pedido[] = [];
   pedidosOrdenados:Pedido[] = [];
@@ -51,6 +54,7 @@ export class SeccionCocineroComponent  implements OnInit , OnDestroy{
   async PedidoListoParaServir(pedido:Pedido){
     await this.databaseService.updateDocumentField('pedidos',pedido.id,'cocina','listo para servir');
     this.apiRequestService.notifyRole('Tienes una comida esperandote', `${pedido.mesa} está listo para servir.`, 'mozo').subscribe();
+    await this.notificationService.presentToast('Pedido enviado al mozo',1000,'succes','bottom');
   }
    
   ConvertirTimeStamp(fecha:any){

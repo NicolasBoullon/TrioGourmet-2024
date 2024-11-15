@@ -6,6 +6,7 @@ import { Pedido } from 'src/app/core/models/pedido.model';
 import { DatabaseService } from 'src/app/core/services/database.service';
 import {IonicModule} from '@ionic/angular';
 import { ApiRequestService } from 'src/app/core/services/api-request.service';
+import { NotificationService } from 'src/app/core/services/notification.service';
 @Component({
   selector: 'app-seccion-bartender',
   templateUrl: './seccion-bartender.component.html',
@@ -18,6 +19,7 @@ export class SeccionBartenderComponent  implements OnInit , OnDestroy{
   constructor() { }
   private databaseService = inject(DatabaseService);
   private apiRequestService = inject(ApiRequestService);
+  private notificationService = inject(NotificationService);
   pedidos:Pedido[] = [];
   pedidosFiltrados:Pedido[] = [];
   pedidosOrdenados:Pedido[] = [];
@@ -51,6 +53,7 @@ export class SeccionBartenderComponent  implements OnInit , OnDestroy{
   async PedidoListoParaServir(pedido:Pedido){
     await this.databaseService.updateDocumentField('pedidos',pedido.id,'bar','listo para servir');
     this.apiRequestService.notifyRole('Tienes una bebida esperandote', `${pedido.mesa} está listo para servir.`, 'mozo').subscribe();
+    await this.notificationService.presentToast('Pedido enviado al mozo',1000,'succes','bottom');
     //enviar push al mozo para decirle que el pedidod en comida esta listo para servir
   }
 
