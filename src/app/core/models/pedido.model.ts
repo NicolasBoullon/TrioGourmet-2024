@@ -8,6 +8,6 @@ export interface Pedido{
     cliente:string;
     estado: 'pendiente' | 'rechazado' | 'aceptado' | 'en mesa'; // | 'en mesa'
     id:string;
-    cocina: 'no tiene' | 'en preparacion' | 'listo para servir' | 'entregado';
-    bar: 'no tiene' | 'en preparacion' | 'listo para servir' | 'entregado';
+    cocina: 'no tiene' | 'en preparacion' | 'listo para servir' | 'entregado' ;// | rechazado?
+    bar: 'no tiene' | 'en preparacion' | 'listo para servir' | 'entregado'; // rechazado?
 }

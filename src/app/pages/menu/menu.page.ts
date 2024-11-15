@@ -206,7 +206,7 @@ export class MenuPage implements OnInit, OnDestroy{
       () => {
         // No se como tener la mesa, se la tengo que pasar pero digamos que hice un routerLink, no se como pasarle el valor de la mesa del home, creo que se pueden pasar parametros por la url que en el celu estaría bueno porque no se ven.
         // Una vez va al home y realiza su pedido habría que también guardar en una variable que ya tiene pedido y que no pueda clickear en el menú.
-        this.apiRequestService.notifyRole('Pedido en espera de confirmación', `Mesa ... está esperando la confirmación de su pedido.`, 'mozo').subscribe();
+        this.apiRequestService.notifyRole('Pedido en espera de confirmación', `${pedidoAEnviar.mesa} está esperando la confirmación de su pedido.`, 'mozo').subscribe();
         this.notificationService.routerLink('/home');
       }
     );

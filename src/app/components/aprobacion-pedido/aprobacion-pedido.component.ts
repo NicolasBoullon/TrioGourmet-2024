@@ -7,6 +7,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Pedido } from 'src/app/core/models/pedido.model';
 import { Producto } from 'src/app/core/models/productoMenu.model';
+import { ApiRequestService } from 'src/app/core/services/api-request.service';
+import { NotificationService } from 'src/app/core/services/notification.service';
 @Component({
   selector: 'app-aprobacion-pedido',
   templateUrl: './aprobacion-pedido.component.html',
@@ -19,7 +21,8 @@ export class AprobacionPedidoComponent  implements OnInit ,OnDestroy{
   private databaseService = inject(DatabaseService);
   private authService = inject(AuthService);
   private database = inject(DatabaseService);
-  
+  private apiRequestService = inject(ApiRequestService);
+  private notificationService = inject(NotificationService);
   subscribe!: Subscription;
   pedidos:Pedido[] = [];
   pedidosFiltradosPendiente:Pedido[] = [];
@@ -34,7 +37,7 @@ export class AprobacionPedidoComponent  implements OnInit ,OnDestroy{
   constructor() { }
 
   ngOnInit() {
-    this.subscribe = this.databaseService.getDocument('pedidos').subscribe({
+    this.subscribe = this.databaseService.getDocumentsOrderedByDate('pedidos').subscribe({
       next:(resp=>{
         this.pedidos = resp
         this.FiltrarPedidosAceptados();
@@ -50,6 +53,13 @@ export class AprobacionPedidoComponent  implements OnInit ,OnDestroy{
   CambiarEstadoPedido(accion:boolean,pedido:Pedido){
     if(accion){
       this.databaseService.updateDocumentField('pedidos',pedido.id,'estado','aceptado');
+      if(pedido.cocina === 'en preparacion'){
+        this.apiRequestService.notifyRole('Nueva comanda', `${pedido.mesa} está esperando para comer.`, 'cocinero').subscribe();
+      }
+      if(pedido.bar === 'en preparacion'){
+        this.apiRequestService.notifyRole('Nueva comanda', `${pedido.mesa} está esperando para beber.`, 'bartender').subscribe();
+      }
+      // this.notificationService.presentToast('Ha sido aceptado el pedido.', 2000, 'success', 'middle'); //Si o no marino?
     }else{
       this.databaseService.updateDocumentField('pedidos',pedido.id,'estado','rechazado');
     }

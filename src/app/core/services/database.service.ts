@@ -27,6 +27,11 @@ export class DatabaseService {
     }
   }
 
+  public getDocumentsOrderedByDate(path: string): Observable<any[]> { // para los pedidos
+    const collection = this.firestore.collection(path, ref => ref.orderBy('fecha', 'asc'));
+    return collection.valueChanges();
+  }
+
   public getDocument(path: string) : Observable<any>
   {
     const observable: Observable<any> = this.firestore.collection(path).valueChanges();
