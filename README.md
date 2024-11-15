@@ -107,8 +107,8 @@ Mateo Spatola:
 
 ### El Mozo accedera a ver los pedidos que ya esten listos para servir. Cada sector trabaja de forma independiente, significa que si el sector bebidas ya tiene preparado su pedido podria llevare a la mesa sin esperar al otro sector.    
 * Primero bebida y luego comida      
-![Logo](src/assets/readme/pedidosListoParaLLevarBebida.png)
-![Logo](src/assets/readme/pedidosListoParaLLevarBebida.png)
+![Logo](src/assets/readme/pedidosListosParaLlevarBebida.png)
+![Logo](src/assets/readme/pedidosListosParaLlevar.png)
 * En el caso de estar listo las dos cosas juntas se veria asi.   
 ![Logo](src/assets/readme/pedidoListoParaServirJunto.png)
 
