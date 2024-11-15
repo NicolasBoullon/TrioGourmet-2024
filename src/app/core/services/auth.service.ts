@@ -6,10 +6,12 @@ import {
   signInWithEmailAndPassword,
   updateProfile,
   sendPasswordResetEmail,
+  User,
 } from '@angular/fire/auth';
 import { PersonaCredenciales } from '../models/personaCredenciales.models';
 import { person } from 'ionicons/icons';
 import { NotificationsPushService } from './notifications-push.service';
+import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
@@ -19,6 +21,22 @@ export class AuthService {
   notificationPushService = inject(NotificationsPushService);
   public skipGuardCheck = false;
 
+  async getCurrentUserOnce(): Promise<User | null> {
+    return new Promise((resolve, reject) => {
+      const unsubscribe = this.auth.onAuthStateChanged(
+        (user) => {
+          unsubscribe();
+          resolve(user);
+        },
+        (error) => {
+          unsubscribe();
+          reject(error);
+        }
+      );
+    });
+  }
+
+  
   async signUp(personaCredenciales: PersonaCredenciales): Promise<void> {
     try
     {
@@ -41,7 +59,6 @@ export class AuthService {
     }
     
   }
-
 
   signIn(email: string, password: string): Promise<UserCredential> {
     return signInWithEmailAndPassword(this.auth, email, password);

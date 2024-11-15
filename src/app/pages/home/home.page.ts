@@ -20,6 +20,7 @@ import { ApiRequestService } from 'src/app/core/services/api-request.service';
 import { AprobacionPedidoComponent } from 'src/app/components/aprobacion-pedido/aprobacion-pedido.component';
 import { SeccionBartenderComponent } from 'src/app/components/seccion-bartender/seccion-bartender.component';
 import { SeccionCocineroComponent } from "../../components/seccion-cocinero/seccion-cocinero.component";
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -58,34 +59,45 @@ export class HomePage {
   private _databaseService = inject(DatabaseService);
   private _notificationService = inject(NotificationService);
   private _apiRequestService = inject(ApiRequestService);
+  private _subscriptions = new Subscription();
 
-  private authSubscription?: Unsubscribe;
   protected user?: User | null;
   protected userDoc?: Usuario;
-
-  ngOnInit() {
-    this.authSubscription = this._authService.auth.onAuthStateChanged((user: User | null) => {
-      this.user = user;
-      if (this.user) {
-        this._databaseService.getDocumentById('usuarios', this.user.email!).subscribe(res => {
-          this.userDoc = res;
-        });
-      }
-    })
-  }
-
-  ionViewWillEnter()
+  
+  async ionViewWillEnter()
   {
+    try {
+      const user = await this._authService.getCurrentUserOnce();
+  
+      if (user && user.email) {
+        this.user = user;
+  
+        const usuariosSub = this._databaseService
+          .getDocumentById('usuarios', user.email)
+          .subscribe(res => {
+            this.userDoc = res;
+          });
+  
+        this._subscriptions.add(usuariosSub);
+      } else {
+        console.log('No hay usuario autenticado.');
+      }
+    } catch (error) {
+      console.error('Error obteniendo el usuario:', error);
+    }
+
     if (this.user)
     {
       this._notificationsPushService.init(this.user)
     }
   }
 
-  ngOnDestroy() {
-    if (this.authSubscription) {
-      this.authSubscription();
-    }
+  ionViewDidLeave()
+  {
+    this._subscriptions.unsubscribe();
+    this._subscriptions = new Subscription();
+    this.user = undefined;
+    this.userDoc = undefined;
   }
 
   isModalOpen = false;
