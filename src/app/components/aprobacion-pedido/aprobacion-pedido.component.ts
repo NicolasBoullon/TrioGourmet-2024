@@ -34,6 +34,8 @@ export class AprobacionPedidoComponent  implements OnInit ,OnDestroy{
 
   isModalOpen:boolean = false;
   productosCocinaListosParaLlevar:Producto[] = [];
+
+  hayPedidos:boolean = false;
   constructor() { }
 
   ngOnInit() {
@@ -75,6 +77,11 @@ export class AprobacionPedidoComponent  implements OnInit ,OnDestroy{
 
   FiltrarPedidosAceptados(){
     this.pedidosAceptados = this.pedidos.filter((pedido)=> pedido.estado == 'aceptado');
+    this.pedidosAceptados.forEach((pedido)=>{
+      if(pedido.cocina === 'listo para servir' || pedido.bar === 'listo para servir'){
+        this.hayPedidos = true;
+      }
+    })
   }
 
   productosListosCocina(pedido:Pedido){

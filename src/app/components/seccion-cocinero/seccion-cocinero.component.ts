@@ -54,7 +54,7 @@ export class SeccionCocineroComponent  implements OnInit , OnDestroy{
   async PedidoListoParaServir(pedido:Pedido){
     await this.databaseService.updateDocumentField('pedidos',pedido.id,'cocina','listo para servir');
     this.apiRequestService.notifyRole('Tienes una comida esperandote', `${pedido.mesa} está listo para servir.`, 'mozo').subscribe();
-    await this.notificationService.presentToast('Pedido enviado al mozo',1000,'succes','bottom');
+    await this.notificationService.presentToast('Pedido enviado al mozo',1000,'success','bottom');
   }
    
   ConvertirTimeStamp(fecha:any){
