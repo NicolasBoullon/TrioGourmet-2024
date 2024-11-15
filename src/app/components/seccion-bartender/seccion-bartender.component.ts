@@ -53,7 +53,7 @@ export class SeccionBartenderComponent  implements OnInit , OnDestroy{
   async PedidoListoParaServir(pedido:Pedido){
     await this.databaseService.updateDocumentField('pedidos',pedido.id,'bar','listo para servir');
     this.apiRequestService.notifyRole('Tienes una bebida esperandote', `${pedido.mesa} está listo para servir.`, 'mozo').subscribe();
-    await this.notificationService.presentToast('Pedido enviado al mozo',1000,'succes','bottom');
+    await this.notificationService.presentToast('Pedido enviado al mozo',1000,'success','bottom');
     //enviar push al mozo para decirle que el pedidod en comida esta listo para servir
   }
 

@@ -1,8 +1,8 @@
 <div class="container-pedidos">
   @if(pedidosFiltrados.length == 0){
-    <h2 >No hay pedidos realizados</h2>
+    <h2 >No hay pedidos de comidas realizados</h2>
   }@else {
-    <h2 >Servir platos</h2>
+    <h2 >Sección comidas</h2>
     @for (pedido of pedidosFiltrados; track $index) {
       <div class="row-pedido">
         <h3 class="title-mesa">{{ pedido.mesa }}</h3>
