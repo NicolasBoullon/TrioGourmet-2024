@@ -77,3 +77,43 @@ Mateo Spatola:
 ### Lista Clientes no aprobados
 
 ![Logo](src/assets/readme/listaClientes.png)
+
+### Menú del Cliente con Mesa Asignada
+
+![Logo](src/assets/readme/menuUsuarioMesaAsignada.png)
+
+### Usuario accede a realizar pedido
+
+![Logo](src/assets/readme/menuRealizarPedidoUno.png)
+
+### Si el usuario quiere ver el pedido puede acceder al "Ver Pedido"
+
+![Logo](src/assets/readme/menuRealizarPedidoDos.png)
+
+### Una vez realizado el pedido se le dara el aviso
+
+![Logo](src/assets/readme/pedidoHecho.png)
+
+### Luego de esto el Mozo deberá aceptar el pedido o rechazarlo
+
+![Logo](src/assets/readme/menuMozoAceptarPedido.png)
+
+### De ser aceptado, cada sector recibirá una notificación con sus productos correspondientes.   
+
+* Cocina   
+![Logo](src/assets/readme/cocineroServirPlato.png)
+* Barra   
+![Logo](src/assets/readme/bartenderServirPedido.png)
+
+### El Mozo accedera a ver los pedidos que ya esten listos para servir. Cada sector trabaja de forma independiente, significa que si el sector bebidas ya tiene preparado su pedido podria llevare a la mesa sin esperar al otro sector.    
+* Primero bebida y luego comida      
+![Logo](src/assets/readme/pedidosListoParaLLevarBebida.png)
+![Logo](src/assets/readme/pedidosListoParaLLevarBebida.png)
+* En el caso de estar listo las dos cosas juntas se veria asi.   
+![Logo](src/assets/readme/pedidoListoParaServirJunto.png)
+
+
+
+
+
+
