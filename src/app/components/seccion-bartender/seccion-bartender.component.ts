@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, formatDate } from '@angular/common';
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Subscription } from 'rxjs';
@@ -57,6 +57,10 @@ export class SeccionBartenderComponent  implements OnInit , OnDestroy{
     //enviar push al mozo para decirle que el pedidod en comida esta listo para servir
   }
 
+  ConvertirTimeStamp(fecha:any){
+    const date  =  new Date(fecha * 1000);
+    return formatDate(date,'HH:mm', 'en-Us');
+  }
   ngOnDestroy(): void {
     this.subPedidos.unsubscribe();
   }

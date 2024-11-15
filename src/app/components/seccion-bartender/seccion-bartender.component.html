@@ -6,6 +6,7 @@
     @for (pedido of pedidosFiltrados; track $index) {
       <div class="row-pedido">
         <h3 class="title-mesa">{{ pedido.mesa }}</h3>
+        <p class="p-mostrar-producto">Hora: {{ ConvertirTimeStamp(pedido.fecha) }}</p>
         <div class="pedido" *ngFor="let producto of pedido.productos">
           @if(esDeBar(producto.descripcion)){
 
