@@ -24,7 +24,6 @@
         <ion-button color="primary" (click)="CloseModal()" slot="end">Cerrar</ion-button>
       </ion-header>
       <ion-content>
-        <h2 *ngIf="!hayPedidos" style="text-align: center;">No hay pedidos para servir</h2>
         <ng-container *ngFor="let pedido of pedidosAceptados">
           @if ((pedido.cocina === 'listo para servir') || (pedido.bar === 'listo para servir')) {
           <h2 style="text-align: center;">Pedidos listos para llevar</h2>
@@ -56,6 +55,15 @@
       </ion-content>
     </ng-template>
   </ion-modal>
+
+
+
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button routerLink="/consultas-mozo">
+      <ion-icon name="hand-right-sharp"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
   <!-- <ion-modal [isOpen]="isModalOpen" (didDismiss)="CloseModal()">
     <ng-template>
       <ion-header>
@@ -79,4 +87,5 @@
       </ion-content>
     </ng-template>
   </ion-modal> -->
+
 </div>  

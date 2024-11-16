@@ -1,3 +1,4 @@
+import { Consulta } from "./consulta.model";
 import { PersonaCredenciales } from "./personaCredenciales.models";
 
 export interface Usuario extends PersonaCredenciales
@@ -9,4 +10,5 @@ export interface Usuario extends PersonaCredenciales
   estado?: string,
   mesa?: string,
   lecturaMesa?: boolean
+  consulta?: Consulta
 }

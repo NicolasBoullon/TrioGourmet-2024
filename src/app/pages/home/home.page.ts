@@ -9,7 +9,6 @@ import { LoadingComponent } from "../../components/loading/loading.component";
 import { SolicitarMesaComponent } from 'src/app/components/solicitar-mesa/solicitar-mesa.component';
 import { DatabaseService } from 'src/app/core/services/database.service';
 import { Usuario } from 'src/app/core/models/usuario.models';
-import { Mensaje } from 'src/app/core/models/mensaje.model';
 
 import { AsignacionMesaComponent } from "../../components/asignacion-mesa/asignacion-mesa.component";
 import { RouterLink } from '@angular/router';
@@ -21,6 +20,7 @@ import { AprobacionPedidoComponent } from 'src/app/components/aprobacion-pedido/
 import { SeccionBartenderComponent } from 'src/app/components/seccion-bartender/seccion-bartender.component';
 import { SeccionCocineroComponent } from "../../components/seccion-cocinero/seccion-cocinero.component";
 import { Subscription } from 'rxjs';
+import { Consulta } from 'src/app/core/models/consulta.model';
 
 @Component({
   selector: 'app-home',
@@ -53,17 +53,20 @@ import { Subscription } from 'rxjs';
 ],
 })
 export class HomePage {
-
+  
   private _authService = inject(AuthService);
   private _notificationsPushService = inject(NotificationsPushService);
   private _databaseService = inject(DatabaseService);
   private _notificationService = inject(NotificationService);
   private _apiRequestService = inject(ApiRequestService);
   private _subscriptions = new Subscription();
-
+  
   protected user?: User | null;
   protected userDoc?: Usuario;
   
+  isModalOpen = false;
+  consulta: string = '';
+
   async ionViewWillEnter()
   {
     try {
@@ -100,34 +103,60 @@ export class HomePage {
     this.userDoc = undefined;
   }
 
-  isModalOpen = false;
-  message: string = '';
 
-  openMessageModal() {
-    this.isModalOpen = true;
-  }
-
-  closeMessageModal() {
-    this.isModalOpen = false;
-    this.message = ''; 
-  }
-
-  async sendMessage() {
-    const mensaje: Mensaje = {
-      mesa: this.userDoc?.mesa!,
-      fecha: new Date(),
-      mailCliente: this.userDoc?.email,
-      respondido: false
-    }
-    await this._databaseService.setDocument('mensajes', mensaje);
-    await this._notificationService.showConfirmAlert(
-      '¡Mensaje mandado con éxito!',
-      'Aguarde a que el mozo le conteste.',
-      'Aceptar',
-      () => {
-        this._apiRequestService.notifyRole('Tiene un mensaje pendiente de respuesta ', `${this.userDoc?.mesa} está esperando su respuesta`, 'mozo').subscribe();
-        this.closeMessageModal();
+  openConsultaModal() {
+    const consulta: Consulta | undefined = this.userDoc?.consulta;
+    if (consulta)
+    {
+      if (consulta.respondida)
+      {
+        // Acá en el cliente debería removerla, una vez se cierre el modal
       }
-    );
+      else
+      {
+        this._notificationService.presentToast('Su consulta todavía no ha sido respondida, ', 2000, 'warning', 'bottom');
+      }
+    }
+    else
+    {
+      this.isModalOpen = true;
+    }
+    
+  }
+
+  closeConsultaModal() {
+    this.isModalOpen = false;
+    this.consulta = ''; 
+  }
+
+  async sendConsulta() {
+    if (this.consulta.length > 10 && this.consulta.length < 200)
+    {
+      const consulta: Consulta = {
+        mesa: this.userDoc?.mesa!,
+        consulta: this.consulta,
+        fecha: new Date(),
+        mailCliente: this.userDoc?.email,
+        respondida: false
+      }
+      await this._databaseService.setDocument('consultas', consulta);
+      if (this.user && this.user.email) {
+        await this._databaseService.updateDocumentField('usuarios', this.user.email, 'consulta', consulta)
+      }
+      await this._notificationService.showConfirmAlert(
+        '¡Consulta mandada con éxito!',
+        'Aguarde a que el mozo le conteste.',
+        'Aceptar',
+        () => {
+          this._apiRequestService.notifyRole('Tiene una consulta pendiente de respuesta.', `${this.userDoc?.mesa} está esperando su respuesta`, 'mozo').subscribe();
+          this.closeConsultaModal();
+        }
+      );
+    }
+    else
+    {
+      this._notificationService.presentToast('Su consulta debe ser de entre 10 y 200 caracteres', 2000, 'warning', 'bottom');
+    }
+
   }
 }

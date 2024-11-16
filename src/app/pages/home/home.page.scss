@@ -75,21 +75,12 @@ ion-modal{
   --width: 90%;
 }
 
-.ion-content-modal {
-  --overflow: hidden;
-  --offset-top: 0;
-  --offset-bottom: 0;
-}
-
 .modal-container {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-content: center;
+  align-items: center;
+  width: 100%;
 }
 
 .centered-item {
