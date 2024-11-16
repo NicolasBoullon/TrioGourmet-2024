@@ -9,12 +9,16 @@ import { Pedido } from 'src/app/core/models/pedido.model';
 import { Producto } from 'src/app/core/models/productoMenu.model';
 import { ApiRequestService } from 'src/app/core/services/api-request.service';
 import { NotificationService } from 'src/app/core/services/notification.service';
+import { addIcons } from 'ionicons';
+import { handRightSharp } from 'ionicons/icons';
+import { RouterLink } from '@angular/router';
+
 @Component({
   selector: 'app-aprobacion-pedido',
   templateUrl: './aprobacion-pedido.component.html',
   styleUrls: ['./aprobacion-pedido.component.scss'],
   standalone:true,
-  imports:[IonicModule,CommonModule,FormsModule]
+  imports:[IonicModule,CommonModule,FormsModule, RouterLink]
 })
 export class AprobacionPedidoComponent  implements OnInit ,OnDestroy{
 
@@ -27,7 +31,6 @@ export class AprobacionPedidoComponent  implements OnInit ,OnDestroy{
   pedidos:Pedido[] = [];
   pedidosFiltradosPendiente:Pedido[] = [];
 
-
   productosListosParaServir:Producto[] = [];
 
   pedidosAceptados:Pedido[] =[];
@@ -36,7 +39,11 @@ export class AprobacionPedidoComponent  implements OnInit ,OnDestroy{
   productosCocinaListosParaLlevar:Producto[] = [];
 
   hayPedidos:boolean = false;
-  constructor() { }
+
+  constructor()
+  {
+    addIcons({handRightSharp}); 
+  }
 
   ngOnInit() {
     this.subscribe = this.databaseService.getDocumentsOrderedByDate('pedidos').subscribe({
