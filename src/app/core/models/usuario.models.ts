@@ -7,8 +7,8 @@ export interface Usuario extends PersonaCredenciales
   dni: string,
   image: string,
   estadoAprobacionCuenta: string,
-  estado?: string,
+  estado?: 'en lista de espera' | 'mesa asignada' | 'pedido realizado' | 
+            'pedido confirmado' | 'pedido terminado' | 'pedido entregado',
   mesa?: string,
-  lecturaMesa?: boolean
   consulta?: Consulta
 }

@@ -39,9 +39,14 @@ export const routes: Routes = [
   {
     path: 'menu',
     loadComponent: () => import('./pages/menu/menu.page').then( m => m.MenuPage)
-  },  {
+  },
+  {
     path: 'consultas-mozo',
     loadComponent: () => import('./pages/consultas-mozo/consultas-mozo.page').then( m => m.ConsultasMozoPage)
+  },
+  {
+    path: 'opciones-escaneo',
+    loadComponent: () => import('./pages/opciones-escaneo/opciones-escaneo.page').then( m => m.OpcionesEscaneoPage)
   },
 
 

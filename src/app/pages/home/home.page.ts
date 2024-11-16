@@ -6,7 +6,6 @@ import { Unsubscribe, User } from '@angular/fire/auth';
 import { AprobacionClienteComponent } from "../../components/aprobacion-cliente/aprobacion-cliente.component";
 import { NotificationsPushService } from '../../core/services/notifications-push.service';
 import { LoadingComponent } from "../../components/loading/loading.component";
-import { SolicitarMesaComponent } from 'src/app/components/solicitar-mesa/solicitar-mesa.component';
 import { DatabaseService } from 'src/app/core/services/database.service';
 import { Usuario } from 'src/app/core/models/usuario.models';
 
@@ -21,6 +20,7 @@ import { SeccionBartenderComponent } from 'src/app/components/seccion-bartender/
 import { SeccionCocineroComponent } from "../../components/seccion-cocinero/seccion-cocinero.component";
 import { Subscription } from 'rxjs';
 import { Consulta } from 'src/app/core/models/consulta.model';
+import { BotonEscanerComponent } from "../../components/boton-escaner/boton-escaner.component";
 
 @Component({
   selector: 'app-home',
@@ -44,7 +44,7 @@ import { Consulta } from 'src/app/core/models/consulta.model';
     HeaderComponent,
     AprobacionClienteComponent,
     LoadingComponent,
-    SolicitarMesaComponent,
+    BotonEscanerComponent,
     AsignacionMesaComponent,
     AprobacionPedidoComponent,
     SeccionBartenderComponent,

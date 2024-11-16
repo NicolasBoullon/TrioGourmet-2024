@@ -33,6 +33,7 @@ export class AsignacionMesaComponent  implements OnInit {
     this._databaseService.getDocument('usuarios').subscribe((usuarios: Usuario[]) => {
       this.listaEspera = usuarios.filter(user => user.estado == 'en lista de espera');
     });
+    console.log(this.listaEspera)
   }
 
   obtenerMesasDisponibles() {
@@ -45,7 +46,7 @@ export class AsignacionMesaComponent  implements OnInit {
     this._notificationService.presentLoading('Asignando mesa...');
     try {
       console.log(cliente);
-      await this._databaseService.updateDocument('usuarios', cliente.email, { estado: 'mesa asignada', mesa: mesa.nombre });
+      await this._databaseService.updateDocument('usuarios', cliente.email, { mesa: mesa.nombre });
       await this._databaseService.updateDocument('mesas', mesa.nombre, { estado: 'ocupada', cliente: cliente.email });
 
       this._notificationService.dismissLoading();
