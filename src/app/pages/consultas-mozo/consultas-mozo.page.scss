@@ -1,0 +1,55 @@
+// ::ng-deep ion-item.consulta-item {
+//   --background: gray !important;
+// }
+
+ion-list.consultas-content {
+  ion-item.consulta-item {
+
+    h2.mesa-title {
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+
+    .consulta-fecha {
+      font-size: 0.9rem;
+      color: #7f8c8d;
+      margin-bottom: 8px;
+    }
+
+    .consulta-texto {
+      font-size: 1rem;
+    }
+
+    ion-button {
+      --border-radius: 4px;
+    }
+  }
+}
+
+ion-modal{
+  --height: 30%;
+  --width: 90%;
+}
+
+.modal-container {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.centered-item {
+  width: 90%;
+}
+
+ion-textarea {
+  --background: #f3f4f6;
+  --padding-start: 12px;
+  width: 100%;
+}
+
+.assigned-table {
+  text-align: center;
+}

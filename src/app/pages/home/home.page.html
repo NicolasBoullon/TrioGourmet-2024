@@ -22,6 +22,11 @@
             <p>Le asignaron la {{ userDoc.mesa }}, escanee su QR para confirmar.</p>
           }
         }
+        @else if(userDoc.estado)
+        {
+          <ion-button class="action-button" (click)="openConsultaModal()">{{userDoc.consulta?.respondida ? 'Tienes respuesta a tu consulta' : 'Consulta al mozo'}}</ion-button>
+        }
+
       </div>
     }
     @else if (userDoc.perfil == 'maitre') {
@@ -56,24 +61,37 @@
     <ng-template>
       <ion-header>
         <ion-toolbar color="primary">
-          <ion-title>Consulta al Mozo</ion-title>
+          <ion-title>{{userDoc!.consulta?.respondida ? 'Contestación del mozo' : 'Consulta al Mozo'}}</ion-title>
           <ion-buttons slot="end">
             <ion-button (click)="closeConsultaModal()">Cerrar</ion-button>
           </ion-buttons>
         </ion-toolbar>
       </ion-header>
-      
         <div class="modal-container">
-          <ion-item lines="none" class="centered-item">
-            <ion-textarea [(ngModel)]="consulta" placeholder="Escribe aquí tu mensaje..."></ion-textarea>
-          </ion-item>
+          @if(userDoc?.consulta?.respondida != undefined && userDoc?.consulta?.respondida )
+          {
+            <ion-item lines="full" class="consulta-item">
+              <ion-label>
+                <h2 class="mesa-title">{{ userDoc?.consulta?.consulta }}: </h2>
+                <p class="consulta-fecha">{{ _databaseService.convertTimestampToDate(userDoc!.consulta!.fecha) | date: 'shortDate'}}</p>
+              </ion-label>
+            </ion-item>
+          }
+          @else {
+            <ion-item lines="none" class="centered-item">
+              <ion-textarea [(ngModel)]="consulta" placeholder="Escribe aquí tu mensaje..."></ion-textarea>
+            </ion-item>
+          }
         </div>
-
-      <ion-footer>
-        <div class="modal-actions">
-          <ion-button expand="block" (click)="sendConsulta()">Enviar</ion-button>
-        </div>
-      </ion-footer>
+        
+        <ion-footer>
+          @if(!userDoc?.consulta?.respondida)
+          {
+            <div class="modal-actions">
+              <ion-button expand="block" (click)="sendConsulta()">Enviar</ion-button>
+            </div>
+          } 
+        </ion-footer>
     </ng-template>
   </ion-modal>
 
