@@ -39,9 +39,14 @@ export const routes: Routes = [
   {
     path: 'menu',
     loadComponent: () => import('./pages/menu/menu.page').then( m => m.MenuPage)
-  },  {
+  },
+  {
     path: 'consultas-mozo',
     loadComponent: () => import('./pages/consultas-mozo/consultas-mozo.page').then( m => m.ConsultasMozoPage)
+  },
+  {
+    path: 'seleccionar-propina',
+    loadComponent: () => import('./components/seleccionar-propina/seleccionar-propina.component').then( m => m.SeleccionarPropinaComponent)
   },
 
 
