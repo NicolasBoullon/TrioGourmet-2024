@@ -1,5 +1,61 @@
 <app-header title="Consultas realizadas" backButton="/home"></app-header>
 
 <ion-content>
-  
+  @if(consultas)
+  {
+    <ion-list class="consultas-content">
+      @for(consulta of consultas; track $index)
+      {
+        @if(!consulta.respondida)
+        {
+          <ion-item lines="full" class="consulta-item">
+            <ion-label>
+              <h2 class="mesa-title">{{ consulta.mesa }}: </h2>
+              <p class="consulta-fecha">{{ consulta.fecha | date: 'shortDate' }} - {{ consulta.fecha | date: 'shortTime' }}</p>
+              <p class="consulta-texto">{{ consulta.consulta }}</p>
+            </ion-label>
+            <ion-button color="primary" fill="solid" slot="end" size="small" (click)="openRespuestaModal(consulta)">
+              Responder
+            </ion-button>
+          </ion-item>
+        }
+        @else {
+          <ion-item lines="full" class="consulta-item">
+            <ion-label>
+              <h2 class="mesa-title">Consulta respondida</h2>
+            </ion-label>
+          </ion-item>
+        }
+      }
+    </ion-list>
+  } 
+  @else 
+  {
+    <app-loading></app-loading>
+  }
+  <ion-modal [isOpen]="isModalOpen" (didDismiss)="closeRespuestaModal()">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar color="primary">
+          <ion-title>Consulta al Mozo</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="closeRespuestaModal()">Cerrar</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      
+        <div class="modal-container">
+          <ion-item lines="none" class="centered-item">
+            <ion-textarea [(ngModel)]="respuesta" placeholder="Escribe aquí tu mensaje..."></ion-textarea>
+          </ion-item>
+        </div>
+
+      <ion-footer>
+        <div class="modal-actions">
+          <ion-button expand="block" (click)="sendRespuesta()">Enviar</ion-button>
+        </div>
+      </ion-footer>
+    </ng-template>
+  </ion-modal>
+
 </ion-content>
