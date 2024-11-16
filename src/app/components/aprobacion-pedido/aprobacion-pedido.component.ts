@@ -144,8 +144,15 @@ export class AprobacionPedidoComponent  implements OnInit ,OnDestroy{
     }
   }
 
-  OpenModal(){
-    this.isModalOpen = true;
+  OpenModal() {
+    if (!this.hayPedidos)
+    {
+      this.notificationService.presentToast('No hay pedidos para servir', 2000, 'warning', 'bottom');
+    }
+    else
+    {
+      this.isModalOpen = true;
+    }
   }
 
   CloseModal(){
