@@ -164,6 +164,15 @@
 
 ![Logo](src/assets/readme/escanearQR.png)
 
+### Cliente en lista de espera
+
+![Logo](src/assets/readme/clienteEnListaDeEspera.jpeg)
+
+### El cliente accede a las encuestas
+
+![Logo](src/assets/readme/encuestasUno.jpeg)
+![Logo](src/assets/readme/encuestasDos.jpeg)
+
 ### Aceptar Cliente
 
 ![Logo](src/assets/readme/aprobarCliente.png)
