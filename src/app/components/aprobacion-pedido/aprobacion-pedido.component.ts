@@ -59,9 +59,10 @@ export class AprobacionPedidoComponent  implements OnInit ,OnDestroy{
     })
   }
 
-  CambiarEstadoPedido(accion:boolean,pedido:Pedido){
+  async CambiarEstadoPedido(accion:boolean,pedido:Pedido){
     if(accion){
-      this.databaseService.updateDocumentField('pedidos',pedido.id,'estado','aceptado');
+      await this.databaseService.updateDocumentField('pedidos',pedido.id,'estado','aceptado');
+      await this.databaseService.updateDocumentField('usuarios', pedido.cliente, 'estado', 'pedido confirmado');
       if(pedido.cocina === 'en preparacion'){
         this.apiRequestService.notifyRole('Nueva comanda', `${pedido.mesa} está esperando para comer.`, 'cocinero').subscribe();
       }
@@ -147,6 +148,7 @@ export class AprobacionPedidoComponent  implements OnInit ,OnDestroy{
   
       if (pedido.cocina === 'entregado' && pedido.bar === 'entregado') {
         await this.databaseService.updateDocumentField('pedidos', pedido.id, 'estado', 'en mesa');
+        await this.databaseService.updateDocumentField('usuarios', pedido.cliente, 'estado', 'pedido entregado');
       }
     }
   }

@@ -55,6 +55,10 @@ export class SeccionCocineroComponent  implements OnInit , OnDestroy{
     await this.databaseService.updateDocumentField('pedidos',pedido.id,'cocina','listo para servir');
     this.apiRequestService.notifyRole('Tienes una comida esperandote', `${pedido.mesa} está listo para servir.`, 'mozo').subscribe();
     await this.notificationService.presentToast('Pedido enviado al mozo',1000,'success','bottom');
+
+    if(pedido.bar === 'listo para servir') {
+      await this.databaseService.updateDocumentField('usuarios', pedido.cliente, 'estado', 'pedido terminado');
+    }
   }
    
   ConvertirTimeStamp(fecha:any){
