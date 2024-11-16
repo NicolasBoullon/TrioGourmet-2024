@@ -12,35 +12,21 @@
     }
     @else if (userDoc.perfil == 'anonimo' || userDoc.perfil == 'cliente') {
       <div class="section">
-        <h2 class="section-title">Opciones:</h2>
-        <app-solicitar-mesa class="action-button" [correo]="user!.email!"></app-solicitar-mesa>
+        
+        <app-boton-escaner class="action-button" [correo]="user!.email!"></app-boton-escaner>
 
         @if(userDoc.estado == 'en lista de espera') {
-          <ion-button class="action-button" routerLink="/encuesta">Encuestas</ion-button>
-        }
-        @else if(userDoc.estado == 'mesa asignada') {
-          <div class="assigned-table">
-            <h2>YA TIENE MESA ASIGNADA</h2>
-            
-            @if(userDoc.lecturaMesa)
-            {
-              <p>Ahora puede acceder a las siguientes opciones:</p>
-              <ion-button class="action-button" (click)="openConsultaModal()">Consulta al mozo</ion-button>
-              <ion-button class="action-button" routerLink="/menu">Ver Menú y realizar pedido</ion-button>
-              <ion-button class="action-button">Juegos</ion-button>
-            }
-            @else 
-            {
-              <p>Escanee el código de la mesa para acceder a las siguientes opciones:</p>
-              <ul class="options">
-                <li>Chat con Mozo</li>
-                <li>Ver Menú</li>
-                <li>Juegos</li>
-              </ul>
-            }
+          <h2>En lista de espera</h2>
 
-          </div>
+          @if(userDoc.mesa) {
+            <p>Le asignaron la {{ userDoc.mesa }}, escanee su QR para confirmar.</p>
+          }
         }
+        @else if(userDoc.estado)
+        {
+          <ion-button class="action-button" (click)="openConsultaModal()">{{userDoc.consulta?.respondida ? 'Tienes respuesta a tu consulta' : 'Consulta al mozo'}}</ion-button>
+        }
+
       </div>
     }
     @else if (userDoc.perfil == 'maitre') {
@@ -75,24 +61,37 @@
     <ng-template>
       <ion-header>
         <ion-toolbar color="primary">
-          <ion-title>Consulta al Mozo</ion-title>
+          <ion-title>{{userDoc!.consulta?.respondida ? 'Contestación del mozo' : 'Consulta al Mozo'}}</ion-title>
           <ion-buttons slot="end">
             <ion-button (click)="closeConsultaModal()">Cerrar</ion-button>
           </ion-buttons>
         </ion-toolbar>
       </ion-header>
-      
         <div class="modal-container">
-          <ion-item lines="none" class="centered-item">
-            <ion-textarea [(ngModel)]="consulta" placeholder="Escribe aquí tu mensaje..."></ion-textarea>
-          </ion-item>
+          @if(userDoc?.consulta?.respondida != undefined && userDoc?.consulta?.respondida )
+          {
+            <ion-item lines="full" class="consulta-item">
+              <ion-label>
+                <h2 class="mesa-title">{{ userDoc?.consulta?.consulta }}: </h2>
+                <p class="consulta-fecha">{{ _databaseService.convertTimestampToDate(userDoc!.consulta!.fecha) | date: 'shortDate'}}</p>
+              </ion-label>
+            </ion-item>
+          }
+          @else {
+            <ion-item lines="none" class="centered-item">
+              <ion-textarea [(ngModel)]="consulta" placeholder="Escribe aquí tu mensaje..."></ion-textarea>
+            </ion-item>
+          }
         </div>
-
-      <ion-footer>
-        <div class="modal-actions">
-          <ion-button expand="block" (click)="sendConsulta()">Enviar</ion-button>
-        </div>
-      </ion-footer>
+        
+        <ion-footer>
+          @if(!userDoc?.consulta?.respondida)
+          {
+            <div class="modal-actions">
+              <ion-button expand="block" (click)="sendConsulta()">Enviar</ion-button>
+            </div>
+          } 
+        </ion-footer>
     </ng-template>
   </ion-modal>
 

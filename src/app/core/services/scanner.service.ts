@@ -5,6 +5,7 @@ import { firstValueFrom } from 'rxjs';
 import { NotificationService } from './notification.service';
 import { Usuario } from '../models/usuario.models';
 import { ApiRequestService } from './api-request.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,7 @@ export class ScannerService {
   private _databaseService = inject(DatabaseService);
   private _notificationService = inject(NotificationService);
   private _apiRequestService = inject(ApiRequestService); 
+  private _router = inject(Router);
 
   async scanQR(correo: string): Promise<void>
   {
@@ -38,24 +40,47 @@ export class ScannerService {
         }
       }
       else if (clienteDoc.estado == 'en lista de espera') {
-        this._notificationService.presentToast('Ya se encuentra en la lista de espera. Por favor aguarde a ser atendido.', 2000, 'warning', 'middle');
-      }
-      else {
-        this._notificationService.presentToast('Ya tiene una mesa asignada, no puede volver a la lista de espera.', 2000, 'danger', 'middle');
+        if(clienteDoc.mesa) {
+          this._notificationService.presentToast('Ya tiene una mesa asignada, no puede volver a la lista de espera.', 2000, 'danger', 'middle');
+        }
+        else {
+          this._notificationService.presentToast('Ya se encuentra en la lista de espera. Por favor aguarde a ser atendido.', 2000, 'warning', 'middle');
+        }
       }
     }
     else if (scannedQR == 'Mesa 1' || scannedQR == 'Mesa 2' || scannedQR == 'Mesa 3') {
 
-      if (clienteDoc.estado == 'mesa asignada') {
+      if (clienteDoc.mesa) {
         if (clienteDoc.mesa == scannedQR) {
-          
-          // MATE: ACA HAY QUE VER QUE COMO ES EL QR DE SU MESA LE APAREZCA EL CHAT, MENU, ETC
-          
-          // Iván: Acá para mi hay q diferenciar cuando leyó la mesa o no, el primer qr q le aparece es para solicitar mesa, pero luego una vez ya la solicitó y está en lista d espera accede a las encuestas, pero cuando le asignaron una mesa y escanea d vuelta su mesa correspondiente ahí le tiene q aparecer el menú, el chat, etc. No cuando le asignan una mesa, pero  por ahora lo dejo así, despues preguntar al grupo
 
-          await this._databaseService.updateDocumentField('usuarios', correo, 'lecturaMesa', true);
+          if (clienteDoc.estado == 'en lista de espera') {
+            await this._databaseService.updateDocumentField('usuarios', correo, 'estado', 'mesa asignada');
+            this._notificationService.presentToast(`Acceso permitido a la ${scannedQR}.`, 2000, 'success', 'middle');
+          }
+          else if (clienteDoc.estado == 'mesa asignada') {
+            this._notificationService.routerLink("/menu");
+          }
+          else if (clienteDoc.estado == 'pedido realizado') {
+            this._router.navigate(['/opciones-escaneo'], {
+              queryParams: { estado: 'pedido realizado' },
+            });
+          }
+          else if (clienteDoc.estado == 'pedido confirmado') {
+            this._router.navigate(['/opciones-escaneo'], {
+              queryParams: { estado: 'pedido confirmado' },
+            });
+          }
+          else if (clienteDoc.estado == 'pedido terminado') {
+            this._router.navigate(['/opciones-escaneo'], {
+              queryParams: { estado: 'pedido terminado' },
+            });
+          }
+          else if (clienteDoc.estado == 'pedido entregado') {
+            this._router.navigate(['/opciones-escaneo'], {
+              queryParams: { estado: 'pedido entregado' },
+            });
+          }
 
-          this._notificationService.presentToast(`Acceso permitido a la ${scannedQR}.`, 2000, 'success', 'middle');
         } else {
           this._notificationService.presentToast(`Acceso denegado. Usted tiene asignada la ${clienteDoc.mesa}.`, 2000, 'danger', 'middle');
         }

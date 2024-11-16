@@ -6,13 +6,12 @@ import { Unsubscribe, User } from '@angular/fire/auth';
 import { AprobacionClienteComponent } from "../../components/aprobacion-cliente/aprobacion-cliente.component";
 import { NotificationsPushService } from '../../core/services/notifications-push.service';
 import { LoadingComponent } from "../../components/loading/loading.component";
-import { SolicitarMesaComponent } from 'src/app/components/solicitar-mesa/solicitar-mesa.component';
 import { DatabaseService } from 'src/app/core/services/database.service';
 import { Usuario } from 'src/app/core/models/usuario.models';
 
 import { AsignacionMesaComponent } from "../../components/asignacion-mesa/asignacion-mesa.component";
 import { RouterLink } from '@angular/router';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NotificationService } from 'src/app/core/services/notification.service';
 import { ApiRequestService } from 'src/app/core/services/api-request.service';
@@ -21,6 +20,7 @@ import { SeccionBartenderComponent } from 'src/app/components/seccion-bartender/
 import { SeccionCocineroComponent } from "../../components/seccion-cocinero/seccion-cocinero.component";
 import { Subscription } from 'rxjs';
 import { Consulta } from 'src/app/core/models/consulta.model';
+import { BotonEscanerComponent } from "../../components/boton-escaner/boton-escaner.component";
 
 @Component({
   selector: 'app-home',
@@ -44,19 +44,20 @@ import { Consulta } from 'src/app/core/models/consulta.model';
     HeaderComponent,
     AprobacionClienteComponent,
     LoadingComponent,
-    SolicitarMesaComponent,
+    BotonEscanerComponent,
     AsignacionMesaComponent,
     AprobacionPedidoComponent,
     SeccionBartenderComponent,
     RouterLink,
-    SeccionCocineroComponent
+    SeccionCocineroComponent,
+    DatePipe
 ],
 })
 export class HomePage {
   
   private _authService = inject(AuthService);
   private _notificationsPushService = inject(NotificationsPushService);
-  private _databaseService = inject(DatabaseService);
+  protected _databaseService = inject(DatabaseService);
   private _notificationService = inject(NotificationService);
   private _apiRequestService = inject(ApiRequestService);
   private _subscriptions = new Subscription();
@@ -106,11 +107,12 @@ export class HomePage {
 
   openConsultaModal() {
     const consulta: Consulta | undefined = this.userDoc?.consulta;
+
     if (consulta)
     {
       if (consulta.respondida)
       {
-        // Acá en el cliente debería removerla, una vez se cierre el modal
+        this.isModalOpen = true;
       }
       else
       {
@@ -125,6 +127,10 @@ export class HomePage {
   }
 
   closeConsultaModal() {
+    if (this.userDoc!.consulta!.respondida)
+    {
+      this._databaseService.deleteDocumentField('usuarios', this.userDoc!.email!, 'consulta');
+    }
     this.isModalOpen = false;
     this.consulta = ''; 
   }
@@ -139,7 +145,9 @@ export class HomePage {
         mailCliente: this.userDoc?.email,
         respondida: false
       }
-      await this._databaseService.setDocument('consultas', consulta);
+      const documentId = await this._databaseService.setDocument('consultas', consulta);
+      await this._databaseService.updateDocumentField('consultas', documentId, 'id', documentId);
+
       if (this.user && this.user.email) {
         await this._databaseService.updateDocumentField('usuarios', this.user.email, 'consulta', consulta)
       }

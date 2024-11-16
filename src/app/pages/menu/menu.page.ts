@@ -199,6 +199,7 @@ export class MenuPage implements OnInit, OnDestroy{
     const pedidoAEnviar = await this.ArmarPedido();
     const idPedido = await this.databaseService.setDocument('pedidos', pedidoAEnviar);
     await this.databaseService.updateDocumentField('pedidos', idPedido ,'id', idPedido);
+    await this.databaseService.updateDocumentField('usuarios', pedidoAEnviar.cliente, 'estado', 'pedido realizado');
     await this.notificationService.showConfirmAlert(
       '¡Pedido Generado con éxito!',
       'El pedido se encuentra pendiente de confirmación. Su pedido comenzará a hacerse en cuanto el mozo confirme.',
