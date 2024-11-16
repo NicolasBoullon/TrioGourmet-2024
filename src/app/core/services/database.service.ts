@@ -2,6 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Timestamp } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
+import { deleteField } from "firebase/firestore";
 
 @Injectable({
   providedIn: 'root'
@@ -51,6 +52,11 @@ export class DatabaseService {
   public updateDocumentField(path: string, documentId: string, field: string, value: any): Promise<void> {
     const document = this.firestore.collection(path).doc(documentId);
     return document.update({ [field]: value });
+  }
+
+  public deleteDocumentField(path: string, documentId: string, field: string): Promise<void> {
+    const document = this.firestore.collection(path).doc(documentId);
+    return document.update({ [field]: deleteField()});
   }
 
   convertTimestampToDate(timestamp: Timestamp): Date {
