@@ -6,8 +6,9 @@
     }
     @else {
       @for (cliente of listaEspera; track $index) {
-        <ion-card>
+        <ion-card class="client-card">
           <ion-card-header>
+            <ion-icon name="trash-bin" color="danger" class="delete-icon" (click)="eliminarDeLaListaDeEspera(cliente)"></ion-icon>
             <ion-card-title>{{ cliente.name }} {{ cliente.apellido }}</ion-card-title>
             @if(cliente.perfil == 'cliente') {
               <ion-card-subtitle>Correo: {{ cliente.email }}</ion-card-subtitle>
