@@ -108,6 +108,16 @@ export class HomePage {
     this.userDoc = undefined;
   }
 
+  async confirmarRecepcionPedido() {
+    try {
+      await this._databaseService.updateDocumentField('usuarios', this.userDoc!.email, 'recibioElPedido', true);
+      this._notificationService.presentToast('Confirmación exitosa.', 2000, 'success', 'middle');
+    }
+    catch {
+      this._notificationService.presentToast('Ocurrió un error al hacer la confirmación. Intente de nuevo.', 2000, 'danger', 'middle');
+    }
+  }
+
 
   openConsultaModal() {
     const consulta: Consulta | undefined = this.userDoc?.consulta;
