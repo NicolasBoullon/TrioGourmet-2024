@@ -10,4 +10,5 @@ export interface Pedido{
     id:string;
     cocina: 'no tiene' | 'en preparacion' | 'listo para servir' | 'entregado' ;// | rechazado?
     bar: 'no tiene' | 'en preparacion' | 'listo para servir' | 'entregado'; // rechazado?
+    importeTotal: number;
 }
