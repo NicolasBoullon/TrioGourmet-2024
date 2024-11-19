@@ -68,4 +68,27 @@ export class NotificationService {
   routerLink(url: string) {
     return this._router.navigateByUrl(url);
   }
+
+  async showConfirmWithCancelAlert(title: string, message: string, confirmButtonText: string, cancelButtonText: string, onConfirm: () => void): Promise<void> {
+    const alert = await this._alertController.create({
+      header: title,
+      message,
+      cssClass: 'custom-alert',
+      buttons: [
+        {
+          text: cancelButtonText,
+          role: 'cancel',
+        },
+        {
+          text: confirmButtonText,
+          handler: () => {
+            onConfirm();
+          },
+        },
+      ],
+      backdropDismiss: false,
+    });
+    await alert.present();
+  }
+  
 }

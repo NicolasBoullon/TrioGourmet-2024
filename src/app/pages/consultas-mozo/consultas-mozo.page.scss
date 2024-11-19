@@ -4,6 +4,19 @@
 
 ion-list.consultas-content {
   ion-item.consulta-item {
+    padding: 16px;
+    border-radius: 8px;
+    margin-bottom: 12px;
+
+    &.no-respondida {
+      background: #f3f4f6;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    &.respondida {
+      background: #e0ffe0;
+      border: 2px solid #3db13d; 
+    }
 
     h2.mesa-title {
       font-size: 1.2rem;
@@ -21,13 +34,20 @@ ion-list.consultas-content {
       font-size: 1rem;
     }
 
+    .consulta-respuesta {
+      font-size: 1rem;
+      font-weight: bold;
+      color: #2e7d32;
+      margin-top: 8px;
+    }
+
     ion-button {
       --border-radius: 4px;
     }
   }
 }
 
-ion-modal{
+ion-modal {
   --height: 30%;
   --width: 90%;
 }

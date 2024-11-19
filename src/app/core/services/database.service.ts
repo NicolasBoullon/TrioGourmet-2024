@@ -59,7 +59,7 @@ export class DatabaseService {
     return document.update({ [field]: deleteField()});
   }
 
-  convertTimestampToDate(timestamp: any): Date {
+  convertTimestampToDate(timestamp: Timestamp): Date {
     return new Date(timestamp.seconds * 1000);
   }
 }

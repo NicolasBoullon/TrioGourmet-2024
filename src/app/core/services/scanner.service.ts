@@ -41,11 +41,14 @@ export class ScannerService {
       }
       else if (clienteDoc.estado == 'en lista de espera') {
         if(clienteDoc.mesa) {
-          this._notificationService.presentToast('Ya tiene una mesa asignada, no puede volver a la lista de espera.', 2000, 'danger', 'middle');
+          this._notificationService.presentToast('Ya le asignaron una mesa, no puede volver a la lista de espera.', 2000, 'danger', 'middle');
         }
         else {
           this._notificationService.presentToast('Ya se encuentra en la lista de espera. Por favor aguarde a ser atendido.', 2000, 'warning', 'middle');
         }
+      }
+      else {
+        this._notificationService.presentToast('Ya tiene una mesa asignada, no puede volver a la lista de espera.', 2000, 'danger', 'middle');
       }
     }
     else if (scannedQR == 'Mesa 1' || scannedQR == 'Mesa 2' || scannedQR == 'Mesa 3') {

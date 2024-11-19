@@ -64,7 +64,7 @@ export class HomePage {
   
   protected user?: User | null;
   protected userDoc?: Usuario;
-  
+
   isModalOpen = false;
   consulta: string = '';
 
@@ -79,9 +79,13 @@ export class HomePage {
         const usuariosSub = this._databaseService
           .getDocumentById('usuarios', user.email)
           .subscribe(res => {
+            if (res?.consulta?.fecha) {
+              res.consulta.fecha = this._databaseService.convertTimestampToDate(res.consulta.fecha);
+            }
+        
             this.userDoc = res;
+
           });
-  
         this._subscriptions.add(usuariosSub);
       } else {
         console.log('No hay usuario autenticado.');
@@ -116,7 +120,7 @@ export class HomePage {
       }
       else
       {
-        this._notificationService.presentToast('Su consulta todavía no ha sido respondida, ', 2000, 'warning', 'bottom');
+        this._notificationService.presentToast('Su consulta todavía no ha sido respondida.', 2000, 'warning', 'bottom');
       }
     }
     else
@@ -127,9 +131,9 @@ export class HomePage {
   }
 
   closeConsultaModal() {
-    if (this.userDoc!.consulta!.respondida)
+    if (this.userDoc?.consulta != null && this.userDoc?.consulta.respondida && this.user && this.user.email)
     {
-      this._databaseService.deleteDocumentField('usuarios', this.userDoc!.email!, 'consulta');
+      this._databaseService.deleteDocumentField('usuarios', this.user.email, 'consulta');
     }
     this.isModalOpen = false;
     this.consulta = ''; 
@@ -138,6 +142,7 @@ export class HomePage {
   async sendConsulta() {
     if (this.consulta.length > 10 && this.consulta.length < 200)
     {
+      await this._notificationService.presentLoading('Enviando consulta...');
       const consulta: Consulta = {
         mesa: this.userDoc?.mesa!,
         consulta: this.consulta,
@@ -147,10 +152,10 @@ export class HomePage {
       }
       const documentId = await this._databaseService.setDocument('consultas', consulta);
       await this._databaseService.updateDocumentField('consultas', documentId, 'id', documentId);
-
       if (this.user && this.user.email) {
         await this._databaseService.updateDocumentField('usuarios', this.user.email, 'consulta', consulta)
       }
+      this._notificationService.dismissLoading();
       await this._notificationService.showConfirmAlert(
         '¡Consulta mandada con éxito!',
         'Aguarde a que el mozo le conteste.',
