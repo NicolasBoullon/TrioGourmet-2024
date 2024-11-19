@@ -25,6 +25,12 @@ export class AsignacionMesaComponent  implements OnInit {
   protected listaEspera: Usuario[] = [];
   protected mesasDisponibles: Mesa[] = [];
 
+  customSelectOptions = {
+    header: 'Seleccionar Mesa',
+    message: 'Por favor, elige una mesa de la lista.',
+  };
+  
+
   constructor() {
     addIcons({trashBin});
   }
@@ -48,21 +54,26 @@ export class AsignacionMesaComponent  implements OnInit {
   }
 
   async asignarMesa(cliente: Usuario, mesa: Mesa) {
-    this._notificationService.presentLoading('Asignando mesa...');
-    try {
-      console.log(cliente);
-      await this._databaseService.updateDocument('usuarios', cliente.email, { mesa: mesa.nombre });
-      await this._databaseService.updateDocument('mesas', mesa.nombre, { estado: 'ocupada', cliente: cliente.email });
-
-      this._notificationService.dismissLoading();
-      this._notificationService.presentToast(`${mesa.nombre} asignada a ${cliente.name}`, 2000, 'success', 'middle');
-      
-      this.obtenerListaEspera();
-      this.obtenerMesasDisponibles();
-    } 
-    catch {
-      this._notificationService.dismissLoading();
-      this._notificationService.presentToast('Error al asignar la mesa, intente nuevamente.', 2000, 'danger', 'middle');
+    if(mesa) {
+      this._notificationService.presentLoading('Asignando mesa...');
+      try {
+        console.log(cliente);
+        await this._databaseService.updateDocument('usuarios', cliente.email, { mesa: mesa.nombre });
+        await this._databaseService.updateDocument('mesas', mesa.nombre, { estado: 'ocupada', cliente: cliente.email });
+  
+        this._notificationService.dismissLoading();
+        this._notificationService.presentToast(`${mesa.nombre} asignada a ${cliente.name}`, 2000, 'success', 'middle');
+        
+        this.obtenerListaEspera();
+        this.obtenerMesasDisponibles();
+      } 
+      catch {
+        this._notificationService.dismissLoading();
+        this._notificationService.presentToast('Error al asignar la mesa, intente nuevamente.', 2000, 'danger', 'middle');
+      }
+    }
+    else {
+      this._notificationService.presentToast('No ha seleccionado ninguna mesa.', 2000, 'warning', 'middle');
     }
   }
 

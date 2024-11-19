@@ -26,7 +26,8 @@
                 <p>No hay mesas disponibles.</p>
               }
               @else {
-                <ion-select placeholder="Selecciona una mesa" (ionChange)="asignarMesa(cliente, $event.detail.value)">
+                <ion-select placeholder="Selecciona una mesa" [interfaceOptions]="customSelectOptions" [cancelText]="'Cancelar'"
+                [okText]="'Aceptar'" (ionChange)="asignarMesa(cliente, $event.detail.value)">
                   @for (mesa of mesasDisponibles; track $index) {
                     <ion-select-option [value]="mesa">
                       {{ mesa.nombre }}
