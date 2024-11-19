@@ -25,8 +25,13 @@
         @else if(userDoc.estado)
         {
           <ion-button class="action-button" (click)="openConsultaModal()">{{userDoc.consulta?.respondida ? 'Tienes respuesta a tu consulta' : 'Consulta al mozo'}}</ion-button>
+          @if(!userDoc.recibioElPedido && userDoc.estado == 'pedido entregado') {
+            <div style="padding-top: 1rem;">
+              <p>¡Su pedido ha sido entregado! Por favor revise que esté todo correcto y haga click en el siguiente botón para confirmar:</p>
+              <ion-button class="action-button" color="success" (click)="confirmarRecepcionPedido()">Confirmar recepción del pedido</ion-button>
+            </div>
+          }
         }
-
       </div>
     }
     @else if (userDoc.perfil == 'maitre') {
