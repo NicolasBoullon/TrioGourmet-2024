@@ -47,7 +47,11 @@ export const routes: Routes = [
   {
     path: 'opciones-escaneo',
     loadComponent: () => import('./pages/opciones-escaneo/opciones-escaneo.page').then( m => m.OpcionesEscaneoPage)
+  },  {
+    path: 'crear-encuesta',
+    loadComponent: () => import('./pages/crear-encuesta/crear-encuesta.page').then( m => m.CrearEncuestaPage)
   },
+
 
 
 ];

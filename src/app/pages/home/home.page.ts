@@ -94,7 +94,7 @@ export class HomePage {
       console.error('Error obteniendo el usuario:', error);
     }
 
-    if (this.user)
+    if (this.user) 
     {
       this._notificationsPushService.init(this.user)
     }

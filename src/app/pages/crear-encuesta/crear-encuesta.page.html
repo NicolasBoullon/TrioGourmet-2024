@@ -1,0 +1,115 @@
+<app-header title="Encuesta satisfacción" backButton="/encuesta"></app-header>
+
+<ion-content class="signup">
+  <form [formGroup]="form" (ngSubmit)="submit()" (keypress.enter)="submit()">
+    
+    <!-- Calificación General (Range) -->
+    <ion-item>
+      <ion-label position="stacked" for="calificacionGeneral">Calificación General</ion-label>
+      <ion-range
+        id="calificacionGeneral"
+        name="calificacionGeneral"
+        [formControl]="form.controls.calificacionGeneral"
+        min="1"
+        max="10"
+        step="1"
+        snaps="true"
+      >
+        <ion-label slot="start">1</ion-label>
+        <ion-label slot="end">10</ion-label>
+      </ion-range>
+    </ion-item>
+
+    <!-- Calidad de la Comida (Radio) -->
+    <ion-item>
+      <ion-label position="stacked" for="calidadComida">Calidad de la Comida</ion-label>
+      <ion-radio-group id="calidadComida" name="calidadComida" [formControl]="form.controls.calidadComida">
+        <ion-item>
+          <ion-label>Excelente</ion-label>
+          <ion-radio value="Excelente" id="calidadComidaExcelente"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label>Buena</ion-label>
+          <ion-radio value="Buena" id="calidadComidaBuena"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label>Aceptable</ion-label>
+          <ion-radio value="Aceptable" id="calidadComidaAceptable"></ion-radio>
+        </ion-item>
+      </ion-radio-group>
+    </ion-item>
+
+    <!-- Tiempo de Espera (Select) -->
+    <ion-item>
+      <ion-label position="stacked" for="tiempoEspera">Tiempo de Espera</ion-label>
+      <ion-select
+        id="tiempoEspera"
+        name="tiempoEspera"
+        [formControl]="form.controls.tiempoEspera"
+        placeholder="Seleccione"
+      >
+        <ion-select-option value="Muy rápido" id="tiempoEsperaMuyRapido">Muy rápido</ion-select-option>
+        <ion-select-option value="Rápido" id="tiempoEsperaRapido">Rápido</ion-select-option>
+        <ion-select-option value="Aceptable" id="tiempoEsperaAceptable">Aceptable</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <!-- Amabilidad del Personal (Input) -->
+    <ion-item>
+      <ion-label position="stacked" for="amabilidadPersonal">Amabilidad del Personal</ion-label>
+      <ion-input
+        type="text"
+        id="amabilidadPersonal"
+        name="amabilidadPersonal"
+        [formControl]="form.controls.amabilidadPersonal"
+        placeholder="Ingrese su opinión"
+      ></ion-input>
+    </ion-item>
+
+    <!-- Limpieza (Checkbox) -->
+    <ion-item>
+      <ion-label position="stacked" for="limpieza">Limpieza</ion-label>
+
+      <!-- Checkbox para "Mesas" -->
+      <ion-checkbox
+        id="limpiezaMesas"
+        name="limpieza"
+        [formControlName]="0"
+        (ionChange)="toggleCheckbox($event, 'Mesas')"
+        [checked]="form.controls.limpieza.value.includes('Mesas')"
+      ></ion-checkbox>
+      <ion-label for="limpiezaMesas">Mesas</ion-label>
+    
+      <!-- Checkbox para "Pisos" -->
+      <ion-checkbox
+        id="limpiezaPisos"
+        name="limpieza"
+        [formControlName]="1"
+        (ionChange)="toggleCheckbox($event, 'Pisos')"
+        [checked]="form.controls.limpieza.value.includes('Pisos')"
+      ></ion-checkbox>
+      <ion-label for="limpiezaPisos">Pisos</ion-label>
+    
+      <!-- Checkbox para "Baños" -->
+      <ion-checkbox
+        id="limpiezaBanos"
+        name="limpieza"
+        [formControlName]="2"
+        (ionChange)="toggleCheckbox($event, 'Baños')"
+        [checked]="form.controls.limpieza.value.includes('Baños')"
+      ></ion-checkbox>
+      <ion-label for="limpiezaBanos">Baños</ion-label>
+    </ion-item>
+
+    <!-- Botón de Registro -->
+    <ion-button
+      id="submitButton"
+      [disabled]="form.invalid"
+      type="submit"
+      expand="block"
+      color="primary"
+    >
+      Registrar Encuesta
+    </ion-button>
+  </form>
+</ion-content>

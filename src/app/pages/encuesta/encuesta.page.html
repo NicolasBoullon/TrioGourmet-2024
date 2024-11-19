@@ -9,6 +9,16 @@
       </ion-col>
     </ion-row>
 
+    @if(userDoc?.estado === 'pedido entregado') {
+      <ion-row>
+        <ion-col size="12" class="centered">
+          <ion-button expand="block" color="primary" routerLink="/crear-encuesta">
+            Realizar Encuesta
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    }
+
     <ion-row>
       <ion-col size="12">
         <ion-list>
@@ -18,21 +28,15 @@
                 <ion-card-title>{{ encuesta.fecha | date: 'shortDate' }}</ion-card-title>
                 <ion-card-subtitle>Calificación General: {{ encuesta.calificacionGeneral }}</ion-card-subtitle>
               </ion-card-header>
-              
               <ion-card-content>
                 <p><strong>Calidad de la comida:</strong> {{ encuesta.calidadComida }}</p>
                 <p><strong>Tiempo de espera:</strong> {{ encuesta.tiempoEspera }}</p>
                 <p><strong>Amabilidad del personal:</strong> {{ encuesta.amabilidadPersonal }}</p>
                 <p><strong>Limpieza:</strong> {{ encuesta.limpieza.join(', ') }}</p>
-  
-                <!-- <ion-button fill="clear" color="secondary" (click)="verDetalles(encuesta)">Ver detalles</ion-button>  -->
               </ion-card-content>
-  
-              @if(encuesta.fotos && encuesta.fotos.length > 0)
-              {
+              @if(encuesta.fotos && encuesta.fotos.length > 0) {
                 <swiper-container class="foto-slider" [loop]="true" [pagination]="true" [zoom]="true">
-                  @for(foto of encuesta.fotos; track $index)
-                  {
+                  @for(foto of encuesta.fotos; track $index) {
                     <swiper-slide>
                       <div class="swiper-zoom-container">
                         <img [src]="foto" alt="Foto de la encuesta" />
@@ -48,4 +52,3 @@
     </ion-row>
   </ion-grid>
 </ion-content>
-
