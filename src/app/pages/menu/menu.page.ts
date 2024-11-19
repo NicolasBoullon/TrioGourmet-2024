@@ -196,17 +196,17 @@ export class MenuPage implements OnInit, OnDestroy{
 
   async realizarPedido()
   {
+    await this.notificationService.presentLoading('Realizando pedido...');
     const pedidoAEnviar = await this.ArmarPedido();
     const idPedido = await this.databaseService.setDocument('pedidos', pedidoAEnviar);
     await this.databaseService.updateDocumentField('pedidos', idPedido ,'id', idPedido);
     await this.databaseService.updateDocumentField('usuarios', pedidoAEnviar.cliente, 'estado', 'pedido realizado');
+    this.notificationService.dismissLoading();
     await this.notificationService.showConfirmAlert(
       '¡Pedido Generado con éxito!',
       'El pedido se encuentra pendiente de confirmación. Su pedido comenzará a hacerse en cuanto el mozo confirme.',
       'Aceptar',
       () => {
-        // No se como tener la mesa, se la tengo que pasar pero digamos que hice un routerLink, no se como pasarle el valor de la mesa del home, creo que se pueden pasar parametros por la url que en el celu estaría bueno porque no se ven.
-        // Una vez va al home y realiza su pedido habría que también guardar en una variable que ya tiene pedido y que no pueda clickear en el menú.
         this.apiRequestService.notifyRole('Pedido en espera de confirmación', `${pedidoAEnviar.mesa} está esperando la confirmación de su pedido.`, 'mozo').subscribe();
         this.notificationService.routerLink('/home');
       }
