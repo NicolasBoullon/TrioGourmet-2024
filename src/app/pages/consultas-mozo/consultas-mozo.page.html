@@ -8,7 +8,7 @@
       {
         @if(!consulta.respondida)
         {
-          <ion-item lines="full" class="consulta-item">
+          <ion-item lines="full" class="consulta-item no-respondida">
             <ion-label>
               <h2 class="mesa-title">{{ consulta.mesa }}: </h2>
               <p class="consulta-fecha">{{ consulta.fecha | date: 'shortDate' }} - {{ consulta.fecha | date: 'shortTime' }}</p>
@@ -19,10 +19,14 @@
             </ion-button>
           </ion-item>
         }
-        @else {
-          <ion-item lines="full" class="consulta-item">
+        @else 
+        {
+          <ion-item lines="full" class="consulta-item respondida">
             <ion-label>
               <h2 class="mesa-title">Consulta respondida</h2>
+              <p class="consulta-fecha">{{ consulta.fecha | date: 'shortDate' }} - {{ consulta.fecha | date: 'shortTime' }}</p>
+              <p class="consulta-texto">{{ consulta.consulta }}</p>
+              <p class="consulta-respuesta">Respuesta: {{ consulta.respuesta }}</p>
             </ion-label>
           </ion-item>
         }
@@ -33,6 +37,8 @@
   {
     <app-loading></app-loading>
   }
+
+  <!-- Modal -->
   <ion-modal [isOpen]="isModalOpen" (didDismiss)="closeRespuestaModal()">
     <ng-template>
       <ion-header>
@@ -44,11 +50,11 @@
         </ion-toolbar>
       </ion-header>
       
-        <div class="modal-container">
-          <ion-item lines="none" class="centered-item">
-            <ion-textarea [(ngModel)]="respuesta" placeholder="Escribe aquí tu mensaje..."></ion-textarea>
-          </ion-item>
-        </div>
+      <div class="modal-container">
+        <ion-item lines="none" class="centered-item">
+          <ion-textarea [(ngModel)]="respuesta" placeholder="Escribe aquí tu mensaje..."></ion-textarea>
+        </ion-item>
+      </div>
 
       <ion-footer>
         <div class="modal-actions">
@@ -57,5 +63,4 @@
       </ion-footer>
     </ng-template>
   </ion-modal>
-
 </ion-content>

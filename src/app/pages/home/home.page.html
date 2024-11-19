@@ -68,17 +68,17 @@
         </ion-toolbar>
       </ion-header>
         <div class="modal-container">
-          @if(userDoc?.consulta?.respondida != undefined && userDoc?.consulta?.respondida )
+          @if(userDoc?.consulta?.respondida)
           {
-            <ion-item lines="full" class="consulta-item">
+            <ion-item lines="none" class="consulta-item">
               <ion-label>
-                <h2 class="mesa-title">{{ userDoc?.consulta?.consulta }}: </h2>
-                <p class="consulta-fecha">{{ _databaseService.convertTimestampToDate(userDoc!.consulta!.fecha) | date: 'shortDate'}}</p>
+                <h2 class="mesa-title">{{ userDoc?.consulta?.respuesta }}: </h2>
+                <p class="consulta-fecha">{{ userDoc?.consulta?.fecha | date: 'shortDate'}} - {{ userDoc?.consulta?.fecha | date: 'shortTime'}}</p>
               </ion-label>
             </ion-item>
           }
           @else {
-            <ion-item lines="none" class="centered-item">
+            <ion-item lines="none">
               <ion-textarea [(ngModel)]="consulta" placeholder="Escribe aquí tu mensaje..."></ion-textarea>
             </ion-item>
           }

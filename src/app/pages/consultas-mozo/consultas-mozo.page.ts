@@ -61,7 +61,8 @@ export class ConsultasMozoPage implements OnInit {
       const consulta: Consulta = {
         id: this.consultaSeleccionada!.id,
         mesa: this.consultaSeleccionada!.mesa,
-        consulta: this.respuesta,
+        consulta: this.consultaSeleccionada!.consulta,
+        respuesta: this.respuesta,
         fecha: new Date(),
         mailCliente: this.consultaSeleccionada!.mailCliente,
         respondida: true
