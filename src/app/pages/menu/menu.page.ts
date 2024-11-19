@@ -228,6 +228,7 @@ export class MenuPage implements OnInit, OnDestroy{
       id:'',
       cocina: tieneCocina,
       bar: tieneBar,
+      importeTotal: this.totalAmount,
     }
     return pedido;
   }

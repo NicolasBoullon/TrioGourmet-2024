@@ -1,0 +1,134 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .radio-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80%;
+  }
+  
+  .radio-label {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    padding: 0.5em;
+    padding-left: 20%;
+    margin-bottom: 0.5em;
+    background-color: #ffe0b2; /* Naranja claro */
+    border: 1px solid #ffb74d; /* Naranja oscuro */
+    border-radius: 4px;
+    transition: background-color 0.2s, border-color 0.2s;
+  }
+  
+  .radio-label:hover {
+    background-color: #ffb74d; /* Naranja oscuro */
+  }
+  
+  .radio-input {
+    position: absolute;
+    opacity: 0;
+  }
+  
+  .radio-input:checked + .radio-label {
+    background-color: #ffb74d; /* Naranja oscuro */
+    border-color: #ff8a00; /* Naranja más intenso */
+  }
+  
+  .radio-input:focus + .radio-label {
+    outline: 2px solid #ff8a00; /* Naranja más intenso */
+  }
+  
+  .radio-inner-circle {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    border: 2px solid #ffb74d; /* Naranja oscuro */
+    border-radius: 50%;
+    margin-right: 0.5em;
+    transition: border-color 0.2s;
+    position: relative;
+  }
+  
+  .radio-label:hover .radio-inner-circle {
+    border-color: #ff8a00; /* Naranja más intenso */
+  }
+  
+  .radio-input:checked + .radio-label .radio-inner-circle {
+    border-color: #ff8a00; /* Naranja más intenso */
+  }
+  
+  .radio-input:checked + .radio-label .radio-inner-circle::after {
+    content: '';
+    display: block;
+    width: 0.5em;
+    height: 0.5em;
+    background-color: #ff8a00; /* Naranja más intenso */
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+.ion-content-div{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f8cc99b8;
+}
+.container{
+    border-radius: 8px ;
+    height: 95%;
+    width: 90%;
+    // border: 2px solid black;
+}
+.seleccionar-propina {
+    width: 100%;
+    height: 45%;
+    font-size: 1.3rem;
+    display: flex;
+    justify-content: center;
+}
+.div-btn-aceptar{
+    height: 5%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    button{
+        font-size: 1.5rem;
+        height: 100%;
+        width: 80%;
+        color: black;
+        border: 1px solid #ff8a00;
+        background-color: #ffb74d;
+    }
+    button:disabled{
+        border: 1px solid black;
+        background-color: #94928f;
+    }
+}
+
+.h2-propina{
+    height: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 4rem;
+}
+.p-propina{
+    height: 30%;
+    font-size: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    text-align: center;
+    margin: 0px 10px;
+}

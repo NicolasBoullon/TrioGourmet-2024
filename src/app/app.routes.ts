@@ -45,13 +45,15 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/consultas-mozo/consultas-mozo.page').then( m => m.ConsultasMozoPage)
   },
   {
+    path: 'seleccionar-propina',
+    loadComponent: () => import('./components/seleccionar-propina/seleccionar-propina.component').then(m => m.SeleccionarPropinaComponent)
+  },
+  {
     path: 'opciones-escaneo',
     loadComponent: () => import('./pages/opciones-escaneo/opciones-escaneo.page').then( m => m.OpcionesEscaneoPage)
-  },  {
+  },
+  {
     path: 'crear-encuesta',
     loadComponent: () => import('./pages/crear-encuesta/crear-encuesta.page').then( m => m.CrearEncuestaPage)
   },
-
-
-
 ];
