@@ -10,6 +10,7 @@ export interface Usuario extends PersonaCredenciales
   estado?: 'en lista de espera' | 'mesa asignada' | 'pedido realizado' | 
             'pedido confirmado' | 'pedido terminado' | 'pedido entregado',
   mesa?: string,
-  consulta?: Consulta,
+  consulta?: Consulta
   realizoEncuesta?: boolean
+  recibioElPedido?: boolean;
 }
