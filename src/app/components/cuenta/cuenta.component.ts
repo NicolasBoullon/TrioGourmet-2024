@@ -3,13 +3,14 @@ import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {IonicModule} from '@ionic/angular'
 import { SeleccionarPropinaComponent } from "../seleccionar-propina/seleccionar-propina.component";
+import { PagarMontoComponent } from '../pagar-monto/pagar-monto.component';
 
 @Component({
   selector: 'app-cuenta',
   templateUrl: './cuenta.component.html',
   styleUrls: ['./cuenta.component.scss'],
   standalone:true,
-  imports: [IonicModule, FormsModule, CommonModule, SeleccionarPropinaComponent]
+  imports: [IonicModule, FormsModule, CommonModule, SeleccionarPropinaComponent,PagarMontoComponent]
 })
 export class CuentaComponent  implements OnInit {
 
@@ -17,6 +18,7 @@ export class CuentaComponent  implements OnInit {
 
   PropinaElegida!:number;
   isModalOpenPropina:boolean = false;
+  isModalOpenPagar:boolean = false;
   MontoTotalConPropina:any = 0;
   SeleccionoPropina(valor:number){
     if(valor != 0){
@@ -61,6 +63,13 @@ export class CuentaComponent  implements OnInit {
       acumulador += parseFloat(this.CalcularTotal(producto.cantidad, producto.precio));
     });
     return acumulador.toFixed(2); 
+  }
+
+  RecibirPago(pago:boolean){
+    if(pago){
+      console.log('Pago de forma correcta');
+      this.CloseModalPagar();
+    }
   }
 
   ngOnInit() {}
@@ -119,5 +128,15 @@ export class CuentaComponent  implements OnInit {
 
   AbrirModalPropina(){
     this.isModalOpenPropina = true;
+  }
+
+  CloseModalPagar(){
+    this.isModalOpenPagar = false;
+    console.log('cerro');
+    
+  }
+
+  AbrirModalPagar(){
+    this.isModalOpenPagar = true;
   }
 }

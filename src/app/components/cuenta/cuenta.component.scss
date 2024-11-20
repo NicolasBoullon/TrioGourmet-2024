@@ -71,3 +71,17 @@ p{
         font-size: 1.5rem;
     }
 }
+
+ion-modal#ion-modal-pagar{
+    --height: 300px;
+    --width: 400px;
+    --border-radius: 8px;
+    // background-color:  rgb(223, 223, 223);
+}
+
+app-pagar-monto{
+    display: flex;
+    justify-content: center;
+    justify-self: center;
+    width: 300px;
+}
