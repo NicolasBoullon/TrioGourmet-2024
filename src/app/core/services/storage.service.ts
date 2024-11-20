@@ -30,4 +30,25 @@ export class StorageService {
 
     return imageUrl;
   }
+
+  async uploadImages(
+    images: Blob[],
+    collection: string,
+    id: string
+  ): Promise<string[]> {
+    const imageUrls: string[] = [];
+  
+    for (const [index, image] of images.entries()) {
+      const uniqueId = `${id}_${index}`;
+      const storageRef = ref(this.storage, `${collection}/${uniqueId}`);
+      
+      await uploadBytes(storageRef, image);
+  
+      const imageUrl: string = await getDownloadURL(storageRef);
+      imageUrls.push(imageUrl);
+    }
+  
+    return imageUrls;
+  }
+  
 }

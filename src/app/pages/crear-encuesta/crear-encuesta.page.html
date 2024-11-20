@@ -1,11 +1,10 @@
-<app-header title="Encuesta satisfacción" backButton="/encuesta"></app-header>
+<app-header title="Encuesta de Satisfacción" backButton="/encuesta"></app-header>
 
-<ion-content class="signup">
+<ion-content class="realizar-encuesta">
   <form [formGroup]="form" (ngSubmit)="submit()" (keypress.enter)="submit()">
-    
     <!-- Calificación General (Range) -->
-    <ion-item>
-      <ion-label position="stacked" for="calificacionGeneral">Calificación General</ion-label>
+    <ion-item class="form-item">
+      <ion-label position="stacked" for="calificacionGeneral" class="input-label">Calificación General</ion-label>
       <ion-range
         id="calificacionGeneral"
         name="calificacionGeneral"
@@ -21,27 +20,29 @@
     </ion-item>
 
     <!-- Calidad de la Comida (Radio) -->
-    <ion-item>
-      <ion-label position="stacked" for="calidadComida">Calidad de la Comida</ion-label>
+    <ion-item class="form-item">
+      <ion-label position="stacked" for="calidadComida" class="input-label">Calidad de la Comida</ion-label>
       <ion-radio-group id="calidadComida" name="calidadComida" [formControl]="form.controls.calidadComida">
-        <ion-item>
-          <ion-label>Excelente</ion-label>
-          <ion-radio value="Excelente" id="calidadComidaExcelente"></ion-radio>
-        </ion-item>
-        <ion-item>
-          <ion-label>Buena</ion-label>
-          <ion-radio value="Buena" id="calidadComidaBuena"></ion-radio>
-        </ion-item>
-        <ion-item>
-          <ion-label>Aceptable</ion-label>
-          <ion-radio value="Aceptable" id="calidadComidaAceptable"></ion-radio>
-        </ion-item>
+        <div class="radio-options">
+          <ion-item>
+            <ion-radio value="Excelente" id="calidadComidaExcelente"></ion-radio>
+            <ion-label>Excelente</ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-radio value="Buena" id="calidadComidaBuena"></ion-radio>
+            <ion-label>Buena</ion-label>
+          </ion-item>
+          <ion-item lines="none">
+            <ion-radio value="Aceptable" id="calidadComidaAceptable"></ion-radio>
+            <ion-label>Aceptable</ion-label>
+          </ion-item>
+        </div>
       </ion-radio-group>
     </ion-item>
 
     <!-- Tiempo de Espera (Select) -->
-    <ion-item>
-      <ion-label position="stacked" for="tiempoEspera">Tiempo de Espera</ion-label>
+    <ion-item class="form-item">
+      <ion-label position="stacked" for="tiempoEspera" class="input-label">Tiempo de Espera</ion-label>
       <ion-select
         id="tiempoEspera"
         name="tiempoEspera"
@@ -55,8 +56,8 @@
     </ion-item>
 
     <!-- Amabilidad del Personal (Input) -->
-    <ion-item>
-      <ion-label position="stacked" for="amabilidadPersonal">Amabilidad del Personal</ion-label>
+    <ion-item class="form-item">
+      <ion-label position="stacked" for="amabilidadPersonal" class="input-label">Amabilidad del Personal</ion-label>
       <ion-input
         type="text"
         id="amabilidadPersonal"
@@ -67,49 +68,43 @@
     </ion-item>
 
     <!-- Limpieza (Checkbox) -->
-    <ion-item>
-      <ion-label position="stacked" for="limpieza">Limpieza</ion-label>
-
-      <!-- Checkbox para "Mesas" -->
-      <ion-checkbox
-        id="limpiezaMesas"
-        name="limpieza"
-        [formControlName]="0"
-        (ionChange)="toggleCheckbox($event, 'Mesas')"
-        [checked]="form.controls.limpieza.value.includes('Mesas')"
-      ></ion-checkbox>
-      <ion-label for="limpiezaMesas">Mesas</ion-label>
-    
-      <!-- Checkbox para "Pisos" -->
-      <ion-checkbox
-        id="limpiezaPisos"
-        name="limpieza"
-        [formControlName]="1"
-        (ionChange)="toggleCheckbox($event, 'Pisos')"
-        [checked]="form.controls.limpieza.value.includes('Pisos')"
-      ></ion-checkbox>
-      <ion-label for="limpiezaPisos">Pisos</ion-label>
-    
-      <!-- Checkbox para "Baños" -->
-      <ion-checkbox
-        id="limpiezaBanos"
-        name="limpieza"
-        [formControlName]="2"
-        (ionChange)="toggleCheckbox($event, 'Baños')"
-        [checked]="form.controls.limpieza.value.includes('Baños')"
-      ></ion-checkbox>
-      <ion-label for="limpiezaBanos">Baños</ion-label>
+    <ion-item class="form-item">
+      <ion-label position="stacked" class="input-label">Limpieza</ion-label>
+      <div class="checkbox-options" formArrayName="limpieza">
+        <ion-item>
+          <ion-checkbox [formControlName]="0"></ion-checkbox>
+          <ion-label>Mesas</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-checkbox [formControlName]="1"></ion-checkbox>
+          <ion-label>Pisos</ion-label>
+        </ion-item>
+        <ion-item lines="none">
+          <ion-checkbox [formControlName]="2"></ion-checkbox>
+          <ion-label>Baños</ion-label>
+        </ion-item>
+      </div>
     </ion-item>
 
+    <!-- Cargar Imágenes -->
+    <ion-item class="form-item">
+      <ion-button type="button" expand="block" color="tertiary" (click)="openGallery()">Cargar Imágenes</ion-button>
+    </ion-item>
+
+    <!-- Slider para Imágenes Cargadas -->
+    <swiper-container *ngIf="imagePreviewUrls.length > 0" class="foto-slider" [loop]="true" [pagination]="true" [zoom]="true">
+      <swiper-slide *ngFor="let foto of imagePreviewUrls">
+        <div class="swiper-zoom-container">
+          <img [src]="foto" alt="Foto de la encuesta" />
+        </div>
+      </swiper-slide>
+    </swiper-container>
+
     <!-- Botón de Registro -->
-    <ion-button
-      id="submitButton"
-      [disabled]="form.invalid"
-      type="submit"
-      expand="block"
-      color="primary"
-    >
-      Registrar Encuesta
-    </ion-button>
+    <ion-item class="form-item">
+      <ion-button id="submitButton" [disabled]="form.invalid" type="submit" expand="block" color="primary">
+        Registrar Encuesta
+      </ion-button>
+    </ion-item>
   </form>
 </ion-content>
