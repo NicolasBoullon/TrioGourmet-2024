@@ -14,15 +14,16 @@ export class SeleccionarPropinaComponent  implements OnInit {
   constructor() { }
 
   ngOnInit() {}
-
+  importeCuenta:number = 100; //Este seria el importe de la cuenta
   selecciono:boolean = false;
+  resultadoFinal:number = 0;
   obtenerValor() {
-    const seleccionado = document.querySelector('input[name="radio-group"]:checked') as HTMLInputElement;
+    const seleccionado = document.querySelector('input[name="radio-group"]:checked') as any;
     
-    if (seleccionado) {
-      console.log(this.selecciono);
+    if (seleccionado.value != 0) {
+      this.resultadoFinal = parseFloat((this.importeCuenta * parseFloat(seleccionado.value)).toFixed(2));     
+      console.log(this.resultadoFinal);
       
-      console.log(seleccionado.value);
     } else {
       console.log(this.selecciono);
 
