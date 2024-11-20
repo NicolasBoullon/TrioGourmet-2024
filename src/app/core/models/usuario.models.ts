@@ -11,5 +11,6 @@ export interface Usuario extends PersonaCredenciales
             'pedido confirmado' | 'pedido terminado' | 'pedido entregado',
   mesa?: string,
   consulta?: Consulta
+  realizoEncuesta?: boolean
   recibioElPedido?: boolean;
 }

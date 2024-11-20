@@ -76,6 +76,24 @@
         </div>
       </div>
 
+      <!-- Repetir Contraseña -->
+      <div class="password-confirmation">
+        <ion-item lines="none" class="input">
+          <ion-icon color="primary" slot="start" name="lock-closed-outline"></ion-icon>
+          <ion-input [type]="showConfirmPassword ? 'text' : 'password'" [formControl]="form.controls.confirmPassword" label="Repetir Contraseña" placeholder="Repita su contraseña" label-placement="stacked"></ion-input>
+          <ion-icon color="primary" slot="end" (click)="showOrHideConfirmPassword()" [name]="showConfirmPassword ? 'eye-off-outline' : 'eye-outline'"></ion-icon>
+        </ion-item>
+        <div class="validators">
+          @if (form.controls.confirmPassword.touched && form.controls.confirmPassword.hasError('required')) {
+            <ion-label color="danger">Debe <strong>confirmar</strong> la contraseña</ion-label>
+          }
+          @else if (form.errors && form.errors['passwordMismatch']) {
+            <ion-label color="danger">Las contraseñas <strong>no coinciden</strong></ion-label>
+          }
+        </div>
+      </div>
+
+
       <!-- DNI -->
       <div class="dni">
         <ion-item lines="none" class="input">

@@ -1,10 +1,12 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
+  AbstractControl,
   FormControl,
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
+  ValidationErrors,
   Validators,
 } from '@angular/forms';
 import {
@@ -67,6 +69,7 @@ export class ClienteSignUpPage {
   private _apiRequestService = inject(ApiRequestService); 
 
   protected showPassword: boolean = false;
+  protected showConfirmPassword: boolean = false;
   protected imageSelected?: Blob;
   protected imagePreviewUrl: string | null = null;
 
@@ -76,6 +79,7 @@ export class ClienteSignUpPage {
       Validators.required,
       Validators.minLength(6),
     ]),
+    confirmPassword: new FormControl('', [Validators.required]),
     name: new FormControl('', [
       Validators.required,
       Validators.minLength(4),
@@ -93,7 +97,9 @@ export class ClienteSignUpPage {
     ]),
     image: new FormControl('', [Validators.required]),
     perfil: new FormControl('cliente')
-  });
+  },
+  { validators: this.passwordsMatchValidator }
+);
 
   constructor() {
     addIcons({
@@ -112,6 +118,17 @@ export class ClienteSignUpPage {
   showOrHidePassword(): void {
     this.showPassword = !this.showPassword;
   }
+
+  showOrHideConfirmPassword(): void {
+    this.showConfirmPassword = !this.showConfirmPassword;
+  }
+
+  protected passwordsMatchValidator(form: AbstractControl): ValidationErrors | null {
+    const password = form.get('password')?.value;
+    const confirmPassword = form.get('confirmPassword')?.value;
+    return password === confirmPassword ? null : { passwordMismatch: true };
+  }  
+  
 
   async submit(): Promise<void> {
     if (this.form.valid) {
