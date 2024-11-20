@@ -56,4 +56,8 @@ export const routes: Routes = [
     path: 'crear-encuesta',
     loadComponent: () => import('./pages/crear-encuesta/crear-encuesta.page').then( m => m.CrearEncuestaPage)
   },
+  {
+    path: 'pedir-cuenta',
+    loadComponent: () => import('./components/cuenta/cuenta.component').then( m => m.CuentaComponent)
+  },
 ];

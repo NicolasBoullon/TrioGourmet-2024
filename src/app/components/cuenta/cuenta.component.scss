@@ -1,0 +1,73 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+p{
+    font-size: 1.6rem;
+}
+#ion-content{
+    height: 100vh;
+    --background: var(--color-primario-claro);
+}
+.h2-cuenta{
+    font-size: 4rem;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    padding: 10px 0px;
+}
+.ion-content-div{
+    height: fit-content;
+    width: 100%;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    flex-direction: column;
+}
+
+.row{
+    height: fit-content;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.row.row-productos{
+    height: fit-content;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    flex-direction: column;
+    margin: 10px 0px;
+    padding: 0px 10px;
+    // background-color: rgba(240, 231, 224, 0.747);
+    p{
+        padding-top: 10px;
+    }
+}
+.row-cuenta{
+    display: flex;
+    justify-content: center;
+    background: linear-gradient(60deg,white,rgb(197, 197, 197),white,rgb(202, 202, 202));
+    flex-direction: column;
+    width: 96%;
+    box-shadow: 0px 5px 10px rgb(37, 37, 37);
+}
+.row.row-fecha-hora,.row-importe-total{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.row-buttons{
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    padding: 10px 0px;
+    ion-button{
+        margin-top: 10px;
+        font-size: 1.5rem;
+    }
+}

@@ -1,0 +1,56 @@
+<ion-content id="ion-content">
+  <div class="ion-content-div">
+      <div class="row">
+        <h2  class="h2-cuenta">Cuenta</h2>
+      </div>
+      <div class="row-cuenta">
+        <div class="row row-fecha-hora">
+          <p>============================</p>
+          <p><strong>Fecha:</strong> {{ pedido.fecha }}</p>
+          <!-- <p>=============================</p> -->
+        </div>
+        <div class="row row-fecha-hora">
+          <p><strong>Hora:</strong> {{ pedido.hora }}</p>
+          <p>============================</p>
+        </div>
+        @for (producto of pedido.productos; track $index) {
+          <div class="row row-productos" *ngIf="producto.sector == 'Comidas'">
+            <p><strong>Descripción:</strong> {{ producto.descripcion }}</p>
+            <p><strong>Precio Unitario:</strong> ${{ producto.precio }}</p>
+            <p><strong>Cantidad:</strong> {{ producto.cantidad }}</p>
+            <p><strong>Importe:</strong> ${{ CalcularTotal(producto.cantidad,producto.precio) }}</p>
+            <p>============================</p>
+          </div>
+          <div class="row row-productos" *ngIf="producto.sector == 'Bebidas'">
+            <p><strong>Descripción:</strong> {{ producto.descripcion }}</p>
+            <p><strong>Precio Unitario:</strong> ${{ producto.precio }}</p>
+            <p><strong>Cantidad:</strong> {{ producto.cantidad }}</p>
+            <p><strong>Importe:</strong> ${{ CalcularTotal(producto.cantidad,producto.precio) }}</p>
+            <p>============================</p>
+          </div>
+        }
+        <div class="row-importe-total">
+          <p><strong>Importe:</strong> {{ CalcularImporteTotal() }}</p>
+          <p *ngIf="PropinaElegida"><strong>Propina Elegida </strong> ${{ MostrarPropina() }}</p>
+          <p>============================</p>
+          <p><strong>Importe Total a Pagar: {{ MontoTotalConPropinaCalcular() }}</strong></p>
+          <p>============================</p>
+        </div>
+      </div>
+      <div class="row-buttons">
+        <ion-button expand="block" (click)="AbrirModalPropina()">Ingresar Propina</ion-button>
+        <ion-button expand="block">Pagar</ion-button>
+      </div>
+  </div>
+
+
+  <ion-modal [isOpen]="isModalOpenPropina" (didDismiss)="CloseModal()">
+    <ng-template>
+      <ion-content>
+        <ng-container>
+          <app-seleccionar-propina (propinaSeleccionada)="SeleccionoPropina($event)"></app-seleccionar-propina>
+        </ng-container>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+</ion-content>
