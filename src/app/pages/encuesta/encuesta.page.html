@@ -9,6 +9,16 @@
       </ion-col>
     </ion-row>
 
+    @if(userDoc?.estado) {
+      <ion-row>
+        <ion-col size="12" class="centered">
+          <ion-button expand="block" color="primary" routerLink="/graficos-encuestas">
+            Gráficos Encuestas
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    }
+    
     @if(userDoc?.estado === 'pedido entregado') {
       <ion-row>
         <ion-col size="12" class="centered">
@@ -25,7 +35,7 @@
           @for (encuesta of encuestas; track $index) {
             <ion-card color="light" class="encuesta-card">
               <ion-card-header color="secondary">
-                <ion-card-title>{{ encuesta.fecha | date: 'shortDate' }} - {{encuesta.fecha | date: 'shortTime'}}</ion-card-title>
+                <ion-card-title>{{ encuesta.fecha | date: 'dd/MM - HH:mm'}}</ion-card-title>
                 <ion-card-subtitle>Calificación General: {{ encuesta.calificacionGeneral }}</ion-card-subtitle>
               </ion-card-header>
               <ion-card-content>

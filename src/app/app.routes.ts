@@ -60,4 +60,9 @@ export const routes: Routes = [
     path: 'pedir-cuenta',
     loadComponent: () => import('./components/cuenta/cuenta.component').then( m => m.CuentaComponent)
   },
+  {
+    path: 'graficos-encuestas',
+    loadComponent: () => import('./pages/graficos-encuestas/graficos-encuestas.page').then( m => m.GraficosEncuestasPage)
+  },
+
 ];

@@ -17,7 +17,7 @@
 
         @if(userDoc.estado == 'en lista de espera') {
           <h2>En lista de espera</h2>
-          
+          <ion-button class="action-button" routerLink="/encuesta">Encuestas</ion-button>
           @if(userDoc.mesa) {
             <p>Le asignaron la {{ userDoc.mesa }}, escanee su QR para confirmar.</p>
           }

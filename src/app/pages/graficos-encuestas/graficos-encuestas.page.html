@@ -1,0 +1,47 @@
+<app-header title="Gráficos de encuestas" backButton="/encuesta"></app-header>
+
+<ion-content>
+  @if(loading)
+  {
+    <app-loading></app-loading>
+  }
+  
+    @if(!loading)
+    {
+      <h1>Estadísticas</h1>
+    }
+
+    <div class="chart-container">
+      @if(!loading)
+      {
+        <h2>Tiempos</h2>
+      }
+      <canvas id="barChartTiempo"></canvas>
+    </div>
+  
+    <div class="chart-container">
+      @if(!loading)
+      {
+        <h2>Calidad</h2>
+      }
+      <canvas id="pieChart"></canvas>
+    </div>
+  
+    <div class="chart-container">
+      @if(!loading)
+      {
+        <h2>Calificación</h2>
+      }
+      <canvas id="lineChart"></canvas>
+    </div>
+  
+    <div class="chart-container">
+      @if(!loading)
+      {
+        <h2>Limpieza</h2>
+      }
+      <canvas id="polarChart"></canvas>
+    </div>
+
+  
+</ion-content>

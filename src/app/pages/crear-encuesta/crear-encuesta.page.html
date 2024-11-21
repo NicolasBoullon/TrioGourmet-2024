@@ -32,9 +32,17 @@
             <ion-radio value="Buena" id="calidadComidaBuena"></ion-radio>
             <ion-label>Buena</ion-label>
           </ion-item>
-          <ion-item lines="none">
+          <ion-item>
             <ion-radio value="Aceptable" id="calidadComidaAceptable"></ion-radio>
             <ion-label>Aceptable</ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-radio value="Regular" id="calidadComidaRegular"></ion-radio>
+            <ion-label>Regular</ion-label>
+          </ion-item>
+          <ion-item lines="none">
+            <ion-radio value="Mala" id="calidadComidaMala"></ion-radio>
+            <ion-label>Mala</ion-label>
           </ion-item>
         </div>
       </ion-radio-group>
@@ -52,6 +60,8 @@
         <ion-select-option value="Muy rápido" id="tiempoEsperaMuyRapido">Muy rápido</ion-select-option>
         <ion-select-option value="Rápido" id="tiempoEsperaRapido">Rápido</ion-select-option>
         <ion-select-option value="Aceptable" id="tiempoEsperaAceptable">Aceptable</ion-select-option>
+        <ion-select-option value="Lento" id="tiempoEsperaLento">Lento</ion-select-option>
+        <ion-select-option value="Muy lento" id="tiempoEsperaMuyLento">Muy lento</ion-select-option>
       </ion-select>
     </ion-item>
 
@@ -92,13 +102,19 @@
     </ion-item>
 
     <!-- Slider para Imágenes Cargadas -->
-    <swiper-container *ngIf="imagePreviewUrls.length > 0" class="foto-slider" [loop]="true" [pagination]="true" [zoom]="true">
-      <swiper-slide *ngFor="let foto of imagePreviewUrls">
-        <div class="swiper-zoom-container">
-          <img [src]="foto" alt="Foto de la encuesta" />
-        </div>
-      </swiper-slide>
-    </swiper-container>
+    @if(imagePreviewUrls.length > 0) 
+    {
+      <swiper-container class="foto-slider" [loop]="true" [pagination]="true" [zoom]="true">
+        @for (foto of imagePreviewUrls; track $index) 
+        {
+          <swiper-slide>
+            <div class="swiper-zoom-container">
+              <img [src]="foto" alt="Foto de la encuesta" />
+            </div>
+          </swiper-slide>
+        }
+      </swiper-container>
+    }
 
     <!-- Botón de Registro -->
     <ion-item class="form-item">

@@ -162,21 +162,45 @@ export class CrearEncuestaPage {
   }
 
   async openGallery() {  
-    const result = await Camera.pickImages({
-      quality: 100,
-      limit: 3
-    });
+    const maxLimit = 3;
   
-    for (const image of result.photos) {
-      const imageUrl = image.webPath;
-      this.imagePreviewUrls.push(imageUrl);
-
-      const response = await fetch(imageUrl!);
-      const blob = await response.blob();
+    try {
+      const result = await Camera.pickImages({
+        quality: 100,
+        limit: maxLimit
+      });
   
-      this.imagesSelected.push(blob);
-      const fotosArray = this.form.get('fotos') as FormArray;
-      fotosArray.push(new FormControl(imageUrl));
+      const totalSelected = this.imagesSelected.length + result.photos.length;
+  
+      if (totalSelected > maxLimit) {
+        await this._notificationService.presentToast(
+          `Solo puedes seleccionar hasta ${maxLimit} imágenes.`,
+          2000,
+          'warning',
+          'bottom'
+        );
+        return; 
+      }
+  
+      for (const image of result.photos) {
+        const imageUrl = image.webPath;
+        this.imagePreviewUrls.push(imageUrl);
+  
+        const response = await fetch(imageUrl!);
+        const blob = await response.blob();
+  
+        this.imagesSelected.push(blob);
+        const fotosArray = this.form.get('fotos') as FormArray;
+        fotosArray.push(new FormControl(imageUrl));
+      }
+    } catch (error) {
+      await this._notificationService.presentToast(
+        'Hubo un error al seleccionar imágenes.',
+        2000,
+        'danger',
+        'bottom'
+      );
     }
   }
+  
 }
