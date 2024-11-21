@@ -1,0 +1,46 @@
+<div>
+  <h2>Listado de clientes con mesa</h2>
+  <div>
+    @if(clientesConMesa.length == 0) {
+      <p>No hay clientes con mesas asignadas.</p>
+    }
+    @else {
+      @for (cliente of clientesConMesa; track $index) {
+        <ion-card class="client-card">
+          <ion-card-header>
+            <ion-card-title>{{ cliente.mesa }}</ion-card-title>
+            @if(cliente.perfil == 'cliente') {
+              <ion-card-subtitle>Cliente: {{ cliente.name }} {{ cliente.apellido }}</ion-card-subtitle>
+            }
+            @else {
+              <ion-card-subtitle>Cliente: {{ cliente.name }}</ion-card-subtitle>
+            }
+          </ion-card-header>
+    
+          <ion-card-content>
+            <p>Estado: {{ cliente.estado }}</p>
+            <ion-item>
+              <!-- ESTO HAY QUE VER COMO LO DEJAMOS Y QUE ACCIONES PUEDE HACER SEGUN LOS ESTADOS -->
+              <ion-label>Acción:</ion-label>
+              <div class="acciones">
+                @if (cliente.estado == 'cuenta solicitada') {
+                  <ion-button (click)="enviarCuenta(cliente)">Enviar cuenta</ion-button>
+                }
+                @else if (cliente.estado == 'cuenta enviada') {
+                  <p>Esperando pago...</p>
+                }
+                @else if (cliente.estado == 'pedido realizado') {
+                  <ion-button>Ver pedido</ion-button>
+                }
+                @else {
+                  <p>No hay acciones disponibles</p>
+                }
+              </div>
+              
+            </ion-item>
+          </ion-card-content>
+        </ion-card>
+      } 
+    }
+  </div>
+</div>

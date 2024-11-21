@@ -2,7 +2,7 @@
 
 <ion-content class="home">
   @if (userDoc) {
-    <h1 class="welcome-title">¡Bienvenido!</h1>
+    <!-- <h1 class="welcome-title">¡Bienvenido!</h1> -->
 
     @if (userDoc.perfil == 'propietario' || userDoc.perfil == 'supervisor') {
       <div class="section">
@@ -42,6 +42,7 @@
     }
     @else if (userDoc.perfil == 'mozo') {
       <div class="section">
+        <app-gestion-mesas></app-gestion-mesas>
         <app-aprobacion-pedido></app-aprobacion-pedido>
       </div>
     }

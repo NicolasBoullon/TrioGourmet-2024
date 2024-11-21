@@ -1,17 +1,15 @@
 import { Component, inject,} from '@angular/core';
-import { IonContent, IonButton, IonModal, IonHeader, IonToolbar, IonTitle, IonButtons, IonItem, IonLabel, IonTextarea, IonInput, IonFooter } from '@ionic/angular/standalone';
+import { IonContent, IonButton, IonModal, IonHeader, IonToolbar, IonTitle, IonButtons, IonItem, IonLabel, IonTextarea, IonFooter } from '@ionic/angular/standalone';
 import { HeaderComponent } from 'src/app/shared/header/header.component';
 import { AuthService } from '../../core/services/auth.service';
-import { Unsubscribe, User } from '@angular/fire/auth';
+import { User } from '@angular/fire/auth';
 import { AprobacionClienteComponent } from "../../components/aprobacion-cliente/aprobacion-cliente.component";
 import { NotificationsPushService } from '../../core/services/notifications-push.service';
 import { LoadingComponent } from "../../components/loading/loading.component";
 import { DatabaseService } from 'src/app/core/services/database.service';
 import { Usuario } from 'src/app/core/models/usuario.models';
-
 import { AsignacionMesaComponent } from "../../components/asignacion-mesa/asignacion-mesa.component";
-import { RouterLink } from '@angular/router';
-import { CommonModule, DatePipe } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NotificationService } from 'src/app/core/services/notification.service';
 import { ApiRequestService } from 'src/app/core/services/api-request.service';
@@ -21,6 +19,7 @@ import { SeccionCocineroComponent } from "../../components/seccion-cocinero/secc
 import { Subscription } from 'rxjs';
 import { Consulta } from 'src/app/core/models/consulta.model';
 import { BotonEscanerComponent } from "../../components/boton-escaner/boton-escaner.component";
+import { GestionMesasComponent } from "../../components/gestion-mesas/gestion-mesas.component";
 
 @Component({
   selector: 'app-home',
@@ -38,7 +37,6 @@ import { BotonEscanerComponent } from "../../components/boton-escaner/boton-esca
     IonToolbar,
     IonButtons,
     IonHeader,
-    IonInput,
     IonItem,
     FormsModule,
     HeaderComponent,
@@ -48,9 +46,9 @@ import { BotonEscanerComponent } from "../../components/boton-escaner/boton-esca
     AsignacionMesaComponent,
     AprobacionPedidoComponent,
     SeccionBartenderComponent,
-    RouterLink,
     SeccionCocineroComponent,
-    DatePipe
+    DatePipe,
+    GestionMesasComponent
 ],
 })
 export class HomePage {
