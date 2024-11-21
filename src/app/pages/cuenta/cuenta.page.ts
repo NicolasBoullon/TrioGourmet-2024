@@ -1,36 +1,25 @@
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import {IonicModule} from '@ionic/angular'
-import { SeleccionarPropinaComponent } from "../seleccionar-propina/seleccionar-propina.component";
-import { PagarMontoComponent } from '../pagar-monto/pagar-monto.component';
+import { IonicModule } from '@ionic/angular'
+import { PagarMontoComponent } from 'src/app/components/pagar-monto/pagar-monto.component';
+import { HeaderComponent } from "../../shared/header/header.component";
 
 @Component({
   selector: 'app-cuenta',
-  templateUrl: './cuenta.component.html',
-  styleUrls: ['./cuenta.component.scss'],
-  standalone:true,
-  imports: [IonicModule, FormsModule, CommonModule, SeleccionarPropinaComponent,PagarMontoComponent]
+  templateUrl: './cuenta.page.html',
+  styleUrls: ['./cuenta.page.scss'],
+  standalone: true,
+  imports: [IonicModule, CommonModule, FormsModule, PagarMontoComponent, HeaderComponent]
 })
-export class CuentaComponent  implements OnInit {
-
-  constructor() { }
+export class CuentaPage implements OnInit {
 
   PropinaElegida!:number;
-  isModalOpenPropina:boolean = false;
+
   isModalOpenPagar:boolean = false;
+
   MontoTotalConPropina:any = 0;
-  SeleccionoPropina(valor:number){
-    if(valor != 0){
-      this.PropinaElegida = valor;
-      this.CloseModal();
-      // this.MostrarPropina(); 
-    }else{
-      this.PropinaElegida = 0;
-      this.CloseModal();
-      // this.MontoTotalConPropina = this.CalcularImporteTotal();
-    }
-  }
+  
 
   MostrarPropina()
   {
@@ -73,6 +62,8 @@ export class CuentaComponent  implements OnInit {
   }
 
   ngOnInit() {}
+
+
   pedido = {
       bar: 'entregado',
       cliente: "mate@anonimo.com",
@@ -122,14 +113,6 @@ export class CuentaComponent  implements OnInit {
   }
 
 
-  CloseModal(){
-    this.isModalOpenPropina = false;
-  }
-
-  AbrirModalPropina(){
-    this.isModalOpenPropina = true;
-  }
-
   CloseModalPagar(){
     this.isModalOpenPagar = false;
     console.log('cerro');
@@ -139,4 +122,5 @@ export class CuentaComponent  implements OnInit {
   AbrirModalPagar(){
     this.isModalOpenPagar = true;
   }
+
 }

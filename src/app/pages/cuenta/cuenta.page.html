@@ -1,8 +1,10 @@
+<app-header title="Cuenta" backButton="/home"></app-header>
+
 <ion-content id="ion-content">
   <div class="ion-content-div">
-      <div class="row">
-        <h2  class="h2-cuenta">Cuenta</h2>
-      </div>
+      <!-- <div class="row">
+        <h2  class="h2-cuenta"></h2>
+      </div> -->
       <div class="row-cuenta">
         <div class="row row-fecha-hora">
           <p>============================</p>
@@ -38,21 +40,9 @@
         </div>
       </div>
       <div class="row-buttons">
-        <ion-button expand="block" (click)="AbrirModalPropina()">Ingresar Propina</ion-button>
         <ion-button expand="block" (click)='AbrirModalPagar()'>Pagar</ion-button>
       </div>
   </div>
-
-
-  <ion-modal [isOpen]="isModalOpenPropina" (didDismiss)="CloseModal()">
-    <ng-template>
-      <ion-content>
-        <ng-container>
-          <app-seleccionar-propina (propinaSeleccionada)="SeleccionoPropina($event)"></app-seleccionar-propina>
-        </ng-container>
-      </ion-content>
-    </ng-template>
-  </ion-modal>
 
   <ion-modal [isOpen]="isModalOpenPagar" (didDismiss)="CloseModalPagar()" id="ion-modal-pagar">
     <ng-template > 
