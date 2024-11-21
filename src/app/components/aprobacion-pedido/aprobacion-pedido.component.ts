@@ -61,8 +61,8 @@ export class AprobacionPedidoComponent  implements OnInit ,OnDestroy{
 
   async CambiarEstadoPedido(accion:boolean,pedido:Pedido){
     if(accion){
-      await this.databaseService.updateDocumentField('pedidos',pedido.id,'estado','aceptado');
-      await this.databaseService.updateDocumentField('usuarios', pedido.cliente, 'estado', 'pedido confirmado');
+      await this.databaseService.updateDocumentField('pedidos', pedido.id, 'estado', 'aceptado');
+      await this.databaseService.updateDocument('usuarios', pedido.cliente, {estado: 'pedido confirmado', idPedidoActual: pedido.id});
       if(pedido.cocina === 'en preparacion'){
         this.apiRequestService.notifyRole('Nueva comanda', `${pedido.mesa} está esperando para comer.`, 'cocinero').subscribe();
       }
@@ -70,8 +70,10 @@ export class AprobacionPedidoComponent  implements OnInit ,OnDestroy{
         this.apiRequestService.notifyRole('Nueva comanda', `${pedido.mesa} está esperando para beber.`, 'bartender').subscribe();
       }
       // this.notificationService.presentToast('Ha sido aceptado el pedido.', 2000, 'success', 'middle'); //Si o no marino?
-    }else{
-      this.databaseService.updateDocumentField('pedidos',pedido.id,'estado','rechazado');
+    }
+    else {
+      await this.databaseService.updateDocumentField('usuarios', pedido.cliente, 'estado', 'mesa asignada');
+      await this.databaseService.updateDocumentField('pedidos', pedido.id, 'estado', 'rechazado');
     }
   }
 
