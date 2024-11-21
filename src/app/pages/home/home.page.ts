@@ -20,6 +20,7 @@ import { Subscription } from 'rxjs';
 import { Consulta } from 'src/app/core/models/consulta.model';
 import { BotonEscanerComponent } from "../../components/boton-escaner/boton-escaner.component";
 import { GestionMesasComponent } from "../../components/gestion-mesas/gestion-mesas.component";
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -48,7 +49,8 @@ import { GestionMesasComponent } from "../../components/gestion-mesas/gestion-me
     SeccionBartenderComponent,
     SeccionCocineroComponent,
     DatePipe,
-    GestionMesasComponent
+    GestionMesasComponent,
+    RouterLink
 ],
 })
 export class HomePage {

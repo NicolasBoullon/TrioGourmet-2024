@@ -19,7 +19,7 @@
       </ion-row>
     }
     
-    @if(userDoc?.estado === 'pedido entregado') {
+    @if(userDoc?.estado === 'pedido entregado' || userDoc?.estado === 'cuenta solicitada'  || userDoc?.estado === 'cuenta enviada'  || userDoc?.estado === 'cuenta pagada') {
       <ion-row>
         <ion-col size="12" class="centered">
           <ion-button expand="block" color="primary" (click)="crearEncuesta()">

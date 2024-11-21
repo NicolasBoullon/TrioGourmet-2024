@@ -29,6 +29,9 @@
                 @else if (cliente.estado == 'cuenta enviada') {
                   <p>Esperando pago...</p>
                 }
+                @else if (cliente.estado == 'pedido terminado') {
+                  <ion-button>LLevar a la mesa</ion-button>
+                }
                 @else if (cliente.estado == 'pedido realizado') {
                   <ion-button>Ver pedido</ion-button>
                 }
