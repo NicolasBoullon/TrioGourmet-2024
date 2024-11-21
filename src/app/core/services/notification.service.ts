@@ -41,7 +41,8 @@ export class NotificationService {
       message,
       duration,
       color,
-      position
+      position,
+      cssClass: 'custom-toast'
     });
     
     await toast.present();

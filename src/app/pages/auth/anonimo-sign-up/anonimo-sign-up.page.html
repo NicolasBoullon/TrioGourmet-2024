@@ -1,4 +1,4 @@
-<app-header title="Registro Cliente Anonimo" backButton="/signup"></app-header>
+<app-header title="Registro Cliente Anónimo" backButton="/signup"></app-header>
 
 <ion-content class="signup-anonimo">
   <div class="form-signup">
@@ -31,25 +31,21 @@
       
       <!-- Imagen de foto -->
       
-      <div class="image-preview">
-        <img [ngClass]="{'not-blank': imagePreviewUrl}" [src]="imagePreviewUrl ? imagePreviewUrl : 'assets/images/blank-profile.png'" alt="Vista previa de la imagen">
-      </div>
-
-      <!-- Botón de Camara -->
       <div class="camera">
-        <label for="input-tomar-foto-anonimo" class="label-tomar-foto-anonimo">
+        <div class="image-preview">
+          <img [ngClass]="{'not-blank': imagePreviewUrl}" [src]="imagePreviewUrl ? imagePreviewUrl : 'assets/images/blank-profile.png'" alt="Vista previa de la imagen">
+        </div>
+        <label for="input-tomar-foto-cliente" class="label-tomar-foto-cliente">
           TOMAR FOTO
           <ion-icon slot="end" name="camera-outline"></ion-icon>
         </label>
-        <input id="input-tomar-foto-anonimo" (click)="takePicture()">
-        <div class="validators">
-          @if(form.controls.image.touched && form.controls.image.hasError('required')){
-            <ion-label color="danger">La imagen es <strong>requerida</strong></ion-label>
-          }
-        </div>
+        <input id="input-tomar-foto-cliente" (click)="takePicture()" />
       </div>
-
-
+      <div class="validators">
+        @if(form.controls.image.touched && form.controls.image.hasError('required')){
+          <ion-label color="danger">La imagen es <strong>requerida</strong></ion-label>
+        }
+      </div>
 
       <!-- Botón de Registro -->
       <div class="signup-button">

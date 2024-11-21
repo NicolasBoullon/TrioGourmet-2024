@@ -29,18 +29,27 @@ ion-item {
     --border-radius: 10px;
     --border-style: solid;
     --border-width: 1px;
+
+}
+ion-input { //este es para cambiar los label, esto no lo puso chat, fui yo ivan para acordarme
+    font-size: 1.2rem;
+    margin-bottom: 10px;
 }
 
+ion-input::placeholder {
+    font-size: 1.2rem;
+}
 .validators {
-    font-size: 15px; //antes era 12px
-    margin-top: 5px;
-    margin-left: 20px;
+    font-size: 1.1rem; 
     text-align: left;
     height: 1px;
 }
 
 .forgot-password {
     float: right;  
+    margin-bottom: 20px;
+    margin-top: 15px;
+    font-size: 1.3rem;
 }
 
 .login-button ion-button {
@@ -53,29 +62,32 @@ ion-item {
 
 .signup {
     text-align: center;
-    margin-top: 0.5rem;
-    font-size: 1.1rem;
+    margin-top: 1.5rem;
+    font-size: 1.3rem;
 }
 
 a {
     text-decoration: none;
     margin-top: 0.5rem;
     color: var(--color-secundario);
-    font-size: 1.1rem;
 }
 
 .quick-access {
-    margin-top: 2rem;
+    margin-top: 1.5rem;
     text-align: center;
     font-size: 1.2rem;
 }
 
 .quick-access ion-button {
-    width: 100px;
+    width: 102px;
     height: 30px;
-    font-size: 0.9rem;
+    font-size: 1.1rem;
     --border-radius: 5rem;
     --box-shadow: 0 0px 8px rgba(0, 0, 0, 0.2);
+}
+
+.quick-access ion-label {
+    font-size: 1.3rem;
 }
 
 .buttons {

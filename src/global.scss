@@ -133,14 +133,21 @@
 }
 
 .custom-alert .alert-title {
-    font-size: 1.4rem;
+    font-size: 22px;
     font-weight: bold;
 }
 
 .custom-alert .alert-message {
-    font-size: 1.2rem;
+    font-size: 18px;
 }
 
+.custom-toast {
+    font-size: 18px; 
+}
+
+.spinner-logo-loading {
+    font-size: 18px;
+}
 //Estilo modal
 .custom-modal-class {
     --width: 80%;

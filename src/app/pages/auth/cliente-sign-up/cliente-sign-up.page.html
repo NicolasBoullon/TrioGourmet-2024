@@ -117,23 +117,21 @@
       </div>
       
       <!-- Imagen de foto -->
-      
-      <div class="image-preview">
-        <img [ngClass]="{'not-blank': imagePreviewUrl}" [src]="imagePreviewUrl ? imagePreviewUrl : 'assets/images/blank-profile.png'" alt="Vista previa de la imagen">
-      </div>
 
-      <!-- Botón de Camara -->
       <div class="camera">
+        <div class="image-preview">
+          <img [ngClass]="{'not-blank': imagePreviewUrl}" [src]="imagePreviewUrl ? imagePreviewUrl : 'assets/images/blank-profile.png'" alt="Vista previa de la imagen">
+        </div>
         <label for="input-tomar-foto-cliente" class="label-tomar-foto-cliente">
           TOMAR FOTO
           <ion-icon slot="end" name="camera-outline"></ion-icon>
         </label>
-        <input id="input-tomar-foto-cliente" (click)="takePicture()">
-        <div class="validators">
-          @if(form.controls.image.touched && form.controls.image.hasError('required')){
-            <ion-label color="danger">La imagen es <strong>requerida</strong></ion-label>
-          }
-        </div>
+        <input id="input-tomar-foto-cliente" (click)="takePicture()" />
+      </div>
+      <div class="validators">
+        @if(form.controls.image.touched && form.controls.image.hasError('required')){
+          <ion-label color="danger">La imagen es <strong>requerida</strong></ion-label>
+        }
       </div>
       <!-- Botón de QR -->
       <div class="qr">
@@ -144,9 +142,9 @@
       </div>
 
       <!-- Ingresar como anonimo -->
-      <div class="signup-button">
+      <div class="signup-anonimo-button">
         <ion-button expand="block" type="button" routerLink="/anonimo-sign-up">
-          Ingresar como anonimo
+          Ingresar como anónimo
           <ion-icon slot="end" name="person-add-outline"></ion-icon>
         </ion-button>
       </div>
