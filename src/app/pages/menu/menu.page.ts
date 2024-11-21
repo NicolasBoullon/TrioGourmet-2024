@@ -229,6 +229,7 @@ export class MenuPage implements OnInit, OnDestroy{
       cocina: tieneCocina,
       bar: tieneBar,
       importeTotal: this.totalAmount,
+      porcentajePropina: 0
     }
     return pedido;
   }
@@ -236,9 +237,9 @@ export class MenuPage implements OnInit, OnDestroy{
   async TieneCocina():Promise<"no tiene" | "en preparacion">{
     const array = ['Hamburguesa con queso y papas fritas.','Pizza de pepperoni con extra queso.','Empanada argentina de carne.','Helado de vainilla con frutilla y chocolate.']
     for (let i = 0; i < this.orderItems.length; i++) {
-       if(array.includes(this.orderItems[i].descripcion)){
+      if(array.includes(this.orderItems[i].descripcion)){
         return 'en preparacion';
-       }
+      }
     }
     return 'no tiene';
   }
@@ -247,10 +248,10 @@ export class MenuPage implements OnInit, OnDestroy{
     const array = ['Botella de agua mineral.','Limonada fresca con menta.'];
     for (let i = 0; i < this.orderItems.length; i++) {
       if(array.includes(this.orderItems[i].descripcion)){
-       return 'en preparacion';
+        return 'en preparacion';
       }
-   }
-   return 'no tiene';
+  }
+  return 'no tiene';
   }
 
   ngOnDestroy() {

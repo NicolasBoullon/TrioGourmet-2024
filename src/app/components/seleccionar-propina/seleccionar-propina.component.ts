@@ -1,7 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import {IonicModule} from '@ionic/angular';
+import { IonicModule } from '@ionic/angular';
+import { ModalController } from '@ionic/angular';
+import { DatabaseService } from 'src/app/core/services/database.service';
+import { NotificationService } from 'src/app/core/services/notification.service';
+
 @Component({
   selector: 'app-seleccionar-propina',
   templateUrl: './seleccionar-propina.component.html',
@@ -9,25 +13,26 @@ import {IonicModule} from '@ionic/angular';
   standalone:true,
   imports:[IonicModule,CommonModule,FormsModule]
 })
-export class SeleccionarPropinaComponent  implements OnInit {
+export class SeleccionarPropinaComponent {
 
-  constructor() { }
-  @Output() propinaSeleccionada = new EventEmitter<number>
-  ngOnInit() {}
-  importeCuenta:number = 100; //Este seria el importe de la cuenta
-  selecciono:boolean = false;
-  resultadoFinal:number = 0;
-  obtenerValor() {
-    const seleccionado = document.querySelector('input[name="radio-group"]:checked') as any;
-    
-    if (seleccionado.value) {
-      this.resultadoFinal = parseFloat((this.importeCuenta * parseFloat(seleccionado.value)).toFixed(2));     
-      console.log(this.resultadoFinal);
-      this.propinaSeleccionada.emit(parseFloat(seleccionado.value));
-    } else {
-      console.log(this.selecciono);
+  @Input() idPedido!: string;
+  private _databaseService = inject(DatabaseService);
+  private _notificationService = inject(NotificationService);
+  private _modalController = inject(ModalController);
+  protected porcentajeSeleccionado: number | null = null; 
 
-      console.log('No se seleccionó ninguna opción');
+  async confirmar() {
+    this._modalController.dismiss();
+    try {
+      await this._databaseService.updateDocumentField('pedidos', this.idPedido, 'porcentajePropina', this.porcentajeSeleccionado);
+      console.log(`Propina guardada para el pedido ${this.idPedido}`);
+      this._notificationService.presentToast(`Has seleccionado una propina de ${this.porcentajeSeleccionado}%.`, 2000, 'success', 'middle');
+    } catch (error) {
+      this._notificationService.presentToast('Ocurrió un error al seleccionar la propina. Intente de nuevo.', 2000, 'danger', 'middle');
     }
+  }
+
+  close() {
+    this._modalController.dismiss();
   }
 }
