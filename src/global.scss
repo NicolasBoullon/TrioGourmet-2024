@@ -140,3 +140,11 @@
 .custom-alert .alert-message {
     font-size: 1.2rem;
 }
+
+//Estilo modal
+.custom-modal-class {
+    --width: 80%;
+    --height: 80%;
+    --border-radius: 10px;
+    //--background: #ffffff;
+}

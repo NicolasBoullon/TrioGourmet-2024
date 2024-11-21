@@ -6,6 +6,8 @@ import { NotificationService } from './notification.service';
 import { Usuario } from '../models/usuario.models';
 import { ApiRequestService } from './api-request.service';
 import { Router } from '@angular/router';
+import { ModalController } from '@ionic/angular';
+import { SeleccionarPropinaComponent } from 'src/app/components/seleccionar-propina/seleccionar-propina.component';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +18,7 @@ export class ScannerService {
   private _notificationService = inject(NotificationService);
   private _apiRequestService = inject(ApiRequestService); 
   private _router = inject(Router);
+  private _modalController = inject(ModalController);
 
   async scanQR(correo: string): Promise<void>
   {
@@ -87,6 +90,16 @@ export class ScannerService {
                 queryParams: { estado: 'pedido entregado' },
               });
             }
+            else if (clienteDoc.estado == 'cuenta solicitada') {
+              this._router.navigate(['/opciones-escaneo'], {
+                queryParams: { estado: 'cuenta solicitada' },
+              });
+            }
+            else if (clienteDoc.estado == 'cuenta enviada') {
+              this._router.navigate(['/opciones-escaneo'], {
+                queryParams: { estado: 'cuenta enviada' },
+              });
+            }
           } else {
             this._notificationService.presentToast(`Acceso denegado. Usted tiene asignada la ${clienteDoc.mesa}.`, 2000, 'danger', 'middle');
           }
@@ -96,6 +109,23 @@ export class ScannerService {
         }
         else {
           this._notificationService.presentToast('Debe estar en la lista de espera antes de asignarse a una mesa.', 2000, 'danger', 'middle');
+        }
+      }
+      else if (scannedQR == 'propinas') {
+        if (clienteDoc.estado == 'cuenta enviada') {
+          const modalPropina = await this._modalController.create({
+            component: SeleccionarPropinaComponent,
+            componentProps: {
+              idPedido: clienteDoc.idPedidoActual,
+            },
+            cssClass: 'custom-modal-class',
+          });
+
+          await modalPropina.present();
+          await modalPropina.onDidDismiss();
+        }
+        else {
+          this._notificationService.presentToast('El mozo debe enviarle la cuenta antes de poder ingresar la propina.', 2000, 'danger', 'middle');
         }
       }
       else {
