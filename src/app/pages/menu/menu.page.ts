@@ -200,7 +200,7 @@ export class MenuPage implements OnInit, OnDestroy{
     const pedidoAEnviar = await this.ArmarPedido();
     const idPedido = await this.databaseService.setDocument('pedidos', pedidoAEnviar);
     await this.databaseService.updateDocumentField('pedidos', idPedido ,'id', idPedido);
-    await this.databaseService.updateDocumentField('usuarios', pedidoAEnviar.cliente, 'estado', 'pedido realizado');
+    await this.databaseService.updateDocument('usuarios', pedidoAEnviar.cliente, {estado: 'pedido realizado', idPedidoActual: idPedido});
     this.notificationService.dismissLoading();
     await this.notificationService.showConfirmAlert(
       '¡Pedido Generado con éxito!',
