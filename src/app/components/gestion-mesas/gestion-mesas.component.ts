@@ -1,6 +1,8 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { IonicModule } from "@ionic/angular";
+import { addIcons } from 'ionicons';
+import { handRightSharp } from 'ionicons/icons';
 import { firstValueFrom } from 'rxjs';
 import { Pedido } from 'src/app/core/models/pedido.model';
 import { Usuario } from 'src/app/core/models/usuario.models';
@@ -27,7 +29,12 @@ export class GestionMesasComponent  implements OnInit {
   protected clientesConMesa: Usuario[] = [];
   protected pedidoSeleccionado?: Pedido;
   protected isModalVerPedidoOpen: boolean = false;
-  protected isModalLlevarPedidoOpen: boolean = false;
+  protected isModalVerPedidoParaLlevar: boolean = false;
+
+  constructor()
+  {
+    addIcons({handRightSharp}); 
+  }
 
   ngOnInit() {
     this.obtenerClientesConMesa();
@@ -53,8 +60,6 @@ export class GestionMesasComponent  implements OnInit {
     this.isModalVerPedidoOpen = false;
     this.pedidoSeleccionado = undefined;
   }
-
-  
 
   async aceptarPedido(pedido: Pedido) {
     this.cerrarModalVerPedido();
@@ -87,62 +92,69 @@ export class GestionMesasComponent  implements OnInit {
     }
   }
 
+  async verPedidoParaLlevar(idPedido: string) {
+    this.pedidoSeleccionado = await firstValueFrom(this._databaseService.getDocumentById('pedidos', idPedido));
+    if (this.pedidoSeleccionado) {
+      this.isModalVerPedidoParaLlevar = true;
+    } else {
+      this._notificationService.presentToast('Pedido no encontrado.', 2000, 'warning', 'bottom');
+    }
+  }
+  
+  cerrarModalVerPedidoParaLlevar() {
+    this.isModalVerPedidoParaLlevar = false;
+    this.pedidoSeleccionado = undefined;
+  }
+
+  async llevarPedido(pedido: Pedido) {
+    try {
+      if (pedido.cocina == 'listo para servir' && pedido.bar == 'listo para servir') {
+        await this._databaseService.updateDocument('pedidos', pedido.id, {cocina: 'entregado', bar: 'entregado', estado: 'en mesa'});
+        await this._databaseService.updateDocumentField('usuarios', pedido.cliente, 'estado', 'pedido entregado');
+        this._notificationService.presentToast(`Pedido entregado a ${pedido.mesa}.`, 2000, 'success', 'bottom');
+      }
+      else {
+        this._notificationService.presentToast('El pedido aun no está listo para llevar.', 2000, 'warning', 'bottom');
+      }
+    }
+    catch (err) {
+      this._notificationService.presentToast('Error al llevar el pedido, intente nuevamente.', 2000, 'danger', 'bottom');
+    }
+    finally {
+      this.cerrarModalVerPedidoParaLlevar();
+    }
+  }
 
   async enviarCuenta(cliente: Usuario) {
     this._notificationService.presentLoading('Enviando cuenta...');
     try {
       await this._databaseService.updateDocument('usuarios', cliente.email, { estado: 'cuenta enviada' });
       this._notificationService.dismissLoading();
-      this._notificationService.presentToast(`Cuenta enviada a ${cliente.mesa}`, 2000, 'success', 'middle');
+      this._notificationService.presentToast(`Cuenta enviada a ${cliente.mesa}`, 2000, 'success', 'bottom');
     } 
     catch {
       this._notificationService.dismissLoading();
-      this._notificationService.presentToast('Error al enviar la cuenta, intente nuevamente.', 2000, 'danger', 'middle');
+      this._notificationService.presentToast('Error al enviar la cuenta, intente nuevamente.', 2000, 'danger', 'bottom');
     }
   }
 
-  cerrarModalLlevarPedido() {
-    this.isModalLlevarPedidoOpen = false;
-    this.pedidoSeleccionado = undefined;
-  }
-
-  async llevarPedido(idPedido: string) {
-    this.pedidoSeleccionado = await firstValueFrom(this._databaseService.getDocumentById('pedidos', idPedido));
-    if (this.pedidoSeleccionado) {
-      this.isModalLlevarPedidoOpen = true;
-    } else {
-      this._notificationService.presentToast('Pedido no encontrado.', 2000, 'warning', 'bottom');
-    }
-  }
-
-  async confirmarLlevarPedido(pedido: Pedido) {
+  async liberarMesa(cliente: Usuario) {
+    this._notificationService.presentLoading('Liberando mesa...');
     try {
-      const actualizaciones: Promise<void>[] = [];
-
-      if (pedido.cocina === 'listo para servir') {
-        actualizaciones.push(
-          this._databaseService.updateDocumentField('pedidos', pedido.id, 'cocina', 'entregado')
-        );
-      }
-
-      if (pedido.bar === 'listo para servir') {
-        actualizaciones.push(
-          this._databaseService.updateDocumentField('pedidos', pedido.id, 'bar', 'entregado')
-        );
-      }
-
-      await Promise.all(actualizaciones);
-
-      // Si ambos sectores están entregados, actualizamos el estado general
-      if (pedido.cocina === 'entregado' && pedido.bar === 'entregado') {
-        await this._databaseService.updateDocumentField('pedidos', pedido.id, 'estado', 'en mesa');
-        await this._databaseService.updateDocumentField('usuarios', pedido.cliente, 'estado', 'pedido entregado');
-      }
-
-      this._notificationService.presentToast('Pedido entregado a la mesa.', 2000, 'success', 'bottom');
-      this.cerrarModalLlevarPedido();
-    } catch (err) {
-      this._notificationService.presentToast('Error al llevar el pedido, intente nuevamente.', 2000, 'danger', 'bottom');
+      await this._databaseService.deleteDocumentField('mesas', cliente.mesa!, 'cliente');
+      await this._databaseService.updateDocumentField('mesas', cliente.mesa!, 'estado', 'disponible');
+      await this._databaseService.deleteDocumentField('usuarios', cliente.email, 'estado');
+      await this._databaseService.deleteDocumentField('usuarios', cliente.email, 'mesa');
+      await this._databaseService.deleteDocumentField('usuarios', cliente.email, 'consulta');
+      await this._databaseService.deleteDocumentField('usuarios', cliente.email, 'realizoEncuesta');
+      await this._databaseService.deleteDocumentField('usuarios', cliente.email, 'recibioElPedido');
+      await this._databaseService.deleteDocumentField('usuarios', cliente.email, 'idPedidoActual');
+      this._notificationService.dismissLoading();
+      this._notificationService.presentToast(`${cliente.mesa} liberada con exito.`, 2000, 'success', 'bottom');
+    } 
+    catch {
+      this._notificationService.dismissLoading();
+      this._notificationService.presentToast('Error al liberar la mesa, intente nuevamente.', 2000, 'danger', 'bottom');
     }
   }
 

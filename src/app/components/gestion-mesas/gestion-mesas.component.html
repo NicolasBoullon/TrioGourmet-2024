@@ -20,23 +20,36 @@
           <ion-card-content>
             <p>Estado: {{ cliente.estado }}</p>
             <ion-item>
-              <!-- ESTO HAY QUE VER COMO LO DEJAMOS Y QUE ACCIONES PUEDE HACER SEGUN LOS ESTADOS -->
-              <ion-label>Acción:</ion-label>
+              <!-- <ion-label>Acción:</ion-label> -->
               <div class="acciones">
-                @if (cliente.estado == 'cuenta solicitada') {
-                  <ion-button (click)="enviarCuenta(cliente)">Enviar cuenta</ion-button>
-                }
-                @else if (cliente.estado == 'cuenta enviada') {
-                  <p>Esperando pago...</p>
-                }
-                @else if (cliente.estado == 'pedido terminado') {
-                  <ion-button (click)="llevarPedido(cliente.idPedidoActual!)">LLevar a la mesa</ion-button>
+                @if (cliente.estado == 'mesa asignada') {
+                  <p>Esperando a que el cliente realice su pedido</p>
                 }
                 @else if (cliente.estado == 'pedido realizado') {
                   <ion-button (click)="verPedido(cliente.idPedidoActual!)">Ver pedido</ion-button>
                 }
-                @else {
-                  <p>No hay acciones disponibles</p>
+                @else if (cliente.estado == 'pedido confirmado') {
+                  <p>Esperando a que la cocina y el bar terminen de preparar el pedido</p>
+                }
+                @else if (cliente.estado == 'pedido terminado') {
+                  <ion-button (click)="verPedidoParaLlevar(cliente.idPedidoActual!)">Ver pedido para llevar</ion-button>
+                }
+                @else if (cliente.estado == 'pedido entregado') {
+                  @if(!cliente.recibioElPedido) {
+                    <p>Esperando a que el cliente confirme la recepción del pedido</p>
+                  }
+                  @else {
+                    <p>Esperando a que el cliente termine y solicite la cuenta</p>
+                  }
+                }
+                @else if (cliente.estado == 'cuenta solicitada') {
+                  <ion-button (click)="enviarCuenta(cliente)">Enviar cuenta</ion-button>
+                }
+                @else if (cliente.estado == 'cuenta enviada') {
+                  <p>Esperando a que el cliente realice el pago</p>
+                }
+                @else if (cliente.estado == 'cuenta pagada') {
+                  <ion-button (click)="liberarMesa(cliente)">Liberar mesa</ion-button>
                 }
               </div>
               
@@ -53,8 +66,6 @@
     </ion-fab-button>
   </ion-fab>
 </div>
-
-
 
 <!-- Modal para mostrar el pedido -->
 <ion-modal [isOpen]="isModalVerPedidoOpen" (didDismiss)="cerrarModalVerPedido()">
@@ -82,11 +93,11 @@
 </ion-modal>
 
 
-<!-- Modal para mostrar pedido a llevar -->
-<ion-modal [isOpen]="isModalLlevarPedidoOpen" (didDismiss)="cerrarModalLlevarPedido()">
+<!-- Modal para mostrar el pedido para llevar -->
+<ion-modal [isOpen]="isModalVerPedidoParaLlevar" (didDismiss)="cerrarModalVerPedidoParaLlevar()">
   <ng-template>
     <ion-header>
-      <ion-button color="primary" (click)="cerrarModalLlevarPedido()" slot="end">Cerrar</ion-button>
+      <ion-button color="primary" (click)="cerrarModalVerPedidoParaLlevar()" slot="end">Cerrar</ion-button>
     </ion-header>
     <ion-content>
       @if (pedidoSeleccionado) {
@@ -101,7 +112,7 @@
               }
             }
             <div class="row-btn">
-              <ion-button (click)="confirmarLlevarPedido(pedidoSeleccionado)">Llevar a la mesa</ion-button>
+              <ion-button (click)="llevarPedido(pedidoSeleccionado)">Llevar a la mesa</ion-button>
             </div>
           </div>
         </div>

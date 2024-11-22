@@ -13,7 +13,6 @@ import { DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NotificationService } from 'src/app/core/services/notification.service';
 import { ApiRequestService } from 'src/app/core/services/api-request.service';
-import { AprobacionPedidoComponent } from 'src/app/components/aprobacion-pedido/aprobacion-pedido.component';
 import { SeccionBartenderComponent } from 'src/app/components/seccion-bartender/seccion-bartender.component';
 import { SeccionCocineroComponent } from "../../components/seccion-cocinero/seccion-cocinero.component";
 import { Subscription } from 'rxjs';
@@ -45,7 +44,6 @@ import { RouterLink } from '@angular/router';
     LoadingComponent,
     BotonEscanerComponent,
     AsignacionMesaComponent,
-    AprobacionPedidoComponent,
     SeccionBartenderComponent,
     SeccionCocineroComponent,
     DatePipe,
@@ -111,10 +109,10 @@ export class HomePage {
   async confirmarRecepcionPedido() {
     try {
       await this._databaseService.updateDocumentField('usuarios', this.userDoc!.email, 'recibioElPedido', true);
-      this._notificationService.presentToast('Confirmación exitosa.', 2000, 'success', 'middle');
+      this._notificationService.presentToast('Confirmación exitosa.', 2000, 'success', 'bottom');
     }
     catch {
-      this._notificationService.presentToast('Ocurrió un error al hacer la confirmación. Intente de nuevo.', 2000, 'danger', 'middle');
+      this._notificationService.presentToast('Ocurrió un error al hacer la confirmación. Intente de nuevo.', 2000, 'danger', 'bottom');
     }
   }
 

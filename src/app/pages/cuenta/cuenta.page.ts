@@ -9,6 +9,7 @@ import { AuthService } from 'src/app/core/services/auth.service';
 import { DatabaseService } from 'src/app/core/services/database.service';
 import { Pedido } from 'src/app/core/models/pedido.model';
 import { Usuario } from 'src/app/core/models/usuario.models';
+import { NotificationService } from 'src/app/core/services/notification.service';
 
 @Component({
   selector: 'app-cuenta',
@@ -25,8 +26,10 @@ export class CuentaPage implements OnInit {
 
   MontoTotalConPropina:any = 0;
   
-  private authService = inject(AuthService)
-  private databaseService = inject(DatabaseService);
+  private _authService = inject(AuthService)
+  private _databaseService = inject(DatabaseService);
+  private _notificationService = inject(NotificationService);
+
   usuarioActual!:User | null;
   correoDelUsuarioActual:any;
   pedidos:Pedido[] = [];
@@ -47,13 +50,13 @@ export class CuentaPage implements OnInit {
   }
 
   async GetUser(){
-    this.usuarioActual = await this.authService.getCurrentUserOnce();
+    this.usuarioActual = await this._authService.getCurrentUserOnce();
     this.correoDelUsuarioActual = this.usuarioActual?.email;
     await this.GetUsuarios();
   }
 
   async GetPedido(idPedido:string){
-    this.databaseService.getDocumentById('pedidos',idPedido).subscribe({
+    this._databaseService.getDocumentById('pedidos',idPedido).subscribe({
       next:((value)=>{
         console.log(value);
         this.pedido = value;
@@ -62,7 +65,7 @@ export class CuentaPage implements OnInit {
     })
   }
   async GetUsuarios(){
-    this.databaseService.getDocumentById('usuarios',this.correoDelUsuarioActual).subscribe({
+    this._databaseService.getDocumentById('usuarios',this.correoDelUsuarioActual).subscribe({
       next:((value)=>{
         this.cliente = value;
         // this.idPedido = value.idPedidoActual;
@@ -98,10 +101,20 @@ export class CuentaPage implements OnInit {
     return acumulador.toFixed(2); 
   }
 
-  RecibirPago(pago:boolean){
+  async RecibirPago(pago:boolean){
     if(pago){
       console.log('Pago de forma correcta');
-      this.CloseModalPagar();
+      try {
+        await this._databaseService.updateDocumentField('usuarios', this.pedido.cliente, 'estado', 'cuenta pagada');
+        await this._databaseService.updateDocumentField('pedidos', this.pedido.id, 'estado', 'finalizado');
+        this._notificationService.presentToast('Pago realizado con exito.', 2000, 'success', 'bottom');
+        this.CloseModalPagar();
+        this._notificationService.routerLink('/home');
+      }
+      catch {
+        this.CloseModalPagar();
+        this._notificationService.presentToast('Error al realizar el pago, intente nuevamente.', 2000, 'danger', 'bottom');
+      }
     }
   }
 
@@ -116,59 +129,9 @@ export class CuentaPage implements OnInit {
     return null;
   }
 
-  // pedido = {
-  //     bar: 'entregado',
-  //     cliente: "mate@anonimo.com",
-  //     cocina:'entregado',
-  //     estado: 'en mesa',
-  //     fecha: '19 de noviembre de 2024',
-  //     hora: '11:48:41 p.m',
-  //     id: '5AgOpCM15ai9XltQzxhk',
-  //     importeTotal: '66.94',
-  //     mesa: 'Mesa 1',
-  //     productos:[{
-  //       cantidad: 3,
-  //       descripcion: "Hamburguesa con queso y papas fritas.",
-  //       nombre: "Hamburguesa",
-  //       precio: '10.99',
-  //       sector: 'Comidas',
-  //       selected:true,
-  //       tiempoPrepararcion: 15
-  //     },
-  //     {
-  //       cantidad: 2,
-  //       descripcion: "Pizza de pepperoni con extra queso.",
-  //       nombre: "Pizza",
-  //       precio: '12.99',
-  //       sector: 'Comidas',
-  //       selected:true,
-  //       tiempoPrepararcion: 20
-  //     },
-  //     {
-  //       cantidad: 1,
-  //       descripcion: "Limonada fresca con menta.",
-  //       nombre: "Limonada",
-  //       precio: '2.99',
-  //       sector: 'Bebidas',
-  //       selected:true,
-  //       tiempoPrepararcion: 5
-  //     },
-  //     {
-  //       cantidad: 2,
-  //       descripcion: "Botella de agua mineral.",
-  //       nombre: "Agua",
-  //       precio: '1',
-  //       sector: 'Bebidas',
-  //       selected:true,
-  //       tiempoPrepararcion: 1
-  //     }]
-  // }
-
-
   CloseModalPagar(){
     this.isModalOpenPagar = false;
     console.log('cerro');
-    
   }
 
   AbrirModalPagar(){
