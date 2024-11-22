@@ -22,17 +22,14 @@ export class ScannerService {
 
   async scanQR(correo: string): Promise<void>
   {
-    const clienteDoc: Usuario = await firstValueFrom(
-      this._databaseService.getDocumentById('usuarios', correo)
-    );
+    const clienteDoc: Usuario = await firstValueFrom(this._databaseService.getDocumentById('usuarios', correo));
 
     if (clienteDoc.estado == 'pedido entregado' && !clienteDoc.recibioElPedido) {
       this._notificationService.presentToast('Debe confirmar la recepción del pedido.', 2000, 'warning', 'bottom');
     }
     else {
-      // const { barcodes } = await BarcodeScanner.scan();
-      // const scannedQR = barcodes[0].rawValue;
-      let scannedQR = 'propinas';
+      const { barcodes } = await BarcodeScanner.scan();
+      const scannedQR = barcodes[0].rawValue;
 
       if (!scannedQR) return;
   
@@ -130,12 +127,15 @@ export class ScannerService {
           await modalPropina.present();
           await modalPropina.onDidDismiss();
         }
+        else if (clienteDoc.estado == 'cuenta pagada') {
+          this._notificationService.presentToast('Ya ha pagado la cuenta, no puede modificar la propina.', 2000, 'danger', 'bottom');
+        }
         else {
           this._notificationService.presentToast('El mozo debe enviarle la cuenta antes de poder ingresar la propina.', 2000, 'danger', 'bottom');
         }
       }
       else {
-        this._notificationService.presentToast('Codigo QR no valido.', 2000, 'danger', 'bottom');
+        this._notificationService.presentToast('Código QR no valido.', 2000, 'danger', 'bottom');
       }
     }
   }

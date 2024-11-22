@@ -107,6 +107,9 @@ export class CuentaPage implements OnInit {
       console.log('Pago de forma correcta');
       try {
         this.CloseModalPagar();
+        if(this.pedido.porcentajePropina > 0){
+          await this._databaseService.updateDocumentField('pedidos',this.pedido.id,'importeTotalConPropina',this.MontoTotalConPropina)
+        }
         await this._databaseService.updateDocumentField('usuarios', this.pedido.cliente, 'estado', 'cuenta pagada');
         await this._databaseService.updateDocumentField('pedidos', this.pedido.id, 'estado', 'finalizado');
         this._notificationService.presentToast('Pago realizado con exito.', 2000, 'success', 'bottom');

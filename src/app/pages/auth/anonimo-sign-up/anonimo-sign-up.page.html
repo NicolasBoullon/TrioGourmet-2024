@@ -35,11 +35,11 @@
         <div class="image-preview">
           <img [ngClass]="{'not-blank': imagePreviewUrl}" [src]="imagePreviewUrl ? imagePreviewUrl : 'assets/images/blank-profile.png'" alt="Vista previa de la imagen">
         </div>
-        <label for="input-tomar-foto-cliente" class="label-tomar-foto-cliente">
+        <label for="input-tomar-foto-anonimo" class="label-tomar-foto-anonimo">
           TOMAR FOTO
           <ion-icon slot="end" name="camera-outline"></ion-icon>
         </label>
-        <input id="input-tomar-foto-cliente" (click)="takePicture()" />
+        <input id="input-tomar-foto-anonimo" (click)="takePicture()" />
       </div>
       <div class="validators">
         @if(form.controls.image.touched && form.controls.image.hasError('required')){
