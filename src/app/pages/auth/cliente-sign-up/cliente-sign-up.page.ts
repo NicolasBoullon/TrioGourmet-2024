@@ -156,7 +156,7 @@ export class ClienteSignUpPage {
             '¡Error: El correo ya está registrado!',
             2000,
             'danger',
-            'middle'
+            'bottom'
           );
         } 
         else {
@@ -164,7 +164,7 @@ export class ClienteSignUpPage {
             '¡Error: No se pudo crear la cuenta!',
             2000,
             'danger',
-            'middle'
+            'bottom'
           );
         }
       }

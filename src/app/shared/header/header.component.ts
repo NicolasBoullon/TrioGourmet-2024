@@ -53,7 +53,7 @@ export class HeaderComponent implements OnInit {
         '¡Error: No se pudo cerrar sesión!',
         1000,
         'danger',
-        'middle'
+        'bottom'
       );
     } finally {
       await this._notificationService.dismissLoading();

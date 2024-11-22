@@ -78,7 +78,7 @@ export class AnonimoSignUpPage implements OnInit {
           '¡Cuenta creada!',
           1000,
           'success',
-          'middle'
+          'bottom'
         );
         this.form.reset();
         this._notificationService.routerLink('/home');
@@ -88,14 +88,14 @@ export class AnonimoSignUpPage implements OnInit {
             '¡Error: El correo ya está registrado!',
             2000,
             'danger',
-            'middle'
+            'bottom'
           );
         } else {
           this._notificationService.presentToast(
             '¡Error: No se pudo crear la cuenta!',
             2000,
             'danger',
-            'middle'
+            'bottom'
           );
         }
       } finally {

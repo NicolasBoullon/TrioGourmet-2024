@@ -26,9 +26,9 @@ export class SeleccionarPropinaComponent {
     try {
       await this._databaseService.updateDocumentField('pedidos', this.idPedido, 'porcentajePropina', this.porcentajeSeleccionado);
       console.log(`Propina guardada para el pedido ${this.idPedido}`);
-      this._notificationService.presentToast(`Has seleccionado una propina de ${this.porcentajeSeleccionado}%.`, 2000, 'success', 'middle');
+      this._notificationService.presentToast(`Has seleccionado una propina de ${this.porcentajeSeleccionado}%.`, 2000, 'success', 'bottom');
     } catch (error) {
-      this._notificationService.presentToast('Ocurrió un error al seleccionar la propina. Intente de nuevo.', 2000, 'danger', 'middle');
+      this._notificationService.presentToast('Ocurrió un error al seleccionar la propina. Intente de nuevo.', 2000, 'danger', 'bottom');
     }
   }
 

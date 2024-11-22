@@ -62,18 +62,18 @@ export class AsignacionMesaComponent  implements OnInit {
         await this._databaseService.updateDocument('mesas', mesa.nombre, { estado: 'ocupada', cliente: cliente.email });
   
         this._notificationService.dismissLoading();
-        this._notificationService.presentToast(`${mesa.nombre} asignada a ${cliente.name}`, 2000, 'success', 'middle');
+        this._notificationService.presentToast(`${mesa.nombre} asignada a ${cliente.name}`, 2000, 'success', 'bottom');
         
         this.obtenerListaEspera();
         this.obtenerMesasDisponibles();
       } 
       catch {
         this._notificationService.dismissLoading();
-        this._notificationService.presentToast('Error al asignar la mesa, intente nuevamente.', 2000, 'danger', 'middle');
+        this._notificationService.presentToast('Error al asignar la mesa, intente nuevamente.', 2000, 'danger', 'bottom');
       }
     }
     else {
-      this._notificationService.presentToast('No ha seleccionado ninguna mesa.', 2000, 'warning', 'middle');
+      this._notificationService.presentToast('No ha seleccionado ninguna mesa.', 2000, 'warning', 'bottom');
     }
   }
 
@@ -90,7 +90,7 @@ export class AsignacionMesaComponent  implements OnInit {
             `${cliente.name} eliminado de la lista de espera.`,
             2000,
             'success',
-            'middle'
+            'bottom'
           );
           this.obtenerListaEspera();
         } catch (error) {
@@ -98,7 +98,7 @@ export class AsignacionMesaComponent  implements OnInit {
             'Error al eliminar al cliente, intente nuevamente.',
             2000,
             'danger',
-            'middle'
+            'bottom'
           );
         }
       }

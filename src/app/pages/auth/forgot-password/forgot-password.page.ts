@@ -43,10 +43,10 @@ export class ForgotPasswordPage {
       try {
         await this._authService.sendRecoveryEmail(this.form.value.email!);
         this.form.reset();
-        this._notificationService.presentToast('¡Correo enviado, revisa tu bandeja de entrada!', 2000, 'success', 'middle');
+        this._notificationService.presentToast('¡Correo enviado, revisa tu bandeja de entrada!', 2000, 'success', 'bottom');
         this._notificationService.routerLink('/login');
       } catch (error: any) {
-        this._notificationService.presentToast('¡Error: No se pudo enviar el correo!', 2000, 'danger', 'middle');
+        this._notificationService.presentToast('¡Error: No se pudo enviar el correo!', 2000, 'danger', 'bottom');
       } finally {
         this._notificationService.dismissLoading();
       }

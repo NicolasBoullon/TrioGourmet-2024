@@ -100,7 +100,7 @@ export class CrearEncuestaPage {
           '¡Encuesta registrada exitosamente!',
           2000,
           'success',
-          'top'
+          'bottom'
         );
         this.form.reset();
         this.imagePreviewUrls = [];
@@ -110,7 +110,7 @@ export class CrearEncuestaPage {
           'Error al guardar la encuesta. Intente nuevamente.',
           2000,
           'danger',
-          'middle'
+          'bottom'
         );
       } finally {
         this._notificationService.dismissLoading();

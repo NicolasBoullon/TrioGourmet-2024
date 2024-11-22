@@ -48,11 +48,11 @@ export class OpcionesEscaneoPage implements OnInit {
     try {
       await this._databaseService.updateDocumentField('usuarios', this.user!.email!, 'estado', 'cuenta solicitada');
       this._apiRequestService.notifyRole('Un cliente solicito la cuenta', `La ${this.userDoc?.mesa} está esperando la cuenta.`, 'mozo').subscribe();
-      this._notificationService.presentToast('Solicitud de cuenta enviada al mozo', 1000, 'success', 'middle');
+      this._notificationService.presentToast('Solicitud de cuenta enviada al mozo', 2000, 'success', 'bottom');
       this._notificationService.routerLink('/home');
     }
     catch {
-      this._notificationService.presentToast('Ocurrió un error con la solicitud. Intente nuevamente.', 1000, 'danger', 'middle');
+      this._notificationService.presentToast('Ocurrió un error con la solicitud. Intente nuevamente.', 2000, 'danger', 'bottom');
     }
     finally {
       this._notificationService.dismissLoading();
