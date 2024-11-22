@@ -3,7 +3,9 @@
     margin: 0;
     padding: 0;
   }
-  
+ion-content{
+  --background: #e7b66c;
+}
   .radio-group {
     display: flex;
     flex-direction: column;
@@ -77,16 +79,18 @@
   
 .ion-content-div{
     height: 100%;
+    min-height: fit-content;
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #f8cc99b8;
+    // background-color: #f8cc99b8;
 }
 .container{
     border-radius: 8px ;
     height: 95%;
     width: 90%;
+  // background-color: rgba(248, 204, 153, 0.72);
     // border: 2px solid black;
 }
 .seleccionar-propina {
@@ -97,15 +101,18 @@
     justify-content: center;
 }
 .div-btn-aceptar{
-    height: 5%;
+    height: fit-content;  
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: start;
+    // margin-bottom: 10px;
+    padding-bottom: 10px;
     button{
-        font-size: 1.5rem;
+        font-size: 1.8rem;
         height: 100%;
         width: 80%;
+        padding: 10px;
         color: black;
         border: 1px solid #ff8a00;
         background-color: #ffb74d;
@@ -125,7 +132,7 @@
 }
 .p-propina{
     height: 30%;
-    font-size: 2rem;
+    font-size: 1.5rem;
     display: flex;
     justify-content: center;
     align-items: start;

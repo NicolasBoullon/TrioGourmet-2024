@@ -32,6 +32,7 @@
         placeholder="XXXX XXXX XXXX XXXX"
         name="cardNumber"
         type="text"
+        maxlength="16"
         [(ngModel)]="NumeroDeTarjeta"
       />
     </div>
@@ -50,7 +51,7 @@
   
       <div class="expiry-wrapper">
         <label class="input-label" for="expiry">Fecha de expiración</label>
-        <input class="inputstyle" id="expiry" placeholder="MM/YY" type="text" [(ngModel)]="FechaDeExpiracion" />
+        <input class="inputstyle" id="expiry" placeholder="MM/YY" type="text" [(ngModel)]="FechaDeExpiracion" maxlength="5" />
         
       </div>
       <div class="cvv-wrapper">

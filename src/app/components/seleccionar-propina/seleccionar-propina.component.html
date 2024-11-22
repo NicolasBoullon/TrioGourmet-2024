@@ -34,10 +34,11 @@
             <span class="radio-inner-circle"></span>
             Malo ----> 0%
           </label>
+
+          <div class="div-btn-aceptar">
+            <button (click)="confirmar()" [disabled]="porcentajeSeleccionado == null">Aceptar</button>
+          </div>
         </div>
-      </div>
-      <div class="div-btn-aceptar">
-        <button (click)="confirmar()" [disabled]="porcentajeSeleccionado == null">Aceptar</button>
       </div>
     </div>
   </div>

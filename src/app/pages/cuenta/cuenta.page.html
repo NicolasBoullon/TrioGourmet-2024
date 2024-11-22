@@ -9,39 +9,39 @@
       @if(mostrar | async){
         <div class="row-cuenta">
           <div class="row row-fecha-hora">
-            <p style="text-align: center;">==========================</p>
+            <p style="text-align: center;">=======================</p>
             <!-- <p><strong>Fecha:</strong> {{ pedido.fecha}}</p> -->
             <p><strong>Fecha:</strong> {{ formateDate(pedido.fecha,'fecha')}}</p>
-            <p>==========================</p>
+            <p>=======================</p>
           </div>
           <div class="row row-fecha-hora">
             <p><strong>Hora:</strong> {{ formateDate(pedido.fecha,'hora') }}</p>
-            <p style="text-align: center;">==========================</p>
+            <p style="text-align: center;">=======================</p>
           </div>
           @for (producto of pedido.productos; track $index) {
             <div class="row row-productos" *ngIf="producto.sector == 'Comidas'">
-              <p><strong>Descripción:</strong> {{ producto.descripcion }}</p>
-              <p><strong>Precio Unitario:</strong> ${{ producto.precio }}</p>
-              <p><strong>Cantidad:</strong> {{ producto.cantidad }}</p>
-              <p><strong>Importe:</strong> ${{ CalcularTotal(producto.cantidad,producto.precio) }}</p>
-              <p style="text-align: center;  width: 100%;">==========================</p>
+              <p style="padding-left: 3vw;"><strong>Descripción:</strong> {{ producto.descripcion }}</p>
+              <p style="padding-left: 3vw;"><strong>Precio Unitario:</strong> ${{ producto.precio }}</p>
+              <p style="padding-left: 3vw;"><strong>Cantidad:</strong> {{ producto.cantidad }}</p>
+              <p style="padding-left: 3vw;"><strong>Importe:</strong> ${{ CalcularTotal(producto.cantidad,producto.precio) }}</p>
+              <p style="text-align: center;  width: 100%;">=======================</p>
             </div>
             <div class="row row-productos" *ngIf="producto.sector == 'Bebidas'">
-              <p><strong>Descripción:</strong> {{ producto.descripcion }}</p>
-              <p><strong>Precio Unitario:</strong> ${{ producto.precio }}</p>
-              <p><strong>Cantidad:</strong> {{ producto.cantidad }}</p>
-              <p><strong>Importe:</strong> ${{ CalcularTotal(producto.cantidad,producto.precio) }}</p>
+              <p style="padding-left: 3vw;"><strong>Descripción:</strong> {{ producto.descripcion }}</p>
+              <p style="padding-left: 3vw;"><strong>Precio Unitario:</strong> ${{ producto.precio }}</p>
+              <p style="padding-left: 3vw;"><strong>Cantidad:</strong> {{ producto.cantidad }}</p>
+              <p style="padding-left: 3vw;"><strong>Importe:</strong> ${{ CalcularTotal(producto.cantidad,producto.precio) }}</p>
               <!-- <p style="text-align: center; width: 100%;">==========================</p> -->
             </div>
           }
           <div class="row-importe-total">
-            <p style="text-align: center; width: 100%;">==========================</p>
+            <p style="text-align: center; width: 100%;">=======================</p>
             <p><strong>Importe:</strong> ${{ CalcularImporteTotal() }}</p>
-            <p *ngIf="PropinaElegida"><strong>Propina Elegida </strong> ${{ MostrarPropina() }}</p>
-            <p style="text-align: center;  width: 100%;">==========================</p>
+            <p *ngIf="PropinaElegida"><strong>Propina: </strong> ${{ MostrarPropina() }}</p>
+            <p style="text-align: center;  width: 100%;">=======================</p>
             <p><strong>Importe Total a Pagar</strong></p>
             <div class="div-importe-total">${{ MontoTotalConPropinaCalcular() }}</div>
-            <p style="text-align: center;  width: 100%;">==========================</p>
+            <p style="text-align: center;  width: 100%;">=======================</p>
           </div>
         </div>
         <div class="row-buttons">

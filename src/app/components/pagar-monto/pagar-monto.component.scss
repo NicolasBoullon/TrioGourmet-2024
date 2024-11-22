@@ -33,7 +33,7 @@
     width: auto;
   }
   .inputstyle::placeholder {
-    color: #ffffff;
+    color: #9c9c9c;
   }
   .inputstyle {
     background-color: transparent;
@@ -57,9 +57,10 @@
   }
   .name-date-cvv-container {
     width: 100%;
-    height: 40px;
+    height: 50px;
     display: flex;
     gap: 10px;
+    margin-bottom: 5px;
   }
   .name-wrapper {
     width: 60%;
@@ -82,7 +83,7 @@
     width: 100%;
   }
   .input-label {
-    font-size: 10px;
+    font-size: 15px;
     letter-spacing: 1.5px;
     color: #e2e2e2;
     width: 100%;

@@ -20,7 +20,7 @@ import { NotificationService } from 'src/app/core/services/notification.service'
 })
 export class CuentaPage implements OnInit {
 
-  PropinaElegida!:number;
+  PropinaElegida!:boolean;
 
   isModalOpenPagar:boolean = false;
 
@@ -45,7 +45,7 @@ export class CuentaPage implements OnInit {
   MostrarPropina()
   {
     const importeTotal = parseFloat(this.CalcularImporteTotal());
-    const propina = importeTotal * this.PropinaElegida;
+    const propina = (importeTotal * this.pedido.porcentajePropina ) / 100;
     return propina.toFixed(2);
   }
 
@@ -60,6 +60,7 @@ export class CuentaPage implements OnInit {
       next:((value)=>{
         console.log(value);
         this.pedido = value;
+        this.PropinaElegida = this.pedido.porcentajePropina > 0 ? true : false;
         this.mostrar = Promise.resolve(true);
       })
     })
@@ -76,7 +77,7 @@ export class CuentaPage implements OnInit {
 
 
   MontoTotalConPropinaCalcular(){
-    if(this.PropinaElegida){
+    if(this.pedido.porcentajePropina){
       let total = this.CalcularImporteTotal();
       let prop = this.MostrarPropina();
       let totalConPropina = parseFloat(total) + parseFloat(prop);
@@ -105,10 +106,10 @@ export class CuentaPage implements OnInit {
     if(pago){
       console.log('Pago de forma correcta');
       try {
+        this.CloseModalPagar();
         await this._databaseService.updateDocumentField('usuarios', this.pedido.cliente, 'estado', 'cuenta pagada');
         await this._databaseService.updateDocumentField('pedidos', this.pedido.id, 'estado', 'finalizado');
         this._notificationService.presentToast('Pago realizado con exito.', 2000, 'success', 'bottom');
-        this.CloseModalPagar();
         this._notificationService.routerLink('/home');
       }
       catch {
