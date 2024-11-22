@@ -17,21 +17,27 @@
       <div class="section">
         
         <app-boton-escaner class="action-button" [correo]="user!.email!"></app-boton-escaner>
+        
+        @if(!userDoc.estado){
+          <p class="p-shared">Escanee el QR "solicitar mesa" para ingresar a la lista de espera.</p>
+        }
+        @else if(userDoc.estado == 'en lista de espera' && !userDoc.mesa) {
+          <h2 class="p-shared">Usted se encuentra en lista de espera. Se le asignará una mesa a la brevedad.</h2>
+          <ion-button class="btn-general" routerLink="/encuesta">Encuestas</ion-button>
 
-        @if(userDoc.estado == 'en lista de espera') {
-          <h2>En lista de espera</h2>
-          <ion-button class="action-button" routerLink="/encuesta">Encuestas</ion-button>
-          @if(userDoc.mesa) {
-            <p>Le asignaron la {{ userDoc.mesa }}, escanee su QR para confirmar.</p>
-          }
+        }
+        @else if(userDoc.estado == 'en lista de espera' && userDoc.mesa){
+            <p class="p-shared">Le asignaron la {{ userDoc.mesa }}, escanee su QR para confirmar.</p>
+            <ion-button class="btn-general" routerLink="/encuesta">Encuestas</ion-button>
         }
         @else if(userDoc.estado)
         {
-          <ion-button class="action-button" (click)="openConsultaModal()">{{userDoc.consulta?.respondida ? 'Tienes respuesta a tu consulta' : 'Consulta al mozo'}}</ion-button>
+          <p class="p-shared">Escanee el QR de la mesa para acceder al menú.</p>
+          <ion-button class="btn-general" (click)="openConsultaModal()">{{userDoc.consulta?.respondida ? 'Tienes respuesta a tu consulta' : 'Consulta al mozo'}}</ion-button>
           @if(!userDoc.recibioElPedido && userDoc.estado == 'pedido entregado') {
             <div style="padding-top: 1rem;">
               <p>¡Su pedido ha sido entregado! Por favor revise que esté todo correcto y haga click en el siguiente botón para confirmar:</p>
-              <ion-button class="action-button" color="success" (click)="confirmarRecepcionPedido()">Confirmar recepción del pedido</ion-button>
+              <ion-button class="btn-general" color="success" (click)="confirmarRecepcionPedido()">Confirmar recepción del pedido</ion-button>
             </div>
           }
         }

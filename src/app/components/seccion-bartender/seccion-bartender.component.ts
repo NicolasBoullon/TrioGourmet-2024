@@ -55,7 +55,7 @@ export class SeccionBartenderComponent  implements OnInit , OnDestroy{
     this.apiRequestService.notifyRole('Tienes una bebida esperandote', `${pedido.mesa} está listo para servir.`, 'mozo').subscribe();
     await this.notificationService.presentToast('Pedido enviado al mozo',1000,'success','bottom');
 
-    if(pedido.cocina === 'listo para servir') {
+    if(pedido.cocina === 'listo para servir' || pedido.cocina === 'no tiene') {
       await this.databaseService.updateDocumentField('usuarios', pedido.cliente, 'estado', 'pedido terminado');
     }
   }

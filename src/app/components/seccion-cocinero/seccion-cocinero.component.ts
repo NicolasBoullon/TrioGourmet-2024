@@ -56,7 +56,7 @@ export class SeccionCocineroComponent  implements OnInit , OnDestroy{
     this.apiRequestService.notifyRole('Tienes una comida esperandote', `${pedido.mesa} está listo para servir.`, 'mozo').subscribe();
     await this.notificationService.presentToast('Pedido enviado al mozo',1000,'success','bottom');
 
-    if(pedido.bar === 'listo para servir') {
+    if(pedido.bar === 'listo para servir' || pedido.bar === 'no tiene') {
       await this.databaseService.updateDocumentField('usuarios', pedido.cliente, 'estado', 'pedido terminado');
     }
   }
