@@ -1,56 +1,80 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+  
+.row-table-clientes {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
 
-.container{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.container .row-table-clientes{
-    width: 100%;
-    height: 40%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-}
-.table-clientes{
-    width: 95%;
+.table-clientes {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+
+  th {
+    text-align: left;
+    padding: 10px;
+    background-color: #f4f4f4;
+    font-size: 1.4rem;
+    color: #333;
+  }
+
+  td {
+    padding: 10px;
+    font-size: 1.3rem;
+    text-align: left;
+    border-bottom: 1px solid #eaeaea;
+  }
+  
+  .acciones-icon {
+    ion-button {
+      ion-icon {
+        font-size: 2rem;
+      }
+    }
+  }
+
+  .expand-icon {
     text-align: center;
-    border-collapse: collapse;
-    table-layout: fixed;
-    th,td{
-        border: solid 1px black;
-    }
-    th{
-        font-size: 1.2rem;
-    }
-    td{
-        font-size: 1.1rem;
-    }
-}
+    cursor: pointer;
 
-ion-modal{
-    --height: 75%;
-    --width: 90%;
-}
-ion-modal ion-toolbar{
-    --background: var(--color-secundario-oscuro);
-}
-ion-modal .ion-content-modal{
-    img{
-        height: 160px;
-        width: 160px;
+    ion-icon {
+      font-size: 1.4rem;
+      color: #555;
     }
-    p{
+  }
+
+  .details-row {
+    background-color: #f9f9f9;
+
+    .details-container {
+      padding: 10px;
+      
+      p {
         text-align: center;
-        font-size: 1.2rem;
+      }
+      .image {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 10px;
+
+        img {
+          height: 100px;
+          width: 100px;
+          border-radius: 50%;
+          object-fit: cover;
+        }
+      }
     }
-}
-.image{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.btn-aprobar, .btn-rechazar{
-    margin: 20px 10px 0px 10px;
-    font-size: 1.2rem;
+  }
 }

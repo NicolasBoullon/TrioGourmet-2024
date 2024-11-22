@@ -8,6 +8,8 @@ import { NotificationService } from 'src/app/core/services/notification.service'
 import { LoadingComponent } from '../loading/loading.component';
 import { ApiRequestService } from 'src/app/core/services/api-request.service';
 import { Usuario } from 'src/app/core/models/usuario.models';
+import { checkmarkCircle, chevronDown, chevronUp, closeCircle } from "ionicons/icons";
+import { addIcons } from 'ionicons';
 
 @Component({
   selector: 'app-aprobacion-cliente',
@@ -26,11 +28,12 @@ export class AprobacionClienteComponent  implements OnInit {
   protected clientes: Usuario[] = [];
   protected clientesSinAprobacion: Usuario[] = []
   protected clienteSelected!:Usuario;
+  protected expandedRow: number | null = null;
 
   protected isModalOpen: boolean = false;
   protected isLoading: boolean = false;
 
-  constructor() { }
+  constructor() { addIcons({ closeCircle, checkmarkCircle, chevronUp, chevronDown });}
 
   ngOnInit() {
     this.isLoading = true;
@@ -42,6 +45,10 @@ export class AprobacionClienteComponent  implements OnInit {
         this.isLoading = false;
       })
     })
+  }
+
+  toggleExpand(index: number) {
+    this.expandedRow = this.expandedRow == index ? null : index;
   }
 
   async aprobarCliente(clienteSelected: Usuario){

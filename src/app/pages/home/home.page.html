@@ -2,7 +2,10 @@
 
 <ion-content class="home">
   @if (userDoc) {
-    <!-- <h1 class="welcome-title">¡Bienvenido!</h1> -->
+    <div class="logo">
+      <img src="assets\logo\trio-gourmet-sin-fondo.png">
+    </div>
+    <h1 class="welcome-title">¡Hola {{userDoc.name}}!</h1>
 
     @if (userDoc.perfil == 'propietario' || userDoc.perfil == 'supervisor') {
       <div class="section">
