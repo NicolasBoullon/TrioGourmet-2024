@@ -1,35 +1,33 @@
-<app-header title="Juego Stop"></app-header>
+<app-header title="Juego Descuento" backButton="/home"></app-header>
 
 <ion-content>
   <div class="container">
     <div class="row-info">
       <p class="informacion-reglas">
-        En este juego se debera frenar el cronometro en los 10 segundos. Ni un milisegundo mas ni un milisegundo menos.
-        Si se logra hacer al primer intento se obtendra un descuento del 10% en el pago total.
+        Detén el cronómetro exactamente en los 10 segundos. No tendrás más de una oportunidad, así que mide bien el tiempo. Si aciertas en tu primer intento, ¡obtendrás un descuento del 10% en el pago total!
       </p>
     </div>
+
     <div class="row-cronometro">
-      <div class="cronometro ion-text-center" >
-        Temporizador<br>
-        <p>{{ temp }}</p>
+      <div class="cronometro">
+        <div class="cronometro-circle">
+          <p class="cronometro-num">{{ temp }}</p>
+        </div>
       </div>
     </div>
-    <div class="row-btn-empezar">
-      @if (!empezando && !reiniciar) {
-        <ion-button expand="block" (click)="EmpezarCronometro()">Empezar!</ion-button>
-      }@else if(empezando && !reiniciar){
-        <ion-button expand="block" (click)="EmpezarCronometro()">Frenar!</ion-button>
-      }
-      @if(!empezando && reiniciar){
-        <ion-button expand="block" (click)="ReinicarCronometro()">Reiniciar!</ion-button>
-      }
-      @if(gano && !empezando){
-        <p class="has-ganado ion-text-center">Has ganado!</p>
-      }
-      @if(perdio && !empezando){
-        <p class="has-ganado ion-text-center">Has perdido!</p>
-      }
 
+    <div class="row-btn-empezar">
+      @if(juegoTerminado)
+      {
+        <p class="resultado">{{ gano ? '¡Has ganado! 🎉' : '¡Has perdido! 😢' }}</p>
+        
+      }
+      @else {
+        <ion-button expand="block" (click)="!cronometroEmpezado ? EmpezarCronometro() : DetenerCronometro()">
+          {{ !cronometroEmpezado ? '¡Empezar!' : '¡Frenar!' }}
+        </ion-button>
+      }
     </div>
+
   </div>
 </ion-content>

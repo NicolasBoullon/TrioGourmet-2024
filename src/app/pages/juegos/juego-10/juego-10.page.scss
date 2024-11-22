@@ -1,39 +1,93 @@
-ion-content{
+ion-content {
     display: flex;
     align-items: center;
     justify-content: center;
     height: 100%;
+    background: var(--color-fondo);
 }
 
-.container{
+.container {
     height: 100%;
     display: flex;
     align-items: center;
     flex-direction: column;
+    padding: 20px;
 }
-.container .row-info{
-    height: 30%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 1.2rem;
+
+.row-info {
     text-align: center;
-    margin: 0px 5px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--color-primario);
+    background-color: var(--color-acento);
+    border-radius: 10px;
+    border: 2px solid var(--color-primario);
+    padding: 15px;
+    .informacion-reglas {
+        margin: 0;
+    }
 }
-.container .row-cronometro{
+
+
+.row-cronometro {
     height: 40%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
-.container .row-btn-empezar{
-    height: 20%;
+
+.cronometro {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle at center, #ffffff, #ccc);
+    border: 5px solid var(--color-primario);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.cronometro-circle {
+    width: 90%;
+    height: 90%;
+    border-radius: 50%;
+    background: radial-gradient(circle at center, #333, #111);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cronometro-num {
+    font-size: 5rem;
+    font-weight: bold;
+    color: var(--color-primario);
+    text-shadow: 0 0 8px var(--color-primario);
+}
+
+.row-btn-empezar {
     width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
-.row-btn-empezar ion-button{
-    margin: 20px;
-    font-size: 2rem;
+
+ion-button {
+    --background: var(--color-primario);
+    --color: white;
+    border-radius: 12px;
+    border: 2px solid transparent;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    width: 90%;
+    font-size: 1.5rem;
+    font-weight: bold;
 }
-.cronometro{
-    font-size: 4rem;
+
+.resultado {
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-align: center;
+    margin: 0;
 }
-.has-ganado{
-    font-size: 3rem;
-}
+

@@ -12,4 +12,5 @@ export interface Pedido{
     bar: 'no tiene' | 'en preparacion' | 'listo para servir' | 'entregado';
     importeTotal: number;
     porcentajePropina: number;
+    porcentajeDescuento?: number;
 }

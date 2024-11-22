@@ -1,90 +1,97 @@
 <app-header title="Opciones:" backButton="/home"></app-header>
 
+
 <ion-content>
-  @if(estado == 'pedido realizado') {
-    <ion-card>
-      <ion-card-header>
-        <ion-card-title>Su pedido se encuentra: <strong>realizado</strong></ion-card-title>
-      </ion-card-header>
-      <ion-card-content>
-        <p>Por favor, espere a que el mozo haga la confirmación del mismo.</p>
-        <p>Detalle pedido...</p>
-      </ion-card-content>
-    </ion-card>
+  @if(loading)
+  {
+    <app-loading></app-loading>
   }
-  @else if(estado == 'pedido confirmado') {
-    <ion-card>
-      <ion-card-header>
-        <ion-card-title>Su pedido se encuentra: <strong>confirmado</strong></ion-card-title>
-      </ion-card-header>
-      <ion-card-content>
-        <p>La cocina se encuentra preparando su pedido.</p>
-        <h3>Ahora puede acceder a las siguientes opciones:</h3>
-        <ion-button class="action-button">Juegos</ion-button>
-        <ion-button class="action-button" routerLink="/encuesta">Encuestas</ion-button>
-      </ion-card-content>
-    </ion-card>
-  }
-  @else if(estado == 'pedido terminado') {
-    <ion-card>
-      <ion-card-header>
-        <ion-card-title>Su pedido se encuentra: <strong>terminado</strong></ion-card-title>
-      </ion-card-header>
-      <ion-card-content>
-        <p>En breve el mozo le estará trayendo su pedido.</p>
-        <h3>Ahora puede acceder a las siguientes opciones:</h3>
-        <ion-button class="action-button">Juegos</ion-button>
-        <ion-button class="action-button" routerLink="/encuesta">Encuestas</ion-button>
-      </ion-card-content>
-    </ion-card>
-  }
-  @else if(estado == 'pedido entregado') {
-    <ion-card>
-      <ion-card-header>
-        <ion-card-title>Su pedido se encuentra: <strong>entregado</strong></ion-card-title>
-      </ion-card-header>
-      <ion-card-content>
-        <p>¡Que lo disfrute!</p>
-        <h3>Ahora puede acceder a las siguientes opciones:</h3>
-        <ion-button class="action-button">Juegos</ion-button>
-        <ion-button class="action-button" routerLink="/encuesta">Encuestas</ion-button>
-        <ion-button class="action-button" (click)="pedirLaCuenta()">Pedir la cuenta</ion-button>
-      </ion-card-content>
-    </ion-card>
-  }
-  @else if(estado == 'cuenta solicitada') {
-    <ion-card>
-      <ion-card-header>
-        <ion-card-title>Su cuenta se encuentra: <strong>solicitada</strong></ion-card-title>
-      </ion-card-header>
-      <ion-card-content>
-        <p>Por favor, espere a que el mozo le envie la cuenta.</p>
-        <ion-button class="action-button">Juegos</ion-button>
-        <ion-button class="action-button" routerLink="/encuesta">Encuestas</ion-button>
-      </ion-card-content>
-    </ion-card>
-  }
-  @else if(estado == 'cuenta enviada') {
-    <ion-card>
-      <ion-card-header>
-        <ion-card-title>El mozo ya le envió la cuenta</ion-card-title>
-      </ion-card-header>
-      <ion-card-content>
-        <p>Ahora puede ver la cuenta e ingresar la propina que desee escaneando el QR de propinas.</p>
-        <ion-button class="action-button">Juegos</ion-button>
-        <ion-button class="action-button" routerLink="/encuesta">Encuestas</ion-button>
-        <ion-button class="action-button" routerLink="/cuenta">Ver la cuenta</ion-button>
-      </ion-card-content>
-    </ion-card>
-  }
-  @else if(estado == 'cuenta pagada') {
-    <ion-card>
-      <ion-card-header>
-        <ion-card-title>Su cuenta se encuentra pagada</ion-card-title>
-      </ion-card-header>
-      <ion-card-content>
-        <ion-button class="action-button" routerLink="/encuesta">Encuestas</ion-button>
-      </ion-card-content>
-    </ion-card>
+  @else {
+    @if(estado == 'pedido realizado') {
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Su pedido se encuentra: <strong>realizado</strong></ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <p>Por favor, espere a que el mozo haga la confirmación del mismo.</p>
+          <p>Detalle pedido...</p>
+        </ion-card-content>
+      </ion-card>
+    }
+    @else if(estado == 'pedido confirmado') {
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Su pedido se encuentra: <strong>confirmado</strong></ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <p>La cocina se encuentra preparando su pedido.</p>
+          <h3>Ahora puede acceder a las siguientes opciones:</h3>
+          <ion-button class="action-button" (click)="accederAJuegos()">Juegos</ion-button>
+          <ion-button class="action-button" routerLink="/encuesta">Encuestas</ion-button>
+        </ion-card-content>
+      </ion-card>
+    }
+    @else if(estado == 'pedido terminado') {
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Su pedido se encuentra: <strong>terminado</strong></ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <p>En breve el mozo le estará trayendo su pedido.</p>
+          <h3>Ahora puede acceder a las siguientes opciones:</h3>
+          <ion-button class="action-button" (click)="accederAJuegos()">Juegos</ion-button>
+          <ion-button class="action-button" routerLink="/encuesta">Encuestas</ion-button>
+        </ion-card-content>
+      </ion-card>
+    }
+    @else if(estado == 'pedido entregado') {
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Su pedido se encuentra: <strong>entregado</strong></ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <p>¡Que lo disfrute!</p>
+          <h3>Ahora puede acceder a las siguientes opciones:</h3>
+          <ion-button class="action-button" (click)="accederAJuegos()">Juegos</ion-button>
+          <ion-button class="action-button" routerLink="/encuesta">Encuestas</ion-button>
+          <ion-button class="action-button" (click)="pedirLaCuenta()">Pedir la cuenta</ion-button>
+        </ion-card-content>
+      </ion-card>
+    }
+    @else if(estado == 'cuenta solicitada') {
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Su cuenta se encuentra: <strong>solicitada</strong></ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <p>Por favor, espere a que el mozo le envie la cuenta.</p>
+          <ion-button class="action-button"(click)="accederAJuegos()">Juegos</ion-button>
+          <ion-button class="action-button" routerLink="/encuesta">Encuestas</ion-button>
+        </ion-card-content>
+      </ion-card>
+    }
+    @else if(estado == 'cuenta enviada') {
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>El mozo ya le envió la cuenta</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <p>Ahora puede ver la cuenta e ingresar la propina que desee escaneando el QR de propinas.</p>
+          <ion-button class="action-button"(click)="accederAJuegos()">Juegos</ion-button>
+          <ion-button class="action-button" routerLink="/encuesta">Encuestas</ion-button>
+          <ion-button class="action-button" routerLink="/cuenta">Ver la cuenta</ion-button>
+        </ion-card-content>
+      </ion-card>
+    }
+    @else if(estado == 'cuenta pagada') {
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Su cuenta se encuentra pagada</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-button class="action-button" routerLink="/encuesta">Encuestas</ion-button>
+        </ion-card-content>
+      </ion-card>
+    }
   }
 </ion-content>

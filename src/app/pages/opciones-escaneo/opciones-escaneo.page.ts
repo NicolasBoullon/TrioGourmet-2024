@@ -11,13 +11,15 @@ import { ApiRequestService } from 'src/app/core/services/api-request.service';
 import { Usuario } from 'src/app/core/models/usuario.models';
 import { firstValueFrom } from 'rxjs';
 import { ModalController } from '@ionic/angular';
+import { Pedido } from 'src/app/core/models/pedido.model';
+import { LoadingComponent } from "../../components/loading/loading.component";
 
 @Component({
   selector: 'app-opciones-escaneo',
   templateUrl: './opciones-escaneo.page.html',
   styleUrls: ['./opciones-escaneo.page.scss'],
   standalone: true,
-  imports: [IonContent, IonButton, HeaderComponent, RouterLink, IonCard, IonCardHeader, IonCardTitle, IonCardContent]
+  imports: [IonContent, IonButton, HeaderComponent, RouterLink, IonCard, IonCardHeader, IonCardTitle, IonCardContent, LoadingComponent]
 })
 export class OpcionesEscaneoPage implements OnInit {
 
@@ -31,15 +33,21 @@ export class OpcionesEscaneoPage implements OnInit {
   protected userDoc?: Usuario;
 
   protected estado?: string | null;
+  protected accesoAJuegos: boolean = true;
+  protected loading: boolean = false;
 
   async ngOnInit() {
     this.estado = this._route.snapshot.queryParamMap.get('estado');
     
+    this.loading = true;
     const user = await this._authService.getCurrentUserOnce();
 
     if (user && user.email) {
       this.user = user;
       this.userDoc = await firstValueFrom(this._databaseService.getDocumentById('usuarios', user.email));
+      let pedidoDelUsuario: Pedido = await firstValueFrom(this._databaseService.getDocumentById('pedidos', this.userDoc?.idPedidoActual!));
+      this.accesoAJuegos = pedidoDelUsuario.porcentajeDescuento == 0 || pedidoDelUsuario.porcentajeDescuento == 10 ? false : true;
+      this.loading = false;
     }
   }
 
@@ -59,4 +67,11 @@ export class OpcionesEscaneoPage implements OnInit {
     }
   }
 
+  accederAJuegos()
+  {
+    if (this.accesoAJuegos)
+      this._notificationService.routerLink('juego-10');
+    else
+      this._notificationService.presentToast('¡Usted ya jugó a este juego para obtener su descuento!', 2000, 'warning', 'bottom');
+  }
 }
