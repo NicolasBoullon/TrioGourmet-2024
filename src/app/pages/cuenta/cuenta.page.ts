@@ -24,7 +24,7 @@ export class CuentaPage implements OnInit {
 
   isModalOpenPagar:boolean = false;
 
-  MontoTotalConPropina:any = 0;
+  MontoTotalConPropinaYDescuento:any = 0;
   
   private _authService = inject(AuthService)
   private _databaseService = inject(DatabaseService);
@@ -47,6 +47,20 @@ export class CuentaPage implements OnInit {
     const importeTotal = parseFloat(this.CalcularImporteTotal());
     const propina = (importeTotal * this.pedido.porcentajePropina ) / 100;
     return propina.toFixed(2);
+  }
+
+  MostrarDescuento(): string
+  {
+    let descuento: string = '0';
+
+    const importeTotal = parseFloat(this.CalcularImporteTotal());
+
+    if (this.pedido.porcentajeDescuento == 10)
+    {
+      descuento = ((importeTotal * this.pedido.porcentajeDescuento) / 100).toFixed(2);
+    }
+    
+    return descuento;
   }
 
   async GetUser(){
@@ -76,16 +90,26 @@ export class CuentaPage implements OnInit {
   }
 
 
-  MontoTotalConPropinaCalcular(){
-    if(this.pedido.porcentajePropina){
-      let total = this.CalcularImporteTotal();
-      let prop = this.MostrarPropina();
-      let totalConPropina = parseFloat(total) + parseFloat(prop);
-      this.MontoTotalConPropina = totalConPropina;
-      return totalConPropina.toFixed(2);
+  MontoTotalConPropinaYDescuentoCalcular() {
+    let total = parseFloat(this.CalcularImporteTotal());
+    let prop = 0;
+    let desc = 0;
+
+    if (this.pedido.porcentajePropina)
+    {
+      prop = parseFloat(this.MostrarPropina());
     }
-    this.MontoTotalConPropina = this.CalcularImporteTotal();
-    return this.MontoTotalConPropina;
+
+    if (this.pedido.porcentajeDescuento)
+    {
+      desc = parseFloat(this.MostrarDescuento());
+    }
+
+    total = total + prop - desc;
+
+    this.MontoTotalConPropinaYDescuento = total;
+
+    return total.toFixed(2);
   }
 
 
@@ -94,6 +118,7 @@ export class CuentaPage implements OnInit {
     const total = cantidad * precioUnitario;
     return total.toFixed(2);
   }
+
   CalcularImporteTotal(){
     let acumulador = 0; 
     this.pedido.productos.forEach((producto) => {
@@ -107,9 +132,7 @@ export class CuentaPage implements OnInit {
       console.log('Pago de forma correcta');
       try {
         this.CloseModalPagar();
-        if(this.pedido.porcentajePropina > 0){
-          await this._databaseService.updateDocumentField('pedidos',this.pedido.id,'importeTotalConPropina',this.MontoTotalConPropina)
-        }
+        await this._databaseService.updateDocumentField('pedidos',this.pedido.id,'importeTotalConPropinaYDescuento',this.MontoTotalConPropinaYDescuento)
         await this._databaseService.updateDocumentField('usuarios', this.pedido.cliente, 'estado', 'cuenta pagada');
         await this._databaseService.updateDocumentField('pedidos', this.pedido.id, 'estado', 'finalizado');
         this._notificationService.presentToast('Pago realizado con exito.', 2000, 'success', 'bottom');

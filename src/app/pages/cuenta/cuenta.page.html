@@ -38,9 +38,13 @@
             <p style="text-align: center; width: 100%;">=======================</p>
             <p><strong>Importe:</strong> ${{ CalcularImporteTotal() }}</p>
             <p *ngIf="PropinaElegida"><strong>Propina: </strong> ${{ MostrarPropina() }}</p>
+            @if(MostrarDescuento() != '0')
+            {
+              <p><strong>Descuento: </strong> ${{ MostrarDescuento() }}</p>
+            }
             <p style="text-align: center;  width: 100%;">=======================</p>
             <p><strong>Importe Total a Pagar</strong></p>
-            <div class="div-importe-total">${{ MontoTotalConPropinaCalcular() }}</div>
+            <div class="div-importe-total">${{ MontoTotalConPropinaYDescuentoCalcular() }}</div>
             <p style="text-align: center;  width: 100%;">=======================</p>
           </div>
         </div>
