@@ -32,7 +32,7 @@ export class ScannerService {
     else {
       // const { barcodes } = await BarcodeScanner.scan();
       // const scannedQR = barcodes[0].rawValue;
-      let scannedQR = 'propinas';
+      let scannedQR = 'cuenta enviada';
 
       if (!scannedQR) return;
   
