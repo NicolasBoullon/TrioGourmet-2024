@@ -1,55 +1,52 @@
 <div>
-  <h2>Listado de clientes con mesa</h2>
   <div>
     @if(clientesConMesa.length == 0) {
-      <p>No hay clientes con mesas asignadas.</p>
+      <ion-card class="card-mesa">
+        <ion-card-content class="content-centered">
+          <p class="descripcion-accion">No hay clientes con mesas asignadas.</p>
+        </ion-card-content>
+      </ion-card>
     }
     @else {
       @for (cliente of clientesConMesa; track $index) {
-        <ion-card class="client-card">
-          <ion-card-header>
-            <ion-card-title>{{ cliente.mesa }}</ion-card-title>
-            @if(cliente.perfil == 'cliente') {
-              <ion-card-subtitle>Cliente: {{ cliente.name }} {{ cliente.apellido }}</ion-card-subtitle>
-            }
-            @else {
-              <ion-card-subtitle>Cliente: {{ cliente.name }}</ion-card-subtitle>
-            }
+        <ion-card class="card-mesa">
+          <ion-card-header class="centered">
+            <ion-card-title class="titulo-mesa">{{ cliente.mesa }}</ion-card-title>
+            <ion-card-subtitle class="nombre-cliente">Cliente: {{ cliente.name }} {{ cliente.apellido || '' }}</ion-card-subtitle>
           </ion-card-header>
     
-          <ion-card-content>
-            <p>Estado: {{ cliente.estado }}</p>
-            <ion-item>
-              <!-- <ion-label>Acción:</ion-label> -->
+          <ion-card-content class="centered">
+            <h3 class="estado-cliente">{{ cliente.estado?.toUpperCase() }}</h3>
+            <ion-item lines="full" class="acciones-container">
               <div class="acciones">
                 @if (cliente.estado == 'mesa asignada') {
-                  <p>Esperando a que el cliente realice su pedido</p>
+                  <p class="descripcion-accion">Esperando a que el cliente realice su pedido</p>
                 }
                 @else if (cliente.estado == 'pedido realizado') {
-                  <ion-button (click)="verPedido(cliente.idPedidoActual!)">Ver pedido</ion-button>
+                  <ion-button class="boton-accion" (click)="verPedido(cliente.idPedidoActual!)">Ver pedido</ion-button>
                 }
                 @else if (cliente.estado == 'pedido confirmado') {
-                  <p>Esperando a que la cocina y el bar terminen de preparar el pedido</p>
+                  <p class="descripcion-accion">Esperando a que la cocina y el bar terminen de preparar el pedido</p>
                 }
                 @else if (cliente.estado == 'pedido terminado') {
-                  <ion-button (click)="verPedidoParaLlevar(cliente.idPedidoActual!)">Ver pedido para llevar</ion-button>
+                  <ion-button class="boton-accion" (click)="verPedidoParaLlevar(cliente.idPedidoActual!)">Ver pedido para llevar</ion-button>
                 }
                 @else if (cliente.estado == 'pedido entregado') {
                   @if(!cliente.recibioElPedido) {
-                    <p>Esperando a que el cliente confirme la recepción del pedido</p>
+                    <p class="descripcion-accion">Esperando a que el cliente confirme la recepción del pedido</p>
                   }
                   @else {
-                    <p>Esperando a que el cliente termine y solicite la cuenta</p>
+                    <p class="descripcion-accion">Esperando a que el cliente termine y solicite la cuenta</p>
                   }
                 }
                 @else if (cliente.estado == 'cuenta solicitada') {
-                  <ion-button (click)="enviarCuenta(cliente)">Enviar cuenta</ion-button>
+                  <ion-button class="boton-accion" (click)="enviarCuenta(cliente)">Enviar cuenta</ion-button>
                 }
                 @else if (cliente.estado == 'cuenta enviada') {
-                  <p>Esperando a que el cliente realice el pago</p>
+                  <p class="descripcion-accion">Esperando a que el cliente realice el pago</p>
                 }
                 @else if (cliente.estado == 'cuenta pagada') {
-                  <ion-button (click)="liberarMesa(cliente)">Liberar mesa</ion-button>
+                  <ion-button class="boton-accion" (click)="liberarMesa(cliente)">Liberar mesa</ion-button>
                 }
               </div>
               
@@ -60,63 +57,80 @@
     }
   </div>
 
-  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+  <ion-fab horizontal="end" vertical="bottom" slot="fixed">
     <ion-fab-button routerLink="/consultas-mozo">
       <ion-icon name="hand-right-sharp"></ion-icon>
     </ion-fab-button>
   </ion-fab>
+
 </div>
 
 <!-- Modal para mostrar el pedido -->
 <ion-modal [isOpen]="isModalVerPedidoOpen" (didDismiss)="cerrarModalVerPedido()">
   <ng-template>
-    <ion-header>
-      <ion-button color="primary" (click)="cerrarModalVerPedido()" slot="end">Cerrar</ion-button>
-    </ion-header>
-    <ion-content>
-      @if (pedidoSeleccionado) {
-        <h2 style="text-align: center;">Pedido {{ pedidoSeleccionado.mesa }}</h2>
-        <div class="row-pedido">
-          <div class="pedido">
-            @for (producto of pedidoSeleccionado.productos; track $index) {
-              <p>{{ producto.descripcion }} x {{ producto.cantidad }}</p>
-            }
-            <div class="row-btn">
-              <ion-button (click)="aceptarPedido(pedidoSeleccionado)">Aceptar</ion-button>
-              <ion-button (click)="rechazarPedido(pedidoSeleccionado)">Rechazar</ion-button>
+
+    @if (pedidoSeleccionado) {
+
+      <ion-header>
+          <h2 class="text-header-modal"><strong>Pedido {{ pedidoSeleccionado.mesa }}</strong></h2>
+          <ion-button (click)="cerrarModalVerPedido()" slot="end" fill="clear">
+            <ion-icon slot="icon-only" name="close-circle-outline" class="text-header-modal"></ion-icon>
+          </ion-button>
+      </ion-header>
+
+      <ion-content>
+        <div class="productos-lista">
+          @for (producto of pedidoSeleccionado.productos; track $index) {
+            <div class="producto-item">
+              <span class="producto-descripcion">{{ producto.descripcion }}</span>
+              <span class="producto-cantidad">x{{ producto.cantidad }}</span>
             </div>
-          </div>
+          }
         </div>
-      }
-    </ion-content>
+      </ion-content>
+
+      <ion-footer>
+        <div class="modal-acciones">
+          <ion-button class="btn-aceptar" (click)="aceptarPedido(pedidoSeleccionado)">Aceptar</ion-button>
+          <ion-button class="btn-rechazar" (click)="rechazarPedido(pedidoSeleccionado)">Rechazar</ion-button>
+        </div>
+      </ion-footer>
+    }
+
   </ng-template>
 </ion-modal>
-
 
 <!-- Modal para mostrar el pedido para llevar -->
 <ion-modal [isOpen]="isModalVerPedidoParaLlevar" (didDismiss)="cerrarModalVerPedidoParaLlevar()">
   <ng-template>
-    <ion-header>
-      <ion-button color="primary" (click)="cerrarModalVerPedidoParaLlevar()" slot="end">Cerrar</ion-button>
+
+    @if (pedidoSeleccionado) {
+
+      <ion-header>
+        <h2 class="text-header-modal"><strong>Pedido {{ pedidoSeleccionado.mesa }}</strong></h2>
+        <ion-button (click)="cerrarModalVerPedido()" slot="end" fill="clear">
+          <ion-icon slot="icon-only" name="close-circle-outline" class="text-header-modal"></ion-icon>
+        </ion-button>
     </ion-header>
-    <ion-content>
-      @if (pedidoSeleccionado) {
-        <h2 style="text-align: center;">Pedido {{ pedidoSeleccionado.mesa }}</h2>
-        <div class="row-pedido">
-          <div class="pedido">
-            <h3>Productos listos:</h3>
-            @for (producto of pedidoSeleccionado.productos; track $index) {
-              @if ((producto.sector === 'Comidas' && pedidoSeleccionado.cocina === 'listo para servir') || 
-                  (producto.sector === 'Bebidas' && pedidoSeleccionado.bar === 'listo para servir')) {
-                <p>{{ producto.descripcion }} x {{ producto.cantidad }}</p>
-              }
-            }
-            <div class="row-btn">
-              <ion-button (click)="llevarPedido(pedidoSeleccionado)">Llevar a la mesa</ion-button>
+
+
+      <ion-content>
+        <div class="productos-lista">
+          @for (producto of pedidoSeleccionado.productos; track $index) {
+            <div class="producto-item">
+              <span class="producto-descripcion">{{ producto.descripcion }}</span>
+              <span class="producto-cantidad">x{{ producto.cantidad }}</span>
             </div>
-          </div>
+          }
         </div>
-      }
-    </ion-content>
+      </ion-content>
+
+      <ion-footer>
+        <div class="modal-acciones">
+          <ion-button class="btn-llevar-pedido" (click)="llevarPedido(pedidoSeleccionado)">Llevar a la mesa</ion-button>
+        </div>
+      </ion-footer>
+    }
+
   </ng-template>
 </ion-modal>

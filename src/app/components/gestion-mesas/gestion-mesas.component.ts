@@ -2,7 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { IonicModule } from "@ionic/angular";
 import { addIcons } from 'ionicons';
-import { handRightSharp } from 'ionicons/icons';
+import { closeCircleOutline, handRightSharp } from 'ionicons/icons';
 import { firstValueFrom } from 'rxjs';
 import { Pedido } from 'src/app/core/models/pedido.model';
 import { Usuario } from 'src/app/core/models/usuario.models';
@@ -33,7 +33,7 @@ export class GestionMesasComponent  implements OnInit {
 
   constructor()
   {
-    addIcons({handRightSharp}); 
+    addIcons({handRightSharp, closeCircleOutline}); 
   }
 
   ngOnInit() {
@@ -107,6 +107,7 @@ export class GestionMesasComponent  implements OnInit {
   }
 
   async llevarPedido(pedido: Pedido) {
+    this.cerrarModalVerPedidoParaLlevar();
     try {
       if (pedido.cocina == 'listo para servir' && pedido.bar == 'listo para servir') {
         await this._databaseService.updateDocument('pedidos', pedido.id, {cocina: 'entregado', bar: 'entregado', estado: 'en mesa'});
@@ -119,9 +120,6 @@ export class GestionMesasComponent  implements OnInit {
     }
     catch (err) {
       this._notificationService.presentToast('Error al llevar el pedido, intente nuevamente.', 2000, 'danger', 'bottom');
-    }
-    finally {
-      this.cerrarModalVerPedidoParaLlevar();
     }
   }
 
