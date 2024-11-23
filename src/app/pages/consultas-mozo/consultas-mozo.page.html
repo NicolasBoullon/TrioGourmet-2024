@@ -14,7 +14,7 @@
               <p class="consulta-fecha">{{ consulta.fecha | date: 'shortDate' }} - {{ consulta.fecha | date: 'shortTime' }}</p>
               <p class="consulta-texto">{{ consulta.consulta }}</p>
             </ion-label>
-            <ion-button color="primary" fill="solid" slot="end" size="small" (click)="openRespuestaModal(consulta)">
+            <ion-button color="primary" fill="solid" slot="end" size="small" (click)="openRespuestaModal(consulta)" style="font-size: 1.2rem;">
               Responder
             </ion-button>
           </ion-item>
@@ -39,26 +39,26 @@
   }
 
   <!-- Modal -->
-  <ion-modal [isOpen]="isModalOpen" (didDismiss)="closeRespuestaModal()">
+  <ion-modal [isOpen]="isModalOpen" (didDismiss)="closeRespuestaModal()" class="ion-modal-responder">
     <ng-template>
       <ion-header>
         <ion-toolbar color="primary">
-          <ion-title>Consulta al Mozo</ion-title>
+          <ion-title style="font-size: 1.6rem;">Respuesta</ion-title>
           <ion-buttons slot="end">
-            <ion-button (click)="closeRespuestaModal()">Cerrar</ion-button>
+            <ion-button (click)="closeRespuestaModal()" style="font-size: 1.2rem;">Cerrar</ion-button>
           </ion-buttons>
         </ion-toolbar>
       </ion-header>
       
       <div class="modal-container">
         <ion-item lines="none" class="centered-item">
-          <ion-textarea [(ngModel)]="respuesta" placeholder="Escribe aquí tu mensaje..."></ion-textarea>
+          <ion-textarea [(ngModel)]="respuesta" placeholder="Escribe aquí tu mensaje..." class="consulta-mozo"></ion-textarea>
         </ion-item>
       </div>
 
       <ion-footer>
         <div class="modal-actions">
-          <ion-button expand="block" (click)="sendRespuesta()">Enviar</ion-button>
+          <ion-button expand="block" (click)="sendRespuesta()" style="font-size: 1.5rem; ">Enviar</ion-button>
         </div>
       </ion-footer>
     </ng-template>
