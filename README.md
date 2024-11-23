@@ -80,8 +80,6 @@ en distintos tipos de gráficos (torta, barra, lineal, etc.).
     - Importe total.
     - Tiempo estimado del pedido.
   - Verificar que el pedido no sea derivado a sus respectivos sectores hasta que el mozo no confirme el pedido.
-- **Estilo y diseño**:
-  - Modificar estilos de los componentes `crear-encuesta` y `encuesta`.
 - **Juego**:
   - Implementar el juego.
 ---
@@ -124,8 +122,6 @@ en distintos tipos de gráficos (torta, barra, lineal, etc.).
 - **Botones de ingreso rápido** (Con Nicolás Carlos Boullon).
 - **Eliminación de clientes**:
   - Botón para eliminar a un cliente de la lista de espera.
-- **Estilo y diseño**:
-  - Input para repetir contraseña en el registro.
 - **Sonidos**:
   - Sonidos distintos al iniciar y cerrar la aplicación.
 ---
@@ -166,13 +162,8 @@ en distintos tipos de gráficos (torta, barra, lineal, etc.).
     - El grado de satisfacción del cliente (propina).
     - El **TOTAL** a abonar (grande y claro).
   - El cliente tendrá la posibilidad de realizar el pago (simulado) mediante una plataforma de pagos.
-- **Estilo y diseño**:
-  - Modificar estilos de:
-    - `seccion-cocinero` component.
-    - `seccion-bartender` component.
-    - `asignacion-mesa` component.
-    - Consultas al mozo.
-    - Consultas realizadas.
+ 
+  
 ## Aplicacion
 
 ### Logo
