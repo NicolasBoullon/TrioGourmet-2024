@@ -1,0 +1,152 @@
+.container {
+    text-align: center;
+}
+
+h1 {
+    font-size: 2rem;
+    font-weight: bold;
+    margin: 25px;
+}
+
+h3 {
+    font-size: 1.5rem;
+}
+
+p {
+    font-size: 1.3rem;
+    margin: 1.5rem;
+    padding: 12px;
+    color: #2e3639;
+    background-color: var(--color-terciario);
+    border-radius: 12px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+
+.buttons-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+ion-button {
+    width: 250px;
+    height: 150px;
+    --border-radius: 15px;
+    margin: 1rem;
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+.btn-cuenta {
+    --background: #F4A261;
+}
+
+.btn-juegos {
+    --background: #E9C46A;
+}
+
+.btn-encuestas {
+    --background: #F5E0C3;
+}
+
+.icon-column {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.icon-row {
+    font-size: 3.5rem;
+    margin-bottom: 5px;
+}
+
+.texto-boton {
+    font-weight: bold;
+    font-size: 1.7rem;
+}
+
+
+
+
+//DETALLE PEDIDO
+.card-detalle-pedido {
+    margin: 1.5rem;
+    border-radius: 16px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+    background: var(--color-terciario);
+}
+
+.header-card-detalle-pedido {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background: var(--color-primario);
+}
+
+.text-header-card-detalle-pedido {
+    color: white;
+    font-size: 1.7rem;
+    font-weight: bold;
+}
+
+.content-card-detalle-pedido {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 16px;
+}
+
+.productos-lista {
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.producto-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 2px;
+    border-bottom: 1px solid #ddd;
+    font-size: 1.2rem;
+    color: #37474f;
+    line-height: 1.4;
+    position: relative;
+}
+
+.producto-item::before {
+    content: '';
+    width: 10px;
+    height: 10px;
+    background-color: #546e7a;
+    border-radius: 50%;
+    position: absolute;
+    left: 5px;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.producto-item:last-child {
+    border-bottom: none;
+}
+
+.producto-descripcion {
+    flex: 1;
+    word-wrap: break-word;
+    padding-left: 16px;
+    padding-right: 16px;
+    font-weight: bold;
+    color: #37474f;
+}
+
+.producto-cantidad {
+    font-weight: bold;
+    color: #546e7a;
+    text-align: right;
+    white-space: nowrap;
+}

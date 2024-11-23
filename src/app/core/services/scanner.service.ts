@@ -30,9 +30,8 @@ export class ScannerService {
       this._notificationService.presentToast('Debe confirmar la recepción del pedido.', 2000, 'warning', 'bottom');
     }
     else {
-      // const { barcodes } = await BarcodeScanner.scan();
-      // const scannedQR = barcodes[0].rawValue;
-      let scannedQR = 'Mesa 2';
+      const { barcodes } = await BarcodeScanner.scan();
+      const scannedQR = barcodes[0].rawValue;
 
       if (!scannedQR) return;
   
