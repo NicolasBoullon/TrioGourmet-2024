@@ -128,3 +128,32 @@ ion-textarea {
 .btn-consulta {
   --background: var(--color-primario)
 }
+
+
+.consulta-mozo {
+  --background: transparent;
+  background-color: #f4d7c7; 
+  color: #4a2c2a; 
+  border: 2px solid #e4a381; 
+  border-radius: 12px; 
+  padding: 10px 14px; 
+  font-size: 1.2rem; 
+  width: 100%;
+  box-sizing: border-box; 
+  outline: none; 
+  font-family: "Arial", sans-serif;
+  height: 120px; 
+}
+
+
+.consulta-mozo:focus {
+  border-color: #a45e46; 
+  background-color: #f9e5d8; 
+}
+
+
+.consulta-mozo::placeholder {
+  color: #a45e46; 
+  font-style: italic;
+  font-size: 1rem; 
+}
