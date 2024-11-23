@@ -271,7 +271,7 @@
 * Barra   
 ![Logo](src/assets/readme/bartenderServirBebida.png)
 
-### El Mozo accedera a ver los pedidos que ya esten listos para servir. Cada sector trabaja de forma independiente, significa que si el sector bebidas ya tiene preparado su pedido podria llevare a la mesa sin esperar al otro sector.    
+### El Mozo accedera a ver los pedidos que ya esten listos para servir.    
 * Pedido listo para servir.   
 ![Logo](src/assets/readme/pedidoListoParaServirJunto.png)
 
