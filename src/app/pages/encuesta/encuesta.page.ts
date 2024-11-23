@@ -59,7 +59,10 @@ export class EncuestaPage implements OnInit {
             encuesta.fecha = this.databaseService.convertTimestampToDate(encuesta.fecha);
           }
           return encuesta;
-        });
+        })
+        .sort((a: any, b: any) => {
+          return new Date(b.fecha).getTime() - new Date(a.fecha).getTime()
+        });;
       }) 
 
       this._subscriptions.add(encuestasSubscription);
