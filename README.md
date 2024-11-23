@@ -143,6 +143,25 @@
 
 ![Logo](src/assets/icons/icon-512.webp)
 
+### QR solicitar mesa
+
+![Logo](src/assets/readme/solicitarMesa.png)
+
+### QR Mesa Uno
+
+![Logo](src/assets/readme/mesaUno.png)
+
+### QR Mesa Dos
+
+![Logo](src/assets/readme/mesaDos.png)
+
+### QR Mesa Tres
+
+![Logo](src/assets/readme/mesaTres.png)
+
+### QR Propina
+
+![Logo](src/assets/readme/propina.png)
 
 ### Inicio de Sesión
 
