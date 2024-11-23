@@ -33,7 +33,7 @@ export class ConsultasMozoPage implements OnInit {
   }
 
   async obtenerConsultas() {
-    this._databaseService.getDocument('consultas').subscribe((consultas: any[]) => {
+    this._databaseService.getDocumentsOrderedByDate('consultas','desc').subscribe((consultas: any[]) => {
       this.consultas = consultas.map((consulta) => {
         return {
           ...consulta,

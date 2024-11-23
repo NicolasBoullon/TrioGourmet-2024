@@ -25,7 +25,7 @@ export class SeccionBartenderComponent  implements OnInit , OnDestroy{
   pedidosOrdenados:Pedido[] = [];
   subPedidos!:Subscription;
   ngOnInit() {
-    this.subPedidos = this.databaseService.getDocumentsOrderedByDate('pedidos').subscribe({
+    this.subPedidos = this.databaseService.getDocumentsOrderedByDate('pedidos','asc').subscribe({
       next:((value)=>{
         this.pedidos = value;
         this.FiltrarPedidos();

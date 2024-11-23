@@ -24,7 +24,7 @@
           <ion-item lines="full" class="consulta-item respondida">
             <ion-label>
               <h2 class="mesa-title">Consulta respondida</h2>
-              <p class="consulta-fecha">{{ consulta.fecha | date: 'shortDate' }} - {{ consulta.fecha | date: 'shortTime' }}</p>
+              <p class="consulta-fecha">{{ consulta.fecha | date: 'dd/MM/yyyy' }} - {{ consulta.fecha | date: 'shortTime' }}</p>
               <p class="consulta-texto">{{ consulta.consulta }}</p>
               <p class="consulta-respuesta">Respuesta: {{ consulta.respuesta }}</p>
             </ion-label>
