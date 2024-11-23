@@ -59,7 +59,9 @@
 - **Creación de cliente nuevo**: Mediante escaneo de DNI.  
 - **Notificaciones push**.  (Con Mateo Spatola)
 - **Encuestas**:  
-  - Verificar que solo pueda acceder a los resultados de las encuestas previas realizadas.  
+  - Verificar que solo pueda acceder a los resultados de las encuestas previas realizadas.
+  - El cliente, escaneando el QR de su mesa, podrá visualizar los resultados de las encuestas
+en distintos tipos de gráficos (torta, barra, lineal, etc.).
 - **Productos**:  
   - Carga de código QR para ver un listado que incluye:  
     - Imágenes.  
@@ -217,9 +219,6 @@
 
 ![Logo](src/assets/readme/escanearQR.png)
 
-### Cliente en lista de espera
-
-![Logo](src/assets/readme/clienteEnListaDeEspera.png)
 
 ### El cliente accede a las encuestas
 
@@ -294,6 +293,12 @@ Si se logra ganar el juego, se obtendrá un 10% de descuento.
 ### Encuesta
 ![Logo](src/assets/readme/realizarEncuestaUno.png)
 ![Logo](src/assets/readme/realizarEncuestaDos.png)
+
+### Estadísticas de Encuestas
+
+![Logo](src/assets/readme/estadisticasUno.png)
+![Logo](src/assets/readme/estadisticasDos.png)
+
 
 ### Cuenta
 ![Logo](src/assets/readme/cuentaUno.png)
