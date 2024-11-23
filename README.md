@@ -72,12 +72,16 @@
     - Fecha, hora y minutos.  
     - Consulta realizada.  
   - Verificar que la consulta llegue correctamente.  
-- **Pedido**:  
-  - Cliente realiza un pedido.  
-  - Verificar que en todo momento se muestre:  
-    - Importe total.  
-    - Tiempo estimado del pedido.  
-
+- **Pedido**:
+  - Cliente realiza un pedido.
+  - Verificar que en todo momento se muestre:
+    - Importe total.
+    - Tiempo estimado del pedido.
+  - Verificar que el pedido no sea derivado a sus respectivos sectores hasta que el mozo no confirme el pedido.
+- **Estilo y diseño**:
+  - Modificar estilos de los componentes `crear-encuesta` y `encuesta`.
+- **Juego**:
+  - Implementar el juego.
 ---
 
 ## **Mateo Spatola**  
@@ -104,7 +108,24 @@
   - Verificar que el cliente **NO pueda vincularse a otra mesa**, indicando que ya tiene una asignada.  
   - Escaneo del QR de la mesa asignada:  
     - Verificar que la mesa no pueda ser asignada a otro cliente.  
-
+- **Estado del pedido**:
+  - El cliente vuelve a escanear el código QR de la mesa y podrá acceder al estado de su pedido.
+  - El cliente verifica el cambio de estado en su pedido (escaneando el QR de su mesa).
+  - El cliente confirma la recepción de su pedido.
+- **Accesos adicionales**:
+  - El cliente vuelve a escanear el código QR de la mesa y podrá acceder a los juegos*, a la encuesta y al estado de su pedido.
+  - El cliente vuelve a escanear el código QR de la mesa y podrá acceder a los juegos*, a la encuesta y a la opción de ‘pedir la cuenta’.
+- **Pagos**:
+  - El cliente solicita la cuenta al mozo (notificación push).
+  - Se habilita, mediante la lectura del código QR correspondiente, el ingreso de la propina.
+  - El mozo confirma el pago y se libera la mesa.
+- **Botones de ingreso rápido** (Con Nicolás Carlos Boullon).
+- **Eliminación de clientes**:
+  - Botón para eliminar a un cliente de la lista de espera.
+- **Estilo y diseño**:
+  - Input para repetir contraseña en el registro.
+- **Sonidos**:
+  - Sonidos distintos al iniciar y cerrar la aplicación.
 ---
 
 ## **Nicolás Carlos Boullon**  
@@ -136,7 +157,20 @@
     - Comidas.  
     - Bebidas.  
     - Postres.  
-
+- **Pagos**:
+  - El detalle de la cuenta tendrá:
+    - Los pedidos realizados (con precios unitarios) con su respectivo importe.
+    - Los descuentos correspondientes a los juegos* (sólo si gana en el primer intento).
+    - El grado de satisfacción del cliente (propina).
+    - El **TOTAL** a abonar (grande y claro).
+  - El cliente tendrá la posibilidad de realizar el pago (simulado) mediante una plataforma de pagos.
+- **Estilo y diseño**:
+  - Modificar estilos de:
+    - `seccion-cocinero` component.
+    - `seccion-bartender` component.
+    - `asignacion-mesa` component.
+    - Consultas al mozo.
+    - Consultas realizadas.
 ## Aplicacion
 
 ### Logo
