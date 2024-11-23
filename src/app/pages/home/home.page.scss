@@ -122,13 +122,12 @@ ion-textarea {
 }
 
 .btn-general{
-  --background: #28a745;
-}
-
-.btn-consulta {
   --background: var(--color-primario)
 }
 
+.btn-consulta {
+  --background: #28a745;
+}
 
 .consulta-mozo {
   --background: transparent;
@@ -145,12 +144,10 @@ ion-textarea {
   height: 120px; 
 }
 
-
 .consulta-mozo:focus {
   border-color: #a45e46; 
   background-color: #f9e5d8; 
 }
-
 
 .consulta-mozo::placeholder {
   color: #a45e46; 

@@ -44,11 +44,11 @@
             <p class="p-shared">Escanee el QR de la mesa para acceder al estado de su pedido y a otras opciones</p>
           }
 
-          <ion-button class="btn-consulta" (click)="openConsultaModal()">{{userDoc.consulta?.respondida ? 'Tienes respuesta a tu consulta' : 'Consulta al mozo'}}</ion-button>
+          <ion-button class="btn-general" (click)="openConsultaModal()">{{userDoc.consulta?.respondida ? 'Tienes respuesta a tu consulta' : 'Consulta al mozo'}}</ion-button>
           @if(!userDoc.recibioElPedido && userDoc.estado == 'pedido entregado') {
             <div style="padding-top: 1rem; text-align: center; font-size: 1.3rem;">
               <p>¡Su pedido ha sido entregado! Por favor revise que esté todo correcto y haga click en el siguiente botón para confirmar:</p>
-              <ion-button class="btn-general" (click)="confirmarRecepcionPedido()">Confirmar recepción del pedido</ion-button>
+              <ion-button class="btn-consulta" (click)="confirmarRecepcionPedido()">Confirmar recepción del pedido</ion-button>
             </div>
           }
         }

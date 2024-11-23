@@ -23,99 +23,104 @@
 
 
 .container-pedidos {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    padding: 16px;
-    gap: 16px;
-  }
-  
-  h3.title-mesa {
-    font-size: 1.8rem;
-    font-weight: bold;
-    margin: 0 0 8px;
-  }
-  
-  .row-pedido {
-    width: 100%;
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 16px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  .p-mostrar-producto {
-    font-size: 1.6rem;
-    color: #37474f;
-    margin: 8px 0;
-  }
-  
-  .productos-lista {
-    margin-top: 12px;
-    // background-color: #ffffff;
-    border-radius: 8px;
-    padding: 10px;
-    // box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  .producto-item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 8px 0;
-    border-bottom: 1px solid #ddd;
-    font-size: 1.2rem;
-    position: relative;
-  }
-  
-  .producto-item:last-child {
-    border-bottom: none;
-  }
-  
-  .producto-item::before {
-    content: ''; /* Poner el punto gris */
-    width: 10px; /* Tamaño del círculo */
-    height: 10px;
-    background-color: #546e7a; /* Color gris */
-    border-radius: 50%;
-    position: absolute;
-    left: 0; /* Alinearlo al inicio */
-    top: 50%;
-    transform: translate(-50%, -50%);
-  }
-  
-  .producto-descripcion {
-    flex: 1;
-    margin-left: 16px;
-    font-weight: bold;
-    color: #37474f;
-    font-size: 1.5rem;
-  }
-  
-  .producto-cantidad {
-    font-weight: bold;
-    color: #546e7a;
-    text-align: right;
-    white-space: nowrap;
-    font-size: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 16px;
+  gap: 16px;
 
+  h2 {
+    text-align: center;
   }
+}
   
-  .row-btn {
-    display: flex;
-    justify-content: center;
-    margin-top: 16px;
-  }
-  
-  ion-button {
-    --background: #28a745;
-    --color: white;
-    font-weight: bold;
-    border-radius: 8px;
-    font-size: 1.2rem;
-    padding: 8px 16px;
-  }
-  
+h3.title-mesa {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin: 0 0 8px;
+  text-align: center;
+}
+
+.row-pedido {
+  width: 100%;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.p-mostrar-producto {
+  font-size: 1.6rem;
+  color: #37474f;
+  margin: 8px 0;
+  text-align: center;
+}
+
+.productos-lista {
+  margin-top: 12px;
+  // background-color: #ffffff;
+  border-radius: 8px;
+  padding: 10px;
+  // box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.producto-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid #ddd;
+  font-size: 1.2rem;
+  position: relative;
+}
+
+.producto-item:last-child {
+  border-bottom: none;
+}
+
+.producto-item::before {
+  content: ''; /* Poner el punto gris */
+  width: 10px; /* Tamaño del círculo */
+  height: 10px;
+  background-color: #546e7a; /* Color gris */
+  border-radius: 50%;
+  position: absolute;
+  left: 0; /* Alinearlo al inicio */
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.producto-descripcion {
+  flex: 1;
+  margin-left: 16px;
+  font-weight: bold;
+  color: #37474f;
+  font-size: 1.5rem;
+}
+
+.producto-cantidad {
+  font-weight: bold;
+  color: #546e7a;
+  text-align: right;
+  white-space: nowrap;
+  font-size: 1.5rem;
+
+}
+
+.row-btn {
+  display: flex;
+  justify-content: center;
+  margin-top: 16px;
+}
+
+ion-button {
+  --background: #28a745;
+  --color: white;
+  font-weight: bold;
+  border-radius: 8px;
+  font-size: 1.2rem;
+  padding: 8px 16px;
+}

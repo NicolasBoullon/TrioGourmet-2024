@@ -29,12 +29,17 @@
     width: 100%;
     padding: 16px;
     gap: 16px;
+
+    h2 {
+        text-align: center;
+    }
 }
 
 h3.title-mesa {
     font-size: 1.8rem;
     font-weight: bold;
     margin: 0 0 8px;
+    text-align: center;
 }
 
 .row-pedido {
@@ -50,6 +55,7 @@ h3.title-mesa {
     font-size: 1.6rem;
     color: #37474f;
     margin: 8px 0;
+    text-align: center;
 }
 
 .productos-lista {
