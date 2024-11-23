@@ -43,10 +43,17 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {}
 
+  reproducirAudioSalir() {
+    const audio = new Audio('../../assets/audio/salir.mp3');
+    audio.load();
+    audio.play();
+  }
+
   async signOut() {
     await this._notificationService.presentLoading('Cerrando sesión...', 2000);
     try {
       await this._authService.signOut();
+      this.reproducirAudioSalir();
       this._notificationService.routerLink('/login');
     } catch (error) {
       await this._notificationService.presentToast(
