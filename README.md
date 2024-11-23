@@ -166,55 +166,88 @@
 
 ### Cliente en lista de espera
 
-![Logo](src/assets/readme/clienteEnListaDeEspera.jpeg)
+![Logo](src/assets/readme/clienteEnListaDeEspera.png)
 
 ### El cliente accede a las encuestas
 
-![Logo](src/assets/readme/encuestasUno.jpeg)
-![Logo](src/assets/readme/encuestasDos.jpeg)
+![Logo](src/assets/readme/encuestasUno.png)
+![Logo](src/assets/readme/encuestasDos.png)
 
 ### Aceptar Cliente
 
-![Logo](src/assets/readme/aprobarCliente.png)
+![Logo](src/assets/readme/aprobarClienteUno.png)
+![Logo](src/assets/readme/aprobarClienteDos.png)
 
-### Lista Clientes no aprobados
+### Asignar Mesa
 
-![Logo](src/assets/readme/listaClientes.png)
+![Logo](src/assets/readme/asignarMesaUno.png)
+![Logo](src/assets/readme/asignarMesaDos.png)
+
+### Cliente antes de acceder a la lista de espera
+
+![Logo](src/assets/readme/clienteAceptado.png)
+
+### Cliente en lista de espera   
+
+![Logo](src/assets/readme/clienteEnListaDeEspera.png)
 
 ### Menú del Cliente con Mesa Asignada
 
-![Logo](src/assets/readme/menuUsuarioMesaAsignada.png)
+![Logo](src/assets/readme/clienteConMesaAsignada.png)
 
-### Usuario accede a realizar pedido
+### Usuario accede a realizar pedido.
 
-![Logo](src/assets/readme/menuRealizarPedidoUno.png)
+![Logo](src/assets/readme/pedidoSeleccionar.png)
 
-### Si el usuario quiere ver el pedido puede acceder al "Ver Pedido"
+### Si el usuario quiere ver el pedido puede acceder al "Ver Pedido".
 
-![Logo](src/assets/readme/menuRealizarPedidoDos.png)
+![Logo](src/assets/readme/pedidoRealizar.png)
 
-### Una vez realizado el pedido se le dara el aviso
+### El mozo tendra un menú para gestionar las mesas.
 
-![Logo](src/assets/readme/pedidoHecho.png)
+![Logo](src/assets/readme/gestionDeMesas.png)
 
-### Luego de esto el Mozo deberá aceptar el pedido o rechazarlo
+### Acá el Mozo deberá aceptar el pedido o rechazarlo.
 
-![Logo](src/assets/readme/menuMozoAceptarPedido.png)
+![Logo](src/assets/readme/aceptarPedido.png)
 
 ### De ser aceptado, cada sector recibirá una notificación con sus productos correspondientes.   
 
 * Cocina   
 ![Logo](src/assets/readme/cocineroServirPlato.png)
 * Barra   
-![Logo](src/assets/readme/bartenderServirPedido.png)
+![Logo](src/assets/readme/bartenderServirBebida.png)
 
 ### El Mozo accedera a ver los pedidos que ya esten listos para servir. Cada sector trabaja de forma independiente, significa que si el sector bebidas ya tiene preparado su pedido podria llevare a la mesa sin esperar al otro sector.    
-* Primero bebida y luego comida      
-![Logo](src/assets/readme/pedidosListosParaLlevarBebida.png)
-![Logo](src/assets/readme/pedidosListosParaLlevar.png)
-* En el caso de estar listo las dos cosas juntas se veria asi.   
+* Pedido listo para servir.   
 ![Logo](src/assets/readme/pedidoListoParaServirJunto.png)
 
+### Luego de llevar a la mesa, el cliente confirmará la recepción del pedido.
+
+![Logo](src/assets/readme/confirmarRecepcionPedido.png)
+
+### Desde aqui podremos escanear el QR de las propinas y seleccionar la propina según el cliente quiera.
+
+![Logo](src/assets/readme/seleccionarPropina.png)   
+
+### Una vez confirmado el pedido, escaneando el QR se accederá a un menú con distintas opciones, solicitar mesa, juegos y encuesta.   
+
+![Logo](src/assets/readme/pedidoMenuOpciones.png)   
+
+### Juego
+Si se logra ganar el juego, se obtendrá un 10% de descuento.   
+![Logo](src/assets/readme/juegoDescuento.png)   
+
+### Encuesta
+![Logo](src/assets/readme/realizarEncuestaUno.png)
+![Logo](src/assets/readme/realizarEncuestaDos.png)
+
+### Cuenta
+![Logo](src/assets/readme/cuentaUno.png)
+![Logo](src/assets/readme/cuentaDos.png)
+
+### Pagar Cuenta
+![Logo](src/assets/readme/pagarCuenta.png)
 
 
 
