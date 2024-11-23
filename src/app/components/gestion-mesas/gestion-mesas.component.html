@@ -26,7 +26,7 @@
                   <ion-button class="boton-accion" (click)="verPedido(cliente.idPedidoActual!)">Ver pedido</ion-button>
                 }
                 @else if (cliente.estado == 'pedido confirmado') {
-                  <p class="descripcion-accion">Esperando a que la cocina y el bar terminen de preparar el pedido</p>
+                  <p class="descripcion-accion">Esperando a que la cocina y/o el bar terminen de preparar el pedido</p>
                 }
                 @else if (cliente.estado == 'pedido terminado') {
                   <ion-button class="boton-accion" (click)="verPedidoParaLlevar(cliente.idPedidoActual!)">Ver pedido para llevar</ion-button>
@@ -108,7 +108,7 @@
 
       <ion-header>
         <h2 class="text-header-modal"><strong>Pedido {{ pedidoSeleccionado.mesa }}</strong></h2>
-        <ion-button (click)="cerrarModalVerPedido()" slot="end" fill="clear">
+        <ion-button (click)="cerrarModalVerPedidoParaLlevar()" slot="end" fill="clear">
           <ion-icon slot="icon-only" name="close-circle-outline" class="text-header-modal"></ion-icon>
         </ion-button>
     </ion-header>

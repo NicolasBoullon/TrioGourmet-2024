@@ -63,6 +63,7 @@ export class GestionMesasComponent  implements OnInit {
 
   async aceptarPedido(pedido: Pedido) {
     this.cerrarModalVerPedido();
+    this._notificationService.presentLoading('Aceptando pedido...');
     try {
       await this._databaseService.updateDocumentField('pedidos', pedido.id, 'estado', 'aceptado');
       await this._databaseService.updateDocumentField('usuarios', pedido.cliente, 'estado', 'pedido confirmado');
@@ -72,22 +73,27 @@ export class GestionMesasComponent  implements OnInit {
       if(pedido.bar === 'en preparacion'){
         this._apiRequestService.notifyRole('Nueva comanda', `${pedido.mesa} está esperando para beber.`, 'bartender').subscribe();
       }
+      this._notificationService.dismissLoading();
       this._notificationService.presentToast(`Pedido aceptado.`, 2000, 'success', 'bottom');
     }
     catch {
+      this._notificationService.dismissLoading();
       this._notificationService.presentToast(`Ocurrió un error al aceptar el pedido. Intente de nuevo`, 2000, 'danger', 'bottom');
     }
   }
 
   async rechazarPedido(pedido: Pedido) {
     this.cerrarModalVerPedido();
+    this._notificationService.presentLoading('Rechazando pedido...');
     try {
       await this._databaseService.updateDocumentField('usuarios', pedido.cliente, 'estado', 'mesa asignada');
       await this._databaseService.deleteDocumentField('usuarios', pedido.cliente, 'idPedidoActual');
       await this._databaseService.updateDocumentField('pedidos', pedido.id, 'estado', 'rechazado');
+      this._notificationService.dismissLoading();
       this._notificationService.presentToast(`Pedido rechazado.`, 2000, 'warning', 'bottom');
     }
     catch {
+      this._notificationService.dismissLoading();
       this._notificationService.presentToast(`Ocurrió un error al rechazar el pedido. Intente de nuevo`, 2000, 'danger', 'bottom');
     }
   }
@@ -108,17 +114,15 @@ export class GestionMesasComponent  implements OnInit {
 
   async llevarPedido(pedido: Pedido) {
     this.cerrarModalVerPedidoParaLlevar();
+    this._notificationService.presentLoading('Llevando pedido...');
     try {
-      if (pedido.cocina == 'listo para servir' && pedido.bar == 'listo para servir') {
-        await this._databaseService.updateDocument('pedidos', pedido.id, {cocina: 'entregado', bar: 'entregado', estado: 'en mesa'});
-        await this._databaseService.updateDocumentField('usuarios', pedido.cliente, 'estado', 'pedido entregado');
-        this._notificationService.presentToast(`Pedido entregado a ${pedido.mesa}.`, 2000, 'success', 'bottom');
-      }
-      else {
-        this._notificationService.presentToast('El pedido aun no está listo para llevar.', 2000, 'warning', 'bottom');
-      }
+      await this._databaseService.updateDocument('pedidos', pedido.id, {cocina: 'entregado', bar: 'entregado', estado: 'en mesa'});
+      await this._databaseService.updateDocumentField('usuarios', pedido.cliente, 'estado', 'pedido entregado');
+      this._notificationService.dismissLoading();
+      this._notificationService.presentToast(`Pedido entregado a ${pedido.mesa}.`, 2000, 'success', 'bottom');
     }
     catch (err) {
+      this._notificationService.dismissLoading();
       this._notificationService.presentToast('Error al llevar el pedido, intente nuevamente.', 2000, 'danger', 'bottom');
     }
   }
