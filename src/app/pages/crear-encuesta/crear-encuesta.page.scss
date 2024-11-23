@@ -1,47 +1,64 @@
 .realizar-encuesta {
-  padding: 16px;
+  --padding-bottom: 20px;
+  --padding-top: 20px;
+  --padding-start: 20px;
+  --padding-end: 20px;
 
   .form-item {
     margin-bottom: 24px;
+    width: 100%;
+    background-color: var(--color-acento);
+    padding: 1rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+
+    ion-select {
+      margin: 0 auto;
+      font-size: 1.5rem;
+    }
+
+    ion-input {
+      text-align: center;
+      font-size: 1.5rem;
+    }
+
+    ion-label {
+      font-size: 1.7rem;
+    }
+    ion-item {
+      ion-label {
+        font-size: 1.7rem;
+      }
+    }
   }
 
   .input-label {
     font-weight: bold;
-    color: var(--ion-color-primary);
-    margin-bottom: 8px;
-  }
+    font-size: 2.5rem;
+    text-align: center;
+    color: var(--color-primario);
+    margin-bottom: 1rem;
+    border-bottom: 2px solid var(--color-primario);
+    padding-bottom: 0.5rem;
 
+  }
+  
   /* Calificación General */
   ion-range {
-    --knob-color: var(--ion-color-primary);
-    --bar-background: var(--ion-color-light);
-    --bar-background-active: var(--ion-color-primary);
-    --pin-background: var(--ion-color-primary);
-    margin-top: 16px;
+    --bar-background: var(--color-secundario);
+    --bar-background-active: var(--color-primario);
+    --bar-height: 8px;
+    --bar-border-radius: 8px;
+    --knob-background: #3d3d3d;
+    --knob-size: 40px;
+    --pin-background: #3d3d3d;
+    --pin-color: #fff;
+    font-size: 2rem
   }
 
-  /* Estilo para Radio Buttons */
-  .radio-options ion-item {
-    --inner-padding-start: 0;
-    --inner-padding-end: 0;
-    --padding-start: 0;
-    margin: 0; /* Elimina márgenes extras */
-  }
-
-  .radio-options ion-label {
-    margin: 0; /* Elimina márgenes del label */
-  }
-
-  /* Estilo para Checkboxes */
-  .checkbox-options ion-item {
-    --inner-padding-start: 0;
-    --inner-padding-end: 0;
-    --padding-start: 0;
-    margin: 0; /* Elimina márgenes extras */
-  }
-
-  .checkbox-options ion-label {
-    margin: 0; /* Elimina márgenes del label */
+  .radio-options ion-label, .checkbox-options ion-label{
+    letter-spacing: .5rem;
   }
 
   .foto-slider {
