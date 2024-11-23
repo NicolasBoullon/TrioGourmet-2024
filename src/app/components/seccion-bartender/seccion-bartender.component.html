@@ -1,4 +1,4 @@
-<div class="container-pedidos">
+<!-- <div class="container-pedidos">
   @if(pedidosFiltrados.length == 0){
     <h2 >No hay pedidos de bebidas realizados</h2>
   }@else {
@@ -19,4 +19,30 @@
       </div>
     }
   }
-</div>  
+</div>   -->
+
+<div class="container-pedidos">
+  @if (pedidosFiltrados.length == 0) {
+    <h2 style="font-size: 2.5rem;">No hay pedidos de bebidas realizados</h2>
+  } @else {
+    @for (pedido of pedidosFiltrados; track $index) {
+      <div class="row-pedido">
+        <h3 class="title-mesa">{{ pedido.mesa }}</h3>
+        <p class="p-mostrar-producto">Hora: {{ ConvertirTimeStamp(pedido.fecha) }}</p>
+        <div class="productos-lista">
+          @for (producto of pedido.productos; track $index) {
+            @if (esDeBar(producto.descripcion)) {
+              <div class="producto-item">
+                <span class="producto-descripcion">{{ producto.descripcion }}</span>
+                <span class="producto-cantidad">x{{ producto.cantidad }}</span>
+              </div>
+            }
+          }
+        </div>
+        <div class="row-btn">
+          <ion-button (click)="PedidoListoParaServir(pedido)">Listo para servir</ion-button>
+        </div>
+      </div>
+    }
+  }
+</div>
