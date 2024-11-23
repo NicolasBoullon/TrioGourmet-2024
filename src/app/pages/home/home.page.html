@@ -30,14 +30,25 @@
             <p class="p-shared">Le asignaron la {{ userDoc.mesa }}, escanee su QR para confirmar.</p>
             <ion-button class="btn-general" routerLink="/encuesta">Encuestas</ion-button>
         }
-        @else if(userDoc.estado)
+        @else
         {
-          <p class="p-shared">Escanee el QR de la mesa para acceder al menú.</p>
-          <ion-button class="btn-general" (click)="openConsultaModal()">{{userDoc.consulta?.respondida ? 'Tienes respuesta a tu consulta' : 'Consulta al mozo'}}</ion-button>
+          @if(userDoc.estado == 'mesa asignada')
+          {
+            <p class="p-shared">Escanee el QR de la mesa para acceder al menú.</p>
+          }
+          @else if(userDoc.estado == 'pedido realizado')
+          {
+            <p class="p-shared">Escanee el QR de la mesa para acceder al estado de su pedido.</p>
+          }
+          @else {
+            <p class="p-shared">Escanee el QR de la mesa para acceder al estado de su pedido y a otras opciones</p>
+          }
+
+          <ion-button class="btn-consulta" (click)="openConsultaModal()">{{userDoc.consulta?.respondida ? 'Tienes respuesta a tu consulta' : 'Consulta al mozo'}}</ion-button>
           @if(!userDoc.recibioElPedido && userDoc.estado == 'pedido entregado') {
-            <div style="padding-top: 1rem;">
+            <div style="padding-top: 1rem; text-align: center; font-size: 1.3rem;">
               <p>¡Su pedido ha sido entregado! Por favor revise que esté todo correcto y haga click en el siguiente botón para confirmar:</p>
-              <ion-button class="btn-general" color="success" (click)="confirmarRecepcionPedido()">Confirmar recepción del pedido</ion-button>
+              <ion-button class="btn-general" (click)="confirmarRecepcionPedido()">Confirmar recepción del pedido</ion-button>
             </div>
           }
         }
