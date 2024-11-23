@@ -11,17 +11,21 @@ import { SplashScreen } from '@capacitor/splash-screen';
   imports: [IonContent, IonText]
 })
 export class SplashPage {
-
   
   constructor(private _router: Router) {
-    
+    this.reproducirAudioIniciar();
   }
 
   ionViewWillEnter() {
     SplashScreen.hide();
-
     setTimeout(() => {
       this._router.navigateByUrl('/login', { replaceUrl: true });
     }, 2000);
+  }
+
+  reproducirAudioIniciar() {
+    const audio = new Audio('../../assets/audio/iniciar.mp3');
+    audio.load();
+    audio.play();
   }
 }
