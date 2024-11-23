@@ -1,33 +1,38 @@
 <div>
-  <h2>Lista de Espera</h2>
+  <h2 class="txt-align">Lista de Espera</h2>
   <div>
     @if(listaEspera.length == 0) {
-      <p>No hay clientes en lista de espera.</p>
+      <p class="txt-align" style="font-size: 2rem;">No hay clientes en lista de espera.</p>
     }
     @else {
       @for (cliente of listaEspera; track $index) {
         <ion-card class="client-card">
           <ion-card-header>
             <ion-icon name="trash-bin" color="danger" class="delete-icon" (click)="eliminarDeLaListaDeEspera(cliente)"></ion-icon>
-            <ion-card-title>{{ cliente.name }} {{ cliente.apellido }}</ion-card-title>
+            <ion-card-title style="font-size: 1.6rem;">{{ cliente.name }} {{ cliente.apellido }}</ion-card-title>
             @if(cliente.perfil == 'cliente') {
-              <ion-card-subtitle>Correo: {{ cliente.email }}</ion-card-subtitle>
+              <ion-card-subtitle style="font-size: 1.1rem;">Correo: {{ cliente.email }}</ion-card-subtitle>
             }
             @else {
-              <ion-card-subtitle>Cliente anónimo</ion-card-subtitle>
+              <ion-card-subtitle style="font-size: 1.1rem;">Cliente anónimo</ion-card-subtitle>
             }
           </ion-card-header>
     
-          <ion-card-content>
-            <p>Estado: {{ cliente.estado }}</p>
+          <ion-card-content>  
+            <p style="font-size: 1.1rem;">Estado: {{ cliente.estado }}</p>
             <ion-item>
-              <ion-label>Asignar Mesa:</ion-label>
+              <ion-label style="font-size: 1.2rem;">Asignar Mesa:</ion-label>
               @if(mesasDisponibles.length == 0) {
                 <p>No hay mesas disponibles.</p>
               }
               @else {
-                <ion-select placeholder="Selecciona una mesa" [interfaceOptions]="customSelectOptions" [cancelText]="'Cancelar'"
-                [okText]="'Aceptar'" (ionChange)="asignarMesa(cliente, $event.detail.value)">
+                <ion-select placeholder="Selecciona una mesa" 
+                [interfaceOptions]="customSelectOptions" 
+                [cancelText]="'Cancelar'" 
+                style="font-size: 1.3rem; text-wrap: wrap;"
+                [okText]="'Aceptar'" 
+                (ionChange)="asignarMesa(cliente, $event.detail.value)"
+                class="styled-select">
                   @for (mesa of mesasDisponibles; track $index) {
                     <ion-select-option [value]="mesa">
                       {{ mesa.nombre }}
