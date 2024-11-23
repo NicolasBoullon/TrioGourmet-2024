@@ -77,9 +77,10 @@ p{
 }
 
 ion-modal#ion-modal-pagar{
-    --height: 300px;
-    --width: 400px;
+    --height: 420px;
+    --width: 95%;
     --border-radius: 8px;
+    --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
     // background-color:  rgb(223, 223, 223);
 }
 

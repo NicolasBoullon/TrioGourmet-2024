@@ -19,7 +19,7 @@ ion-content{
     align-items: center;
     justify-content: start;
     padding: 0.5em;
-    padding-left: 20%;
+    
     margin-bottom: 0.5em;
     background-color: #ffe0b2; /* Naranja claro */
     border: 1px solid #ffb74d; /* Naranja oscuro */
@@ -138,4 +138,9 @@ ion-content{
     align-items: start;
     text-align: center;
     margin: 0px 10px;
+}
+
+.porcentage {
+  margin-left: auto;
+  letter-spacing: .03rem;
 }
